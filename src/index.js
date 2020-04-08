@@ -4,7 +4,7 @@ import './index.css';
 import App from './components/app';
 
 import { restaurants } from './fixtures';
-
+/*test*/
 ReactDOM.render(
   <App restaurants={restaurants} />,
   document.getElementById('root')
