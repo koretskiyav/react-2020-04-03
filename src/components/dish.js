@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
+import { Card } from 'antd';
 import counter from '../hocs/counter';
 
 function Dish(props) {
@@ -7,15 +8,19 @@ function Dish(props) {
 
   return (
     <div>
-      <p>{props.dish.name}</p>
-      <p>{props.dish.price}</p>
-      {count}
-      <Button type="primary" onClick={decrement}>
-        -
-      </Button>
-      <Button type="primary" onClick={increment}>
-        +
-      </Button>
+      <Card
+        title={props.dish.name}
+        extra={<strong>${props.dish.price}</strong>}
+        style={{ width: 300 }}
+      >
+        <Button type="primary" shape="circle" onClick={decrement}>
+          -
+        </Button>
+        <span className="dish-count">{count}</span>
+        <Button type="primary" shape="circle" onClick={increment}>
+          +
+        </Button>
+      </Card>
     </div>
   );
 }
