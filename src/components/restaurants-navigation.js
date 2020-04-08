@@ -1,16 +1,18 @@
 import React from 'react';
+import { Button, Menu } from 'antd';
 
 export default function RestaurantsNavigation(props) {
   return (
-    <div>
+    <Menu theme="light" mode="horizontal" defaultSelectedKeys={['2']}>
       {props.restaurants.map(restaurant => (
-        <button
+        <Button
+          type="link"
           key={restaurant.id}
           onClick={() => props.onRestaurantChange(restaurant.id)}
         >
           {restaurant.name}
-        </button>
+        </Button>
       ))}
-    </div>
+    </Menu>
   );
 }
