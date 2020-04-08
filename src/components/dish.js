@@ -9,10 +9,10 @@ function Dish(props) {
     <div>
       <p>{props.dish.name}</p>
       <p>{props.dish.price}</p>
-      {count}
       <Button type="primary" onClick={decrement}>
         -
       </Button>
+      {count}
       <Button type="primary" onClick={increment}>
         +
       </Button>

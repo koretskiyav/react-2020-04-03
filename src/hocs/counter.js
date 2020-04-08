@@ -1,9 +1,13 @@
 import React from 'react';
-import { useAmount } from '../hooks/use-amount';
+import { useAmount } from '../hooks';
 
 function counter(WrappedComponent) {
   const HocComponent = ({ ...props }) => {
-    const { count, decrement, increment } = useAmount();
+    // in case we want to change our 'Count' variable name
+    const [count, { decrement, increment }] = useAmount({
+      initialCount: 0,
+      maxCount: 20
+    });
 
     return (
       <WrappedComponent
