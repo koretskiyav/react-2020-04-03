@@ -1,15 +1,16 @@
 import React from 'react';
+import { Button } from 'antd';
 
 export default function RestaurantsNavigation(props) {
   return (
-    <div>
+    <div className="navigation">
       {props.restaurants.map(restaurant => (
-        <button
+        <Button
           key={restaurant.id}
           onClick={() => props.onRestaurantChange(restaurant.id)}
         >
           {restaurant.name}
-        </button>
+        </Button>
       ))}
     </div>
   );
