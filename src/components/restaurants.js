@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
+import { Layout } from 'antd';
 import RestaurantsNavigation from './restaurants-navigation';
-import Menu from './menu';
+import Restaurant from './restaurant';
 
 export default function Restaurants(props) {
   const [activeRestaurantId, setActiveRestaurant] = useState(
@@ -15,13 +16,18 @@ export default function Restaurants(props) {
     [props.restaurants, activeRestaurantId]
   );
 
+  const { Header, Content } = Layout;
   return (
-    <div>
-      <RestaurantsNavigation
-        restaurants={props.restaurants}
-        onRestaurantChange={id => setActiveRestaurant(id)}
-      />
-      <Menu restaurant={activeRestaurant} />
-    </div>
+    <Layout>
+      <Header>
+        <RestaurantsNavigation
+          restaurants={props.restaurants}
+          onRestaurantChange={id => setActiveRestaurant(id)}
+        />
+      </Header>
+      <Content>
+        <Restaurant restaurant={activeRestaurant} />
+      </Content>
+    </Layout>
   );
 }
