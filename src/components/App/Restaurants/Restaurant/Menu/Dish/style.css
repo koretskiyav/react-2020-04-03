@@ -1,0 +1,5 @@
+
+.dishCount{
+    display: grid;
+    grid-template-columns: 180px repeat(auto-fill, 40px);
+}
