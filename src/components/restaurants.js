@@ -21,7 +21,7 @@ export default function Restaurants(props) {
         restaurants={props.restaurants}
         onRestaurantChange={id => setActiveRestaurant(id)}
       />
-      <Restaurant restaurant={activeRestaurant} />
+      <Restaurant key={activeRestaurant.id} restaurant={activeRestaurant} />
     </div>
   );
 }
