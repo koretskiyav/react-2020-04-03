@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAmount } from '../hooks';
 
-function counter(WrappedComponent) {
+export function Counter(WrappedComponent) {
   const HocComponent = ({ ...props }) => {
     // in case we want to change our 'Count' variable name
     const [count, { decrement, increment }] = useAmount({
@@ -21,5 +21,3 @@ function counter(WrappedComponent) {
 
   return HocComponent;
 }
-
-export default counter;

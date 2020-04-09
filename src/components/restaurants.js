@@ -1,28 +1,21 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import Restaurant from './restaurant';
 import RestaurantsNavigation from './restaurants-navigation';
+import { NavWrap } from '../hocs';
 
-export default function Restaurants(props) {
-  const [activeRestaurantId, setActiveRestaurant] = useState(
-    props.restaurants[0].id
-  );
-
-  const activeRestaurant = useMemo(
-    () =>
-      props.restaurants.find(
-        restaurant => restaurant.id === activeRestaurantId
-      ),
-    [props.restaurants, activeRestaurantId]
-  );
-
+function Restaurants(props) {
+  const { activeRestaurant, setActiveRestaurant, activeRestaurantId } = props;
   return (
     <div>
       <RestaurantsNavigation
         restaurants={props.restaurants}
         onRestaurantChange={id => setActiveRestaurant(id)}
+        activeRestaurantId={activeRestaurantId}
       />
 
       <Restaurant selectedRestaurant={activeRestaurant} />
     </div>
   );
 }
+
+export default NavWrap(Restaurants);

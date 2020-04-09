@@ -1,12 +1,20 @@
 import React from 'react';
 
-export default function RestaurantsNavigation(props) {
+export default function RestaurantsNavigation({
+  activeRestaurantId,
+  restaurants,
+  onRestaurantChange
+}) {
   return (
     <div>
-      {props.restaurants.map(restaurant => (
+      {restaurants.map(restaurant => (
         <button
           key={restaurant.id}
-          onClick={() => props.onRestaurantChange(restaurant.id)}
+          onClick={() => onRestaurantChange(restaurant.id)}
+          style={{
+            backgroundColor:
+              activeRestaurantId === restaurant.id ? '#40a9ff' : ''
+          }}
         >
           {restaurant.name}
         </button>
