@@ -26,7 +26,7 @@ export default function Restaurants(props) {
         />
       </Header>
       <Content>
-        <Restaurant restaurant={activeRestaurant} style={{ height: '!00%' }} />
+        <Restaurant restaurant={activeRestaurant} />
       </Content>
     </Layout>
   );

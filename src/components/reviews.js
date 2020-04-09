@@ -10,7 +10,7 @@ export default function Reviews(props) {
       props.restaurant.reviews.reduce((sum, review) => sum + review.rating, 0),
     [props.restaurant.reviews]
   );
-  const avgRate = parseInt((totalRate / countReviews) * 2) / 2;
+  const avgRate = Math.round((totalRate / countReviews) * 2) / 2;
   return (
     <Card
       title="Reviews"

@@ -7,11 +7,10 @@ export default function RestaurantsNavigation(props) {
       <Row justify="center">
         <Space>
           {props.restaurants.map(restaurant => (
-            <Col>
-              <Menu.Item key={'item' + restaurant.id}>
+            <Col key={restaurant.id}>
+              <Menu.Item>
                 <Button
                   type="primary"
-                  key={restaurant.id}
                   onClick={() => props.onRestaurantChange(restaurant.id)}
                 >
                   {restaurant.name}

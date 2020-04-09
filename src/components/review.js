@@ -19,7 +19,7 @@ export default function Review(props) {
             <Rate disabled defaultValue={props.review.rating} />{' '}
           </span>
         }
-      ></Comment>
+      />
     </Card>
   );
 }
