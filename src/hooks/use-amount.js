@@ -1,8 +1,10 @@
 import { useState } from 'react';
 
-export function useAmount(initialCount = 0) {
+export function useAmount({ initialCount = 0, maxCount = 10, minCount = 0 }) {
   const [count, setCount] = useState(initialCount);
-  const decrement = () => setCount(count > 0 ? count - 1 : 0);
-  const increment = () => setCount(count + 1);
-  return { count, decrement, increment };
+  const decrement = () =>
+    setCount(prevCount => (prevCount > minCount ? prevCount - 1 : minCount));
+  const increment = () =>
+    setCount(prevCount => (prevCount >= maxCount ? maxCount : prevCount + 1));
+  return [count, { decrement, increment }];
 }

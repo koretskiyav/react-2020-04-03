@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
-import counter from '../hocs/counter';
+import { Counter } from '../hocs';
 
 function Dish(props) {
   const { count, decrement, increment } = props;
@@ -8,11 +8,13 @@ function Dish(props) {
   return (
     <div>
       <p>{props.dish.name}</p>
-      <p>{props.dish.price}</p>
-      {count}
+      <p>
+        {count === 0 ? props.dish.price + '$' : props.dish.price * count + '$'}{' '}
+      </p>
       <Button type="primary" onClick={decrement}>
         -
       </Button>
+      {count}
       <Button type="primary" onClick={increment}>
         +
       </Button>
@@ -20,4 +22,4 @@ function Dish(props) {
   );
 }
 
-export default counter(Dish);
+export default Counter(Dish);
