@@ -3,9 +3,13 @@ import { useToggle } from '../hooks';
 
 export const RestaurantWrap = WrappedComponent => {
   const HocComponent = ({ ...props }) => {
-    const [isToggled, setToggle] = useToggle('', props.selectedRestaurant);
+    const [isToggledID, setToggleID] = useToggle('', props.selectedRestaurant);
     return (
-      <WrappedComponent {...props} isToggled={isToggled} toggle={setToggle} />
+      <WrappedComponent
+        {...props}
+        isToggledID={isToggledID}
+        toggleID={setToggleID}
+      />
     );
   };
   return HocComponent;

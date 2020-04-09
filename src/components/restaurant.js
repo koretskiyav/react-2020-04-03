@@ -4,15 +4,18 @@ import Reviews from './reviews';
 import AverageRating from './averageRating';
 import { RestaurantWrap } from '../hocs';
 
-const Restaurant = ({ selectedRestaurant, toggle, isToggled }) => {
+const Restaurant = ({ selectedRestaurant, toggleID, isToggledID }) => {
+  const button = <button onClick={() => toggleID(0)}>Show Rating</button>;
+
   return (
     <div>
       <Menu restaurant={selectedRestaurant} />
       <AverageRating reviews={selectedRestaurant.reviews} />
       {/* не самая лучшая реализация... */}
-      {isToggled !== selectedRestaurant.id && (
-        <Reviews selectedRestaurant={selectedRestaurant} toggle={toggle} />
-      )}
+      {(isToggledID !== selectedRestaurant.id && (
+        <Reviews selectedRestaurant={selectedRestaurant} toggle={toggleID} />
+      )) ||
+        button}
     </div>
   );
 };
