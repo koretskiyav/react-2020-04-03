@@ -11,7 +11,7 @@ export default function Restaurant(props) {
     const sum = reviews.reduce((sum, item) => (sum += item.rating), 0);
 
     return Math.round((sum * 2) / reviews.length) / 2;
-  });
+  }, [reviews]);
 
   return (
     <div>
