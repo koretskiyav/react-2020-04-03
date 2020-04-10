@@ -4,13 +4,13 @@ import { Rate } from 'antd';
 
 export default function Reviews(props) {
   const averageRate = useMemo(() => {
-    return (
-      Math.round(
-        (props.reviews.reduce((acc, cv) => acc + cv.rating, 0) /
-          props.reviews.length) *
-          2
-      ) / 2
-    );
+    return props.reviews.length > 0
+      ? Math.round(
+          (props.reviews.reduce((acc, cv) => acc + cv.rating, 0) /
+            props.reviews.length) *
+            2
+        ) / 2
+      : 0;
   }, [props.reviews]);
 
   return (
