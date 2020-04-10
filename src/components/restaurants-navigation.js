@@ -1,16 +1,20 @@
 import React from 'react';
+import { Menu } from 'antd';
 
 export default function RestaurantsNavigation(props) {
+  const handleClick = e => {
+    props.onRestaurantChange(e.key);
+  };
+
   return (
-    <div>
+    <Menu
+      onClick={handleClick}
+      selectedKeys={props.active.id}
+      mode="horizontal"
+    >
       {props.restaurants.map(restaurant => (
-        <button
-          key={restaurant.id}
-          onClick={() => props.onRestaurantChange(restaurant.id)}
-        >
-          {restaurant.name}
-        </button>
+        <Menu.Item key={restaurant.id}>{restaurant.name}</Menu.Item>
       ))}
-    </div>
+    </Menu>
   );
 }
