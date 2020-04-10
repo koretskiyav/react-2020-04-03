@@ -1,28 +1,28 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Menu from './menu';
 import Reviews from './reviews';
 import { Rate } from 'antd';
 
 function getRatingAvarage(reviews) {
-  let avarage = 0;
-  if (reviews.length) {
-    for (let review of reviews) avarage += review.rating;
-    avarage = Math.floor((2 * avarage) / reviews.length) / 2;
-  }
+  let avarage = reviews.reduce((accumulator, review) => {
+    console.log(review);
+    return accumulator + review.rating;
+  }, 0);
+  if (reviews.length) avarage = Math.floor((2 * avarage) / reviews.length) / 2;
   return avarage;
 }
 
 export default function Restaurant(props) {
+  const ratingAvarage = useMemo(
+    () => getRatingAvarage(props.restaurant.reviews),
+    [props.restaurant.reviews]
+  );
   return (
     <div>
       <Menu restaurant={props.restaurant} />
       <p>
         Средний рейтинг
-        <Rate
-          disabled
-          allowHalf
-          defaultValue={getRatingAvarage(props.restaurant.reviews)}
-        />
+        <Rate disabled allowHalf defaultValue={ratingAvarage} />
       </p>
       <Reviews reviews={props.restaurant.reviews} />
     </div>
