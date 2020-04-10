@@ -4,10 +4,10 @@ import Reviews from './reviews';
 import { Rate } from 'antd';
 
 function getRatingAvarage(reviews) {
-  let avarage = reviews.reduce((accumulator, review) => {
-    console.log(review);
-    return accumulator + review.rating;
-  }, 0);
+  let avarage = reviews.reduce(
+    (accumulator, review) => accumulator + review.rating,
+    0
+  );
   if (reviews.length) avarage = Math.floor((2 * avarage) / reviews.length) / 2;
   return avarage;
 }
