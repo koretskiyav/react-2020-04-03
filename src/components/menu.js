@@ -4,7 +4,7 @@ import Dish from './dish';
 export default function Menu(props) {
   return (
     <div>
-      {props.restaurant.menu.map(dish => (
+      {props.menu.map(dish => (
         <Dish key={dish.id} dish={dish} />
       ))}
     </div>
