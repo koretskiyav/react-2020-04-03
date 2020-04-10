@@ -15,11 +15,8 @@ export default function RestaurantsNavigation(props) {
   return (
     <div style={styles.root}>
       {props.restaurants.map(restaurant => (
-        <div style={styles.button}>
-          <button
-            key={restaurant.id}
-            onClick={() => props.onRestaurantChange(restaurant.id)}
-          >
+        <div key={restaurant.id} style={styles.button}>
+          <button onClick={() => props.onRestaurantChange(restaurant.id)}>
             {restaurant.name}
           </button>
         </div>

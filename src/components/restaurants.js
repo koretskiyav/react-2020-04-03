@@ -3,8 +3,9 @@ import RestaurantsNavigation from './restaurants-navigation';
 import Restuarant from './restuarant';
 
 export default function Restaurants(props) {
-  const [activeRestaurantId, setActiveRestaurant] = useState();
-  const [averageRating, setAverageRating] = useState();
+  const [activeRestaurantId, setActiveRestaurant] = useState(
+    props.restaurants[0].id
+  );
 
   const activeRestaurant = useMemo(
     () =>
@@ -14,16 +15,7 @@ export default function Restaurants(props) {
     [props.restaurants, activeRestaurantId]
   );
 
-  const getAverageRating = reviews => {
-    return (
-      reviews.reduce((sum, current) => sum + current.rating, 0) / reviews.length
-    );
-  };
-
   const onRestaurantChange = id => {
-    const reviews = props.restaurants.find(restaurant => restaurant.id === id)
-      .reviews;
-    setAverageRating(getAverageRating(reviews));
     setActiveRestaurant(id);
   };
 
@@ -33,7 +25,7 @@ export default function Restaurants(props) {
         restaurants={props.restaurants}
         onRestaurantChange={id => onRestaurantChange(id)}
       />
-      <Restuarant restaurant={activeRestaurant} averageRating={averageRating} />
+      <Restuarant restaurant={activeRestaurant} />
     </div>
   );
 }

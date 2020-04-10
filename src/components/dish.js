@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from 'antd';
 import counter from '../hocs/counter';
-import { findByLabelText } from '@testing-library/react';
 
 const styles = {
   root: {
