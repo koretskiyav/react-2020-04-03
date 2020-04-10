@@ -9,12 +9,7 @@ function Restaurant(props) {
     <div>
       <h2>
         {props.restaurant.name}
-        <Rate
-          key={props.restaurant.id}
-          disabled
-          allowHalf
-          defaultValue={props.restaurantRate}
-        />
+        <Rate disabled allowHalf value={props.restaurantRate} />
       </h2>
       <Menu restaurant={props.restaurant} />
       <Reviews reviews={props.restaurant.reviews} />
