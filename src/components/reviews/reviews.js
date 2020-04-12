@@ -1,5 +1,6 @@
 import React from 'react';
 import Review from './review';
+import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
 
 function Reviews({ reviews }) {
@@ -13,5 +14,15 @@ function Reviews({ reviews }) {
     </Row>
   );
 }
+
+Reviews.propTypes = {
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape({
+      user: PropTypes.string,
+      text: PropTypes.string.isRequired,
+      rating: PropTypes.number.isRequired
+    })
+  ).isRequired
+};
 
 export default Reviews;
