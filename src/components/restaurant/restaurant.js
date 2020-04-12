@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dishes from '../dishes';
 import AverageRating from '../average-rating';
 import Reviews from '../reviews';
@@ -6,6 +7,12 @@ import Hero from '../hero';
 import styles from './restaurant.module.css';
 
 class Restaurant extends Component {
+  static propTypes = {
+    name: PropTypes.string,
+    menu: PropTypes.array,
+    reviews: PropTypes.array
+  };
+
   render() {
     const { name, menu, reviews } = this.props.restaurant;
 
