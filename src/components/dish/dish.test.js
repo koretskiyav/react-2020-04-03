@@ -7,39 +7,30 @@ import { restaurants } from '../../fixtures';
 const dish = restaurants[0].menu[0];
 
 describe('Dish', () => {
+  let component;
+  let countEl;
+  let incrementEl;
+  let decrementEl;
+
+  beforeEach(() => {
+    component = mount(<Dish dish={dish} />);
+    countEl = component.find('[data-id="dish-amount"]').at(0);
+    incrementEl = component.find('[data-id="dish-increment"]').at(0);
+    decrementEl = component.find('[data-id="dish-decrement"]').at(0);
+  });
+
   it('should render Dish', () => {
-    const component = mount(<Dish dish={dish} />);
     expect(component.find('Card').length).toBe(1);
   });
 
   it('should render with initial amount 0', () => {
-    const component = mount(<Dish dish={dish} />);
-    expect(
-      component
-        .find('[data-id="dish-amount"]')
-        .at(0)
-        .text()
-    ).toBe('0');
+    expect(countEl.text()).toBe('0');
   });
 
   it('should increment amount', () => {
-    const component = mount(<Dish dish={dish} />);
-    expect(
-      component
-        .find('[data-id="dish-amount"]')
-        .at(0)
-        .text()
-    ).toBe('0');
-    component
-      .find('[data-id="dish-increment"]')
-      .at(0)
-      .simulate('click');
-    expect(
-      component
-        .find('[data-id="dish-amount"]')
-        .at(0)
-        .text()
-    ).toBe('1');
+    expect(countEl.text()).toBe('0');
+    incrementEl.simulate('click');
+    expect(countEl.text()).toBe('1');
   });
 
   it('should increment amount', () => {
@@ -47,5 +38,13 @@ describe('Dish', () => {
 
     mount(<Dish dish={dish} fetchData={fn} />);
     expect(fn).toBeCalledWith(dish.id);
+  });
+
+  it('should decrement amount', () => {
+    expect(countEl.text()).toBe('0');
+    incrementEl.simulate('click');
+    expect(countEl.text()).toBe('1');
+    decrementEl.simulate('click');
+    expect(countEl.text()).toBe('0');
   });
 });
