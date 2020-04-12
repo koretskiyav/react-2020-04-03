@@ -35,6 +35,7 @@ function Dish(props) {
                 className={styles.button}
                 icon={<MinusOutlined />}
                 onClick={decrement}
+                data-id="dish-decrement"
               />
               <Button
                 className={styles.button}
@@ -52,8 +53,8 @@ function Dish(props) {
 
 Dish.propTypes = {
   dish: PropTypes.shape({
-    name: PropTypes.string,
-    price: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   count: PropTypes.number,

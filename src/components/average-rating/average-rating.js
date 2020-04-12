@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Rate } from 'antd';
+import PropTypes from 'prop-types';
 
 function AverageRating({ reviews }) {
   const rawRating = useMemo(
@@ -14,5 +15,13 @@ function AverageRating({ reviews }) {
     </div>
   );
 }
+
+const ReviewType = PropTypes.shape({
+  rating: PropTypes.number.isRequired
+});
+
+AverageRating.propTypes = {
+  reviews: PropTypes.arrayOf(ReviewType).isRequired
+};
 
 export default AverageRating;
