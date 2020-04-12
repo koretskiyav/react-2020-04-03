@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Dish from '../dish';
 import { Typography } from 'antd';
+import Dish from '../dish';
 
 class Dishes extends Component {
-  static propTypes = {
-    menu: PropTypes.array.isRequired
-  };
-
   state = {
     error: null
   };
@@ -31,5 +27,16 @@ class Dishes extends Component {
     );
   }
 }
+
+Dishes.propTypes = {
+  menu: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string,
+      price: PropTypes.number.isRequired,
+      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
+    })
+  ).isRequired
+};
 
 export default Dishes;
