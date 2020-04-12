@@ -30,15 +30,16 @@ function Dish({ dish, count, decrement, increment, fetchData }) {
             </div>
             <Button.Group>
               <Button
+                data-id="dish-decrement"
                 className={styles.button}
                 icon={<MinusOutlined />}
                 onClick={decrement}
               />
               <Button
+                data-id="dish-increment"
                 className={styles.button}
                 icon={<PlusOutlined />}
                 onClick={increment}
-                data-id="dish-increment"
               />
             </Button.Group>
           </div>

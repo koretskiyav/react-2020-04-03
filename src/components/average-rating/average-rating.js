@@ -4,7 +4,10 @@ import { Rate } from 'antd';
 
 function AverageRating({ reviews }) {
   const rawRating = useMemo(
-    () => reviews.reduce((acc, { rating }) => acc + rating, 0) / reviews.length,
+    () =>
+      reviews.length > 0
+        ? reviews.reduce((acc, { rating }) => acc + rating, 0) / reviews.length
+        : 0,
     [reviews]
   );
 
