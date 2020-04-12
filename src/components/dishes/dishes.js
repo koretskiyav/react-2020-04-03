@@ -32,4 +32,8 @@ class Dishes extends Component {
   }
 }
 
+Dishes.propTypes = {
+  menu: PropTypes.arrayOf(PropTypes.object).isRequired
+};
+
 export default Dishes;
