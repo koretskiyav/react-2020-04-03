@@ -26,7 +26,7 @@ Review.defaultProps = {
 Review.propTypes = {
   user: PropTypes.string,
   text: PropTypes.string,
-  rating: PropTypes.number
+  rating: PropTypes.number.isRequired
 };
 
 export default Review;
