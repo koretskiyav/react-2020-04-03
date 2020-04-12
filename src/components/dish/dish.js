@@ -50,7 +50,7 @@ function Dish(props) {
   );
 }
 
-Dish.propTypes = {
+const dishType = (Dish.propTypes = {
   dish: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
@@ -59,6 +59,8 @@ Dish.propTypes = {
   count: PropTypes.number,
   increment: PropTypes.func,
   decrement: PropTypes.func
-};
+});
+
+export const menuTypes = { ...dishType }.dish;
 
 export default counter(Dish);
