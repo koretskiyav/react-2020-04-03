@@ -18,14 +18,8 @@ const Review = ({ user, text, rating }) => (
           {text}
         </Typography.Text>
       </Col>
-      <Col
-        xs={8}
-        md={6}
-        align="right"
-        className={styles.rateColumn}
-        data-id="review-rate"
-      >
-        <Rate disabled value={rating} />
+      <Col xs={8} md={6} align="right" className={styles.rateColumn}>
+        <Rate disabled value={rating} data-id="review-rate" />
       </Col>
     </Row>
   </Card>

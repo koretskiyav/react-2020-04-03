@@ -7,7 +7,9 @@ import { restaurants } from '../../../fixtures';
 const review = restaurants[0].reviews[0];
 
 describe('Review', () => {
-  const component = mount(<Review review={review} />);
+  const component = mount(
+    <Review user={review.user} text={review.text} rating={review.rating} />
+  );
   const card = component.find('Card');
   const reviewUser = component.find('[data-id="review-user"]');
   const reviewText = component.find('[data-id="review-text"]');
@@ -18,14 +20,14 @@ describe('Review', () => {
   });
 
   it('should render user', () => {
-    expect(reviewUser.at(0).text()).toBe(review.user);
+    expect(reviewUser.at(0).text()).toBe('Antony');
   });
 
   it('should render text', () => {
-    expect(reviewText.at(0).text()).toBe(review.text);
+    expect(reviewText.at(0).text()).toBe('Not bad');
   });
 
   it('should render rate', () => {
-    expect(reviewRate.at(0).text()).toBe(review.rate);
+    expect(reviewRate.at(0).prop('value')).toBe(5);
   });
 });

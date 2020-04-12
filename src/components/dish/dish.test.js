@@ -33,7 +33,7 @@ describe('Dish', () => {
     expect(amount.at(0).text()).toBe('0');
   });
 
-  it('should decrement amount', () => {
+  it('should decrement amount with value 0', () => {
     expect(amount.at(0).text()).toBe('0');
     decrementButton.at(0).simulate('click');
     expect(amount.at(0).text()).toBe('0');
