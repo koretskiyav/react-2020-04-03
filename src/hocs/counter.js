@@ -4,7 +4,7 @@ import { useAmount } from '../hooks/use-amount';
 
 function counter(WrappedComponent) {
   const HocComponent = ({ ...props }) => {
-    const { count, decrement, increment } = useAmount();
+    const { count, decrement, increment } = useAmount(props.initialCount);
 
     return (
       <WrappedComponent

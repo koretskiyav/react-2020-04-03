@@ -35,6 +35,7 @@ function Dish(props) {
                 className={styles.button}
                 icon={<MinusOutlined />}
                 onClick={decrement}
+                data-id="dish-decrement"
               />
               <Button
                 className={styles.button}
