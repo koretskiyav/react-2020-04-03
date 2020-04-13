@@ -4,7 +4,7 @@ import { Row, Col, Typography, Rate, Card } from 'antd';
 import styles from './review.module.css';
 
 const Review = ({ user, text, rating }) => (
-  <Card className={styles.review}>
+  <Card className={styles.review} data-id="review-card">
     <Row type="flex" align="middle">
       <Col xs={24} md={18} align="left">
         <Typography.Title className={styles.name} level={4}>
