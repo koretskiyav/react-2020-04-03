@@ -42,7 +42,7 @@ describe('Dish', () => {
     ).toBe('1');
   });
 
-  it('should increment amount', () => {
+  it('should test func', () => {
     const fn = jest.fn();
 
     mount(<Dish dish={dish} fetchData={fn} />);
