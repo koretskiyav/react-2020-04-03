@@ -62,6 +62,6 @@ const dishType = (Dish.propTypes = {
   decrement: PropTypes.func
 });
 
-export const menuTypes = { ...dishType }.dish;
+export const menuTypes = dishType.dish;
 
 export default counter(Dish);

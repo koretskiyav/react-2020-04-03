@@ -24,7 +24,9 @@ function Hero({ img = DefaultHeroImg, heading, description, children }) {
 
 Hero.propTypes = {
   heading: PropTypes.string.isRequired,
-  description: PropTypes.string
+  description: PropTypes.string,
+  img: PropTypes.string,
+  children: PropTypes.object
 };
 
 export default Hero;

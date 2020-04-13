@@ -15,7 +15,7 @@ function Reviews({ reviews }) {
   );
 }
 
-const reviewsPropTypes = (Reviews.propTypes = {
+Reviews.propTypes = {
   reviews: PropTypes.arrayOf(
     PropTypes.exact({
       id: PropTypes.string.isRequired,
@@ -24,8 +24,8 @@ const reviewsPropTypes = (Reviews.propTypes = {
       rating: PropTypes.number.isRequired
     })
   ).isRequired
-});
+};
 
-export const reviewsTypes = reviewsPropTypes.reviews;
+export const reviewsTypes = Reviews.propTypes.reviews;
 
 export default Reviews;
