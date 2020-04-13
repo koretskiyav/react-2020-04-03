@@ -3,6 +3,7 @@ import React from 'react';
 import DefaultHeroImg from './hero-banner.jpg';
 import styles from './hero.module.css';
 import { Typography } from 'antd';
+import PropTypes from 'prop-types';
 
 function Hero({ img = DefaultHeroImg, heading, description, children }) {
   return (
@@ -20,5 +21,12 @@ function Hero({ img = DefaultHeroImg, heading, description, children }) {
     </div>
   );
 }
+
+Hero.propTypes = {
+  heading: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  img: PropTypes.string,
+  children: PropTypes.object
+};
 
 export default Hero;

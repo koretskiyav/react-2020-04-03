@@ -35,6 +35,7 @@ function Dish(props) {
                 className={styles.button}
                 icon={<MinusOutlined />}
                 onClick={decrement}
+                data-id="dish-decrement"
               />
               <Button
                 className={styles.button}
@@ -50,7 +51,7 @@ function Dish(props) {
   );
 }
 
-Dish.propTypes = {
+const dishType = (Dish.propTypes = {
   dish: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
@@ -59,6 +60,8 @@ Dish.propTypes = {
   count: PropTypes.number,
   increment: PropTypes.func,
   decrement: PropTypes.func
-};
+});
+
+export const menuTypes = dishType.dish;
 
 export default counter(Dish);
