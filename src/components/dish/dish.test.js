@@ -42,6 +42,36 @@ describe('Dish', () => {
     ).toBe('1');
   });
 
+  it('should decrement amount', () => {
+    const component = mount(<Dish dish={dish} />);
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
+    component
+      .find('[data-id="dish-increment"]')
+      .at(0)
+      .simulate('click');
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('1');
+    component
+      .find('[data-id="dish-decrement"]')
+      .at(0)
+      .simulate('click');
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
+  });
+
   it('should test func', () => {
     const fn = jest.fn();
 
