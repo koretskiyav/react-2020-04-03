@@ -25,14 +25,8 @@ function Restaurants({ restaurants }) {
 Restaurants.propTypes = {
   restaurants: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      location: PropTypes.exact({
-        lat: PropTypes.number.isRequired,
-        lng: PropTypes.number.isRequired
-      }).isRequired,
-      image: PropTypes.string.isRequired,
-      menu: PropTypes.array.isRequired,
-      reviews: PropTypes.array
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired
     })
   ).isRequired
 };
