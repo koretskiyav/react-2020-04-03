@@ -8,9 +8,11 @@ import styles from './restaurant.module.css';
 
 class Restaurant extends Component {
   static propTypes = {
-    name: PropTypes.string,
-    menu: PropTypes.array,
-    reviews: PropTypes.array
+    restaurant: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      menu: PropTypes.arrayOf(PropTypes.object).isRequired,
+      reviews: PropTypes.arrayOf(PropTypes.object).isRequired
+    }).isRequired
   };
 
   render() {

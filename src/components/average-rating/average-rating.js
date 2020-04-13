@@ -17,7 +17,11 @@ function AverageRating({ reviews }) {
 }
 
 AverageRating.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.object).isRequired
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape({
+      rating: PropTypes.number.isRequired
+    })
+  )
 };
 
 export default AverageRating;
