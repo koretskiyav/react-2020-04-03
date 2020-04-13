@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import DefaultHeroImg from './hero-banner.jpg';
 import styles from './hero.module.css';
 import { Typography } from 'antd';
@@ -20,5 +20,16 @@ function Hero({ img = DefaultHeroImg, heading, description, children }) {
     </div>
   );
 }
+
+Hero.defaultProps = {
+  img: DefaultHeroImg
+};
+
+Hero.propTypes = {
+  img: PropTypes.string,
+  heading: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  children: PropTypes.object
+};
 
 export default Hero;
