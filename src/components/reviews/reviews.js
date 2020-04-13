@@ -16,7 +16,11 @@ function Reviews({ reviews }) {
 }
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(PropTypes.object).isRequired
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired
+    })
+  ).isRequired
 };
 
 export default Reviews;

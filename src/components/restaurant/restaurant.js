@@ -25,9 +25,11 @@ class Restaurant extends Component {
 }
 
 Restaurant.propTypes = {
-  name: PropTypes.string,
-  menu: PropTypes.arrayOf(PropTypes.object).isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.object).isRequired
+  restaurant: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    menu: PropTypes.any.isRequired,
+    reviews: PropTypes.any.isRequired
+  }).isRequired
 };
 
 export default Restaurant;
