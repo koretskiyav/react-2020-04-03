@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Dishes from '../dishes';
 import AverageRating from '../average-rating';
+import PropTypes from 'prop-types';
 import Reviews from '../reviews';
 import Hero from '../hero';
 import styles from './restaurant.module.css';
@@ -22,5 +23,13 @@ class Restaurant extends Component {
     );
   }
 }
+
+Restaurant.propTypes = {
+  restaurant: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    menu: PropTypes.array.isRequired,
+    reviews: PropTypes.array.isRequired
+  })
+};
 
 export default Restaurant;

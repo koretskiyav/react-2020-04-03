@@ -22,7 +22,8 @@ describe('Dish', () => {
     ).toBe('0');
   });
 
-  it('should increment amount', () => {
+  // Проверяет сумму на увеличение и уменьшение
+  it('should increment then decrement amount', () => {
     const component = mount(<Dish dish={dish} />);
     expect(
       component
@@ -40,9 +41,40 @@ describe('Dish', () => {
         .at(0)
         .text()
     ).toBe('1');
+    component
+      .find('[data-id="dish-decrement"]')
+      .at(0)
+      .simulate('click');
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
   });
 
-  it('should increment amount', () => {
+  // Сумма не должна быть отрицательной
+  it('should amount is equal 0 when decrement', () => {
+    const component = mount(<Dish dish={dish} />);
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
+    component
+      .find('[data-id="dish-decrement"]')
+      .at(0)
+      .simulate('click');
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
+  });
+
+  it('should test func run', () => {
     const fn = jest.fn();
 
     mount(<Dish dish={dish} fetchData={fn} />);
