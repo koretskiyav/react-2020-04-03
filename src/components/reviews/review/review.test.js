@@ -11,16 +11,7 @@ describe('Review', () => {
     const component = mount(
       <Review user={review.user} text={review.text} rating={review.rating} />
     );
-    const cards = component.find('Card');
-    expect(cards.length).toBe(1);
-    const rows = cards.find('Row');
-    expect(rows.length).toBe(1);
-    const cols = rows.find('Col');
-    expect(cols.length).toBe(2);
-    expect(cols.at(0).find('Title').length).toBe(1);
-    expect(cols.at(0).find('Text').length).toBe(1);
-    // TODO
-    // expect(cols.at(1).find('Rate').length).toBe(1);
+    expect(component.find('Card').length).toBe(1);
   });
 
   it('should display review props', () => {
