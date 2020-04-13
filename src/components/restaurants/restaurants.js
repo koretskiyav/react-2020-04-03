@@ -25,7 +25,7 @@ function Restaurants({ restaurants }) {
 Restaurants.propTypes = {
   restaurants: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired
     })
   ).isRequired

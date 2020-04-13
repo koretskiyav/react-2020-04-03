@@ -18,7 +18,7 @@ function Reviews({ reviews }) {
 Reviews.propTypes = {
   reviews: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired
+      id: PropTypes.string.isRequired
     })
   ).isRequired
 };
