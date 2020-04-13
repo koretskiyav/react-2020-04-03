@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col, Typography, Rate, Card } from 'antd';
 import styles from './review.module.css';
+import PropTypes from 'prop-types';
 
 const Review = ({ user, text, rating }) => (
   <Card className={styles.review}>
@@ -18,8 +19,16 @@ const Review = ({ user, text, rating }) => (
   </Card>
 );
 
+Review.propTypes = {
+  user: PropTypes.string,
+  text: PropTypes.string,
+  rating: PropTypes.number
+};
+
 Review.defaultProps = {
-  user: 'Anonymous'
+  user: 'Anonymous',
+  text: '',
+  rating: 0
 };
 
 export default Review;
