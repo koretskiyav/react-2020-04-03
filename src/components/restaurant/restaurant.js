@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dishes from '../dishes';
 import AverageRating from '../average-rating';
 import Reviews from '../reviews';
@@ -22,5 +23,13 @@ class Restaurant extends Component {
     );
   }
 }
+
+Restaurant.propTypes = {
+  restaurant: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    menu: PropTypes.any.isRequired,
+    reviews: PropTypes.any.isRequired
+  }).isRequired
+};
 
 export default Restaurant;
