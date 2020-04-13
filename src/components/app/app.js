@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import Restaurants from '../restaurants';
+import PropTypes from 'prop-types';
 import { Layout } from 'antd';
 import Header from '../header';
 
 class App extends Component {
+  static propTypes = {
+    restaurants: PropTypes.arrayOf(PropTypes.object).isRequired
+  };
   render() {
     const { restaurants } = this.props;
     return (
