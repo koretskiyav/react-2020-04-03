@@ -42,7 +42,31 @@ describe('Dish', () => {
     ).toBe('1');
   });
 
-  it('should increment amount', () => {
+  it('should decrement amount', () => {
+    const component = mount(<Dish dish={dish} />);
+    component
+      .find('[data-id="dish-increment"]')
+      .at(0)
+      .simulate('click');
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('1');
+    component
+      .find('[data-id="dish-decrement"]')
+      .at(0)
+      .simulate('click');
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
+  });
+
+  it('should be called when mount', () => {
     const fn = jest.fn();
 
     mount(<Dish dish={dish} fetchData={fn} />);
