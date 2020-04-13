@@ -48,4 +48,44 @@ describe('Dish', () => {
     mount(<Dish dish={dish} fetchData={fn} />);
     expect(fn).toBeCalledWith(dish.id);
   });
+
+  it('should decrement amount', () => {
+    const component = mount(<Dish dish={dish} />);
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
+    component
+      .find('[data-id="dish-increment"]')
+      .at(0)
+      .simulate('click');
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('1');
+    component
+      .find('[data-id="dish-decrement"]')
+      .at(0)
+      .simulate('click');
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
+    component
+      .find('[data-id="dish-decrement"]')
+      .at(0)
+      .simulate('click');
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
+  });
 });
