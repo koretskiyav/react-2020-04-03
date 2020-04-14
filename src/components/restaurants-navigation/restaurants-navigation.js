@@ -21,6 +21,11 @@ export default function RestaurantsNavigation(props) {
 }
 
 RestaurantsNavigation.propTypes = {
-  restaurants: PropTypes.array.isRequired,
+  restaurants: PropTypes.arrayOf(
+    Proptypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+    })
+  ).isRequired,
   onRestaurantChange: PropTypes.func.isRequired
 };

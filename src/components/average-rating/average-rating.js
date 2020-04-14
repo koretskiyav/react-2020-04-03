@@ -19,9 +19,6 @@ function AverageRating({ reviews }) {
 AverageRating.propTypes = {
   reviews: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      user: PropTypes.string,
-      text: PropTypes.string,
       rating: PropTypes.number
     })
   ).isRequired
