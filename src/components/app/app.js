@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div>
         <Layout>
-          <Header />
+          <Header>{/* <Order /> */}</Header>
           <Layout.Content>
             <Restaurants restaurants={restaurants} />
           </Layout.Content>

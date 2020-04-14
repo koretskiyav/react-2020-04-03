@@ -28,7 +28,7 @@ describe('Review', () => {
   });
 
   it('should render 3 fulled stars', () => {
-    expect(rateEl.length).toBe(3);
+    expect(rateEl.length).toBe(review.rating);
   });
 });
 
