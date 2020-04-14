@@ -35,13 +35,13 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon={<MinusOutlined />}
-                onClick={onDecrement}
+                onClick={() => onDecrement(dish.id)}
                 data-id="dish-decrement"
               />
               <Button
                 className={styles.button}
                 icon={<PlusOutlined />}
-                onClick={onIncrement}
+                onClick={() => onIncrement(dish.id)}
                 data-id="dish-increment"
               />
             </Button.Group>
@@ -63,8 +63,8 @@ Dish.propTypes = {
   decrement: PropTypes.func
 };
 
-const mapStateToProps = state => ({
-  count: state.order
+const mapStateToProps = (state, ownProps) => ({
+  count: state.order[ownProps.dish.id] || 0
 });
 
 const mapDispatchToProps = {

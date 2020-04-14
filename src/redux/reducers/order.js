@@ -1,12 +1,20 @@
 import { INCREMENT, DECREMENT } from '../constants';
 
-export default (amount = 5, action) => {
-  switch (action.type) {
+// { [dishId]: amount }
+export default (state = {}, action) => {
+  const { type, payload } = action;
+  switch (type) {
     case INCREMENT:
-      return amount + 1;
+      return {
+        ...state,
+        [payload.id]: (state[payload.id] || 0) + 1
+      };
     case DECREMENT:
-      return amount - 1;
+      return {
+        ...state,
+        [payload.id]: (state[payload.id] || 0) - 1
+      };
     default:
-      return amount;
+      return state;
   }
 };
