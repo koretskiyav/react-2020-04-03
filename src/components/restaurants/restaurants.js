@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
+
 import Restaurant from '../restaurant';
 import RestaurantsNavigation from '../restaurants-navigation';
 
@@ -20,5 +22,13 @@ function Restaurants({ restaurants }) {
     </div>
   );
 }
+
+Restaurants.propTypes = {
+  restaurants: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired
+    }).isRequired
+  ).isRequired
+};
 
 export default Restaurants;
