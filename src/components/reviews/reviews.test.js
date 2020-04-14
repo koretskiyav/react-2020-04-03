@@ -3,7 +3,6 @@ import { mount } from 'enzyme';
 import Reviews from './reviews';
 
 import { restaurants } from '../../fixtures';
-import Dish from '../dish/dish';
 
 const reviews = restaurants[0].reviews;
 
@@ -21,4 +20,42 @@ describe('Reviews', () => {
       reviews.length
     );
   });
+
+  it('should render user in Review', () => {
+    const reviewUser = restaurants[0].reviews[0].user;
+    const component = mount(<Reviews reviews={reviews} />);
+
+    expect(
+      component
+        .find('[data-id="review-user"]')
+        .at(0)
+        .text()
+    ).toBe(reviewUser);
+  });
+
+  it('should render text in Review', () => {
+    const reviewText = restaurants[0].reviews[0].text;
+    const component = mount(<Reviews reviews={reviews} />);
+
+    expect(
+      component
+        .find('[data-id="review-text"]')
+        .at(0)
+        .text()
+    ).toBe(reviewText);
+  });
+
+  it('should render rating in Review', () => {
+    const reviewRating = restaurants[0].reviews[0].rating;
+    const component = mount(<Reviews reviews={reviews} />);
+
+    expect(
+      component
+        .find('[data-id="review-rating"]')
+        .at(0)
+        .props().value
+    ).toBe(reviewRating);
+  });
 });
+
+//еще текст отзыва, поставленный рейтинг и имя можно протестить

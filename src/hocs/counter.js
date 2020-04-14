@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useAmount } from '../hooks/use-amount';
 
 function counter(WrappedComponent) {
@@ -18,9 +17,5 @@ function counter(WrappedComponent) {
 
   return HocComponent;
 }
-
-counter.propTypes = {
-  WrappedComponent: PropTypes.node.isRequired
-};
 
 export default counter;

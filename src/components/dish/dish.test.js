@@ -72,6 +72,22 @@ describe('Dish', () => {
         .at(0)
         .text()
     ).toBe('0');
+  });
+
+  it('should decrement amount', () => {
+    const component = mount(<Dish dish={dish} />);
+    const clickDecrement = () =>
+      component
+        .find('[data-id="dish-decrement"]')
+        .at(0)
+        .simulate('click');
+
+    expect(
+      component
+        .find('[data-id="dish-amount"]')
+        .at(0)
+        .text()
+    ).toBe('0');
 
     clickDecrement();
 
