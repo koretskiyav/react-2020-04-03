@@ -10,7 +10,7 @@ describe('AverageRating', () => {
     );
     expect(
       component
-        .find('Rate')
+        .find('[data-id="average-rating-rate"]')
         .at(0)
         .props().value
     ).toBe(4);
@@ -22,7 +22,7 @@ describe('AverageRating', () => {
     );
     expect(
       component
-        .find('Rate')
+        .find('[data-id="average-rating-rate"]')
         .at(0)
         .props().value
     ).toBe(4.5);
@@ -32,7 +32,7 @@ describe('AverageRating', () => {
     const component = mount(<AverageRating reviews={[]} />);
     expect(
       component
-        .find('Rate')
+        .find('[data-id="average-rating-rate"]')
         .at(0)
         .props().value
     ).toBe(0);

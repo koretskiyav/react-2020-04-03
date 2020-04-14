@@ -14,7 +14,12 @@ function AverageRating({ reviews }) {
   const normalizedRating = Math.floor(rawRating * 2) / 2;
   return (
     <div>
-      <Rate value={normalizedRating} disabled allowHalf />
+      <Rate
+        data-id="average-rating-rate"
+        value={normalizedRating}
+        disabled
+        allowHalf
+      />
     </div>
   );
 }
