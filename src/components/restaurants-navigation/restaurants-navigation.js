@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import styles from './restaurants-navigation.module.css';
 
 export default function RestaurantsNavigation(props) {
@@ -18,3 +20,8 @@ export default function RestaurantsNavigation(props) {
     </div>
   );
 }
+
+RestaurantsNavigation.propTypes = {
+  restaurants: PropTypes.array.isRequired,
+  onRestaurantChange: PropTypes.func
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import DefaultHeroImg from './hero-banner.jpg';
 import styles from './hero.module.css';
@@ -20,5 +21,11 @@ function Hero({ img = DefaultHeroImg, heading, description, children }) {
     </div>
   );
 }
+
+Hero.propTypes = {
+  heading: PropTypes.string,
+  description: PropTypes.string,
+  children: PropTypes.node
+};
 
 export default Hero;
