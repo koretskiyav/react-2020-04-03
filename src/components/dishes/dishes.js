@@ -31,10 +31,7 @@ class Dishes extends Component {
 Dishes.propTypes = {
   menu: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string,
-      price: PropTypes.number.isRequired,
-      ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
+      id: PropTypes.string.isRequired
     })
   ).isRequired
 };

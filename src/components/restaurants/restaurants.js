@@ -26,12 +26,7 @@ function Restaurants({ restaurants }) {
 Restaurants.propTypes = {
   restaurants: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      location: PropTypes.object,
-      image: PropTypes.string,
-      menu: PropTypes.array.isRequired,
-      reviews: PropTypes.array
+      id: PropTypes.string.isRequired
     })
   ).isRequired
 };

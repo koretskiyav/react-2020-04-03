@@ -27,10 +27,7 @@ class Restaurant extends Component {
 
 Restaurant.propTypes = {
   restaurant: PropTypes.shape({
-    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    location: PropTypes.object,
-    image: PropTypes.string,
     menu: PropTypes.array.isRequired,
     reviews: PropTypes.array
   })

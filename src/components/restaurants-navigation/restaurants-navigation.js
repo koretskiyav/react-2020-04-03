@@ -26,11 +26,7 @@ RestaurantsNavigation.propTypes = {
   restaurants: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      location: PropTypes.object,
-      image: PropTypes.string,
-      menu: PropTypes.array.isRequired,
-      reviews: PropTypes.array
+      name: PropTypes.string.isRequired
     })
   ).isRequired,
   onRestaurantChange: PropTypes.func.isRequired
