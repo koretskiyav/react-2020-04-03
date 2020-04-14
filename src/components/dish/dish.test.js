@@ -53,7 +53,7 @@ describe('Dish', () => {
     expect(amountEl.text()).toBe('0');
   });
 
-  it('should increment amount', () => {
+  it('should fetch data', () => {
     const fn = jest.fn();
     init({ fetchData: fn });
     expect(fn).toBeCalledWith(dish.id);
