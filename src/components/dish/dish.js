@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Typography, Button, Row, Col } from 'antd';
-import styles from './dish.module.css';
-import counter from '../../hocs/counter';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 
-function Dish(props) {
-  const { dish, count, decrement, increment, fetchData } = props;
+import styles from './dish.module.css';
+import counter from '../../hocs/counter';
 
+function Dish({ dish, count, decrement, increment, fetchData }) {
   useEffect(() => {
     fetchData && fetchData(dish.id);
-    // eslint-disable-next-line
   }, []);
 
   return (
@@ -32,15 +30,16 @@ function Dish(props) {
             </div>
             <Button.Group>
               <Button
+                data-id="dish-decrement"
                 className={styles.button}
                 icon={<MinusOutlined />}
                 onClick={decrement}
               />
               <Button
+                data-id="dish-increment"
                 className={styles.button}
                 icon={<PlusOutlined />}
                 onClick={increment}
-                data-id="dish-increment"
               />
             </Button.Group>
           </div>
@@ -53,12 +52,13 @@ function Dish(props) {
 Dish.propTypes = {
   dish: PropTypes.shape({
     name: PropTypes.string,
-    price: PropTypes.number,
+    price: PropTypes.number.isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
-  count: PropTypes.number,
-  increment: PropTypes.func,
-  decrement: PropTypes.func
+  count: PropTypes.number.isRequired,
+  increment: PropTypes.func.isRequired,
+  decrement: PropTypes.func.isRequired,
+  fetchData: PropTypes.func
 };
 
 export default counter(Dish);
