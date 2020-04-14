@@ -22,7 +22,7 @@ describe('Reviews', () => {
   });
 
   it('should render user in Review', () => {
-    const reviewUser = restaurants[0].reviews[0].user;
+    const reviewUser = reviews[0].user;
     const component = mount(<Reviews reviews={reviews} />);
 
     expect(
@@ -34,7 +34,7 @@ describe('Reviews', () => {
   });
 
   it('should render text in Review', () => {
-    const reviewText = restaurants[0].reviews[0].text;
+    const reviewText = reviews[0].text;
     const component = mount(<Reviews reviews={reviews} />);
 
     expect(
@@ -46,7 +46,7 @@ describe('Reviews', () => {
   });
 
   it('should render rating in Review', () => {
-    const reviewRating = restaurants[0].reviews[0].rating;
+    const reviewRating = reviews[0].rating;
     const component = mount(<Reviews reviews={reviews} />);
 
     expect(
