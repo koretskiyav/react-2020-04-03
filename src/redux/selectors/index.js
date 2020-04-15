@@ -12,8 +12,9 @@ const selectOrderItemsAndCount = createSelector(
   selectOrder,
   selectAllDishes,
   (order, dishes) => {
-    const nonZeroDishes =
-      dishes.filter(dish => order[dish.id] && order[dish.id] > 0) || [];
+    const nonZeroDishes = dishes.filter(
+      dish => order[dish.id] && order[dish.id] > 0
+    );
     return Object.keys(order).map(id => ({
       dish: nonZeroDishes.find(item => item.id === id),
       count: order[id]
@@ -29,6 +30,5 @@ export const selectOrderItems = createSelector(
 export const selectTotalPrice = createSelector(
   selectOrderItemsAndCount,
   items =>
-    items.length &&
     items.reduce((total, item) => total + item.dish.price * item.count, 0)
 );
