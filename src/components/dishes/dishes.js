@@ -5,7 +5,11 @@ import { Typography } from 'antd';
 
 class Dishes extends Component {
   static propTypes = {
-    menu: PropTypes.array.isRequired
+    menu: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired
+      }).isRequired
+    ).isRequired
   };
 
   state = {

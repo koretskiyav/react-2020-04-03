@@ -2,8 +2,8 @@ import React from 'react';
 import { useAmount } from '../hooks/use-amount';
 
 function counter(WrappedComponent) {
-  const HocComponent = ({ ...props }) => {
-    const { count, decrement, increment } = useAmount();
+  const HocComponent = ({ initialCount, ...props }) => {
+    const { count, decrement, increment } = useAmount(initialCount);
 
     return (
       <WrappedComponent
