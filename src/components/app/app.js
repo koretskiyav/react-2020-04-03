@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Restaurants from '../restaurants';
 import { Layout } from 'antd';
+
+import Restaurants from '../restaurants';
 import Header from '../header';
+import Order from '../order';
+import styles from './app.module.css';
 
 class App extends Component {
   render() {
     const { restaurants } = this.props;
     return (
-      <div>
+      <div className={styles.app}>
         <Layout>
-          <Header>{/* <Order /> */}</Header>
+          <Header />
+          <Order />
           <Layout.Content>
             <Restaurants restaurants={restaurants} />
           </Layout.Content>

@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Card, Typography, Button, Row, Col } from 'antd';
-import styles from './dish.module.css';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 
+import styles from './dish.module.css';
 import { increment, decrement } from '../../redux/actions';
+
 function Dish(props) {
   const { dish, count, fetchData, onIncrement, onDecrement } = props;
 
   useEffect(() => {
     fetchData && fetchData(dish.id);
-    // eslint-disable-next-line
   }, []);
 
   return (
@@ -35,13 +35,13 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon={<MinusOutlined />}
-                onClick={() => onDecrement(dish.id)}
+                onClick={() => onDecrement(dish)}
                 data-id="dish-decrement"
               />
               <Button
                 className={styles.button}
                 icon={<PlusOutlined />}
-                onClick={() => onIncrement(dish.id)}
+                onClick={() => onIncrement(dish)}
                 data-id="dish-increment"
               />
             </Button.Group>
@@ -59,12 +59,12 @@ Dish.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   count: PropTypes.number,
-  increment: PropTypes.func,
-  decrement: PropTypes.func
+  onIncrement: PropTypes.func,
+  onDecrement: PropTypes.func
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  count: state.order[ownProps.dish.id] || 0
+  count: state.order[ownProps.dish.id] ? state.order[ownProps.dish.id].count : 0
 });
 
 const mapDispatchToProps = {
