@@ -7,7 +7,6 @@ const review = restaurants[0].reviews[1];
 
 describe('Review', () => {
   let component, nameEl, textEl, rateEl;
-
   beforeEach(() => {
     component = mount(<Review {...review} />);
     nameEl = component.find('[data-id="review-user"]').at(0);

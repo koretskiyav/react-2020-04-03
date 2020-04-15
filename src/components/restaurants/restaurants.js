@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Restaurant from '../restaurant';
+import Orders from '../orders';
 import RestaurantsNavigation from '../restaurants-navigation';
 
 function Restaurants({ restaurants }) {
@@ -14,6 +15,7 @@ function Restaurants({ restaurants }) {
 
   return (
     <div>
+      <Orders />
       <RestaurantsNavigation
         restaurants={restaurants}
         onRestaurantChange={setCurrentId}
