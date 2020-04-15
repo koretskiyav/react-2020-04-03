@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Restaurants from '../restaurants';
-import { Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
 import Header from '../header';
+import Order from '../order';
 
 class App extends Component {
   render() {
@@ -10,9 +11,16 @@ class App extends Component {
     return (
       <div>
         <Layout>
-          <Header>{/* <Order /> */}</Header>
+          <Header />
           <Layout.Content>
-            <Restaurants restaurants={restaurants} />
+            <Row>
+              <Col flex={3}>
+                <Restaurants restaurants={restaurants} />
+              </Col>
+              <Col flex={2}>
+                <Order />
+              </Col>
+            </Row>
           </Layout.Content>
         </Layout>
       </div>

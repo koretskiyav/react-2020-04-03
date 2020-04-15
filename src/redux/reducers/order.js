@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT } from '../constants';
+import { INCREMENT, DECREMENT, DELETE_ITEM } from '../constants';
 
 // { [dishId]: amount }
 export default (state = {}, action) => {
@@ -10,10 +10,16 @@ export default (state = {}, action) => {
         [payload.id]: (state[payload.id] || 0) + 1
       };
     case DECREMENT:
-      return {
-        ...state,
-        [payload.id]: (state[payload.id] || 0) - 1
-      };
+      if (state[payload.id] && state[payload.id] > 1) {
+        return { ...state, [payload.id]: (state[payload.id] || 0) - 1 };
+      } else {
+        const { [payload.id]: remove, ...restState } = state;
+        return restState;
+      }
+    case DELETE_ITEM:
+      const { [payload.id]: remove, ...restState } = state;
+      return restState;
+
     default:
       return state;
   }
