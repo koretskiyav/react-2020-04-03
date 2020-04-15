@@ -1,0 +1,29 @@
+.basket {
+  position: absolute;
+  z-index: 2;
+  top: 20px;
+  right: 20px;
+  height: 250px;
+  width: 450px;
+  overflow: auto;
+  background-color: wheat;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  align-items: center;
+}
+
+.name {
+  width: 200px;
+}
+
+p {
+  text-align: right;
+}
