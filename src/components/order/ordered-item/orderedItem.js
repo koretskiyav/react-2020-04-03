@@ -28,9 +28,7 @@ function OrderedItem({
   );
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  amount: state.order[ownProps.id] || 0
-});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
   onIncrement: increment,
