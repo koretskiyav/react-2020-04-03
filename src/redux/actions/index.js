@@ -1,4 +1,5 @@
-import { INCREMENT, DECREMENT } from '../constants';
+import { INCREMENT, DECREMENT, RESET } from '../constants';
 
-export const increment = id => ({ type: INCREMENT, payload: { id } });
-export const decrement = id => ({ type: DECREMENT, payload: { id } });
+export const increment = dish => ({ type: INCREMENT, payload: { dish } });
+export const decrement = dish => ({ type: DECREMENT, payload: { dish } });
+export const reset = dish => ({ type: RESET, payload: { dish } });

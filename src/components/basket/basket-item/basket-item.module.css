@@ -1,0 +1,11 @@
+.basketItem {
+  display: flex;
+}
+
+.itemName {
+  flex-grow: 1;
+}
+
+.itemTotalPrice {
+  margin: 0 10px;
+}

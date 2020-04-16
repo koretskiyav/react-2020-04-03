@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Restaurant from '../restaurant';
 import RestaurantsNavigation from '../restaurants-navigation';
+import Basket from '../basket';
 
 function Restaurants({ restaurants }) {
   const [currentId, setCurrentId] = useState(restaurants[0].id);
@@ -14,6 +15,7 @@ function Restaurants({ restaurants }) {
 
   return (
     <div>
+      <Basket />
       <RestaurantsNavigation
         restaurants={restaurants}
         onRestaurantChange={setCurrentId}
