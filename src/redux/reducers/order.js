@@ -12,7 +12,7 @@ export default (state = {}, action) => {
     case DECREMENT:
       return {
         ...state,
-        [payload.id]: (state[payload.id] || 0) - 1
+        [payload.id]: state[payload.id] > 0 ? (state[payload.id] || 0) - 1 : 0
       };
     default:
       return state;
