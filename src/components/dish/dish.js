@@ -3,7 +3,11 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Card, Typography, Button, Row, Col } from 'antd';
 import styles from './dish.module.css';
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import {
+  PlusOutlined,
+  MinusOutlined,
+  CommentOutlined
+} from '@ant-design/icons';
 
 import { increment, decrement } from '../../redux/actions';
 function Dish(props) {
@@ -35,13 +39,13 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon={<MinusOutlined />}
-                onClick={() => onDecrement(dish.id)}
+                onClick={() => onDecrement(dish.id, dish.name, dish.price)}
                 data-id="dish-decrement"
               />
               <Button
                 className={styles.button}
                 icon={<PlusOutlined />}
-                onClick={() => onIncrement(dish.id)}
+                onClick={() => onIncrement(dish.id, dish.name, dish.price)}
                 data-id="dish-increment"
               />
             </Button.Group>
@@ -64,7 +68,11 @@ Dish.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  count: state.order[ownProps.dish.id] || 0
+  //count: state.order[ownProps.dish.id] || 0
+  count:
+    typeof state.order[ownProps.dish.id] === 'object'
+      ? state.order[ownProps.dish.id].amount
+      : 0
 });
 
 const mapDispatchToProps = {
