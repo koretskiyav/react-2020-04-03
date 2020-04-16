@@ -35,13 +35,13 @@ function Dish(props) {
               <Button
                 className={styles.button}
                 icon={<MinusOutlined />}
-                onClick={() => onDecrement(dish.id)}
+                onClick={() => onDecrement(dish)}
                 data-id="dish-decrement"
               />
               <Button
                 className={styles.button}
                 icon={<PlusOutlined />}
-                onClick={() => onIncrement(dish.id)}
+                onClick={() => onIncrement(dish)}
                 data-id="dish-increment"
               />
             </Button.Group>
@@ -54,17 +54,20 @@ function Dish(props) {
 
 Dish.propTypes = {
   dish: PropTypes.shape({
+    id: PropTypes.string.isRequired, // для Redux
     name: PropTypes.string,
     price: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   count: PropTypes.number,
-  increment: PropTypes.func,
-  decrement: PropTypes.func
+  onIncrement: PropTypes.func.isRequired,
+  onDecrement: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  count: state.order[ownProps.dish.id] || 0
+  count: state.order[ownProps.dish.id]
+    ? state.order[ownProps.dish.id].amount || 0
+    : 0
 });
 
 const mapDispatchToProps = {
