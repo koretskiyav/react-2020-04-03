@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Restaurants from '../restaurants';
 import { Layout } from 'antd';
 import Header from '../header';
+import Order from '../order';
 
 class App extends Component {
   render() {
@@ -10,7 +11,8 @@ class App extends Component {
     return (
       <div>
         <Layout>
-          <Header>{/* <Order /> */}</Header>
+          <Header />
+          <Order />
           <Layout.Content>
             <Restaurants restaurants={restaurants} />
           </Layout.Content>
