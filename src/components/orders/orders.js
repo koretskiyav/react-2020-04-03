@@ -37,12 +37,12 @@ function Orders(props) {
 
 Orders.propTypes = {
   orderList: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     order: PropTypes.shape({
       name: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       count: PropTypes.number.isRequired
-    }).isRequired
+    })
   })
 };
 
