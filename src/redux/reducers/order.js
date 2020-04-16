@@ -1,8 +1,15 @@
 import { INCREMENT, DECREMENT, CLEAR } from '../constants';
 
+function deleteFromStore(state, id) {
+  const newState = { ...state };
+  delete newState[id];
+  return newState;
+}
+
 // { [dishId]: {name,amount,price }
 export default (state = {}, action) => {
   const { type, payload } = action;
+
   switch (type) {
     case INCREMENT:
       return {
@@ -28,14 +35,11 @@ export default (state = {}, action) => {
           }
         };
       } else {
-        const newState = { ...state };
-        delete newState[payload.id];
-        return newState;
+        //  console.log(state,payload.id);
+        return deleteFromStore(state, payload.id);
       }
     case CLEAR:
-      const newState = { ...state };
-      delete newState[payload.id];
-      return newState;
+      return deleteFromStore(state, payload.id);
     default:
       return state;
   }

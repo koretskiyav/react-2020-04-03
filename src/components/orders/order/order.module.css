@@ -1,0 +1,14 @@
+.order {
+  background: white;
+}
+div {
+  text-align: center;
+}
+
+.inline-block {
+  display: inline-block;
+}
+.inline-block-center {
+  display: inline-block;
+  text-align: center;
+}

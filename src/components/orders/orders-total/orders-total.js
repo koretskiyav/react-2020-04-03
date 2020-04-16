@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './orders-total.module.css';
+
 function OrdersTotal({ orders }) {
   const totalSum = useMemo(
     () =>
@@ -11,8 +13,9 @@ function OrdersTotal({ orders }) {
     [orders]
   );
   return (
-    <div>
-      <h2>Total: {totalSum} $</h2>
+    <div className={styles.foot}>
+      <span className={styles.total}>Total:</span>
+      <span className={styles.price}>{totalSum} $</span>
     </div>
   );
 }
@@ -20,8 +23,8 @@ function OrdersTotal({ orders }) {
 OrdersTotal.propTypes = {
   orders: PropTypes.shape(
     PropTypes.shape({
-      count: PropTypes.number,
-      price: PropTypes.number
+      count: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired
     })
   )
 };
