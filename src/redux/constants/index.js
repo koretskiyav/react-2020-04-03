@@ -1,2 +1,3 @@
 export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
+export const DELETE_ORDER_ITEM = 'DELETE_ORDER_ITEM';

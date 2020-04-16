@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT } from '../constants';
+import { INCREMENT, DECREMENT, DELETE_ORDER_ITEM } from '../constants';
 
 // выполняет вычисление нового состояния по предыдущему состоянию и фактическим аргументам действия (action)
 
@@ -18,13 +18,16 @@ export default (state = {}, action) => {
         [payload.dish.id]: { dish: payload.dish, amount: getAmount() + 1 }
       };
     case DECREMENT:
-      return {
-        ...state,
-        [payload.dish.id]: {
-          dish: payload.dish,
-          amount: Math.max(getAmount() - 1, 0)
-        }
-      };
+      const amount = getAmount(); // state не меняется, если нажать минус при нулевом количестве (когда нет ключа payload.dish.id)
+      if (amount > 0) {
+        return {
+          ...state,
+          [payload.dish.id]: { dish: payload.dish, amount: amount - 1 }
+        };
+      } else return state;
+    case DELETE_ORDER_ITEM:
+      delete state[payload.dish.id];
+      return { ...state };
     default:
       return state;
   }
