@@ -2,21 +2,18 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Card, Typography, Button, Row, Col } from 'antd';
-import styles from './dish.module.css';
+import styles from './order.module.css';
 import {
   PlusOutlined,
   MinusOutlined,
-  CommentOutlined
+  CommentOutlined,
+  CloseOutlined
 } from '@ant-design/icons';
 
-import { increment, decrement } from '../../redux/actions';
-function Dish(props) {
-  const { dish, count, fetchData, onIncrement, onDecrement } = props;
-
-  useEffect(() => {
-    fetchData && fetchData(dish.id);
-    // eslint-disable-next-line
-  }, []);
+import { increment, decrement, clearAmount } from '../../redux/actions';
+function Order(props) {
+  const { dishKey, dish, onIncrement, onDecrement, onClearAmount } = props;
+  console.log(dishKey);
 
   return (
     <Card className={styles.productDetailedOrderCard}>
@@ -25,28 +22,30 @@ function Dish(props) {
           <Typography.Title level={4} className={styles.title}>
             {dish.name}
           </Typography.Title>
-          <Typography.Paragraph className={styles.description}>
-            {dish.ingredients.join(', ')}
-          </Typography.Paragraph>
-          <div className={styles.price}>{dish.price} $</div>
         </Col>
         <Col xs={8} md={6} lg={4} align="right">
           <div className={styles.counter}>
             <div className={styles.count} data-id="dish-amount">
-              {count}
+              {dish.amount}
             </div>
             <Button.Group>
               <Button
                 className={styles.button}
                 icon={<MinusOutlined />}
-                onClick={() => onDecrement(dish.id, dish.name, dish.price)}
+                onClick={() => onDecrement(dishKey, dish.name, dish.price)}
                 data-id="dish-decrement"
               />
               <Button
                 className={styles.button}
                 icon={<PlusOutlined />}
-                onClick={() => onIncrement(dish.id, dish.name, dish.price)}
+                onClick={() => onIncrement(dishKey, dish.name, dish.price)}
                 data-id="dish-increment"
+              />
+              <Button
+                className={styles.button}
+                icon={<CloseOutlined />}
+                onClick={() => onClearAmount(dishKey)}
+                data-id="dish-clearamount"
               />
             </Button.Group>
           </div>
@@ -56,28 +55,23 @@ function Dish(props) {
   );
 }
 
-Dish.propTypes = {
+Order.propTypes = {
   dish: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
-    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
+    amount: PropTypes.number
   }).isRequired,
-  count: PropTypes.number,
+  onClearAmount: PropTypes.func,
   increment: PropTypes.func,
   decrement: PropTypes.func
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  //count: state.order[ownProps.dish.id] || 0
-  count:
-    typeof state.order[ownProps.dish.id] === 'object'
-      ? state.order[ownProps.dish.id].amount
-      : 0
-});
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = {
   onIncrement: increment,
-  onDecrement: decrement
+  onDecrement: decrement,
+  onClearAmount: clearAmount
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dish);
+export default connect(mapStateToProps, mapDispatchToProps)(Order);
