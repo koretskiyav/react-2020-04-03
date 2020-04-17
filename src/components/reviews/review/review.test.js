@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Review from './review';
-import { restaurants } from '../../fixtures';
+import { restaurants } from '../../../fixtures';
 
 const review = restaurants[0].reviews[0];
 
