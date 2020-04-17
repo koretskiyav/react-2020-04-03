@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Dish from '../dish';
-import { Typography } from 'antd';
+import Product from '../product';
+import { Col, Row, Typography } from 'antd';
+import Basket from '../basket';
 
-class Dishes extends Component {
+class Menu extends Component {
   static propTypes = {
     menu: PropTypes.arrayOf(
       PropTypes.shape({
@@ -27,13 +28,18 @@ class Dishes extends Component {
       return <Typography>{this.state.error.message}</Typography>;
     }
     return (
-      <div>
-        {menu.map(dish => (
-          <Dish key={dish.id} dish={dish} />
-        ))}
-      </div>
+      <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
+        <Col xs={24} md={15} lg={12}>
+          {menu.map(product => (
+            <Product key={product.id} product={product} />
+          ))}
+        </Col>
+        <Col xs={0} md={7} lg={6}>
+          <Basket />
+        </Col>
+      </Row>
     );
   }
 }
 
-export default Dishes;
+export default Menu;
