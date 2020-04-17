@@ -1,18 +1,14 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Card, Typography, Button, Row, Col } from 'antd';
-import styles from './dish.module.css';
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import styles from './order-dish.module.css';
+import { PlusOutlined, MinusOutlined, DeleteOutlined } from '@ant-design/icons';
 
-import { increment, decrement } from '../../redux/actions';
-function Dish(props) {
-  const { dish, count, fetchData, onIncrement, onDecrement } = props;
+import { increment, decrement, deleteOrderItem } from '../../../redux/actions';
 
-  useEffect(() => {
-    fetchData && fetchData(dish.id);
-    // eslint-disable-next-line
-  }, []);
+function OrderDish(props) {
+  const { dish, count, onIncrement, onDecrement, onDeleteOrderItem } = props;
 
   return (
     <Card className={styles.productDetailedOrderCard}>
@@ -44,7 +40,14 @@ function Dish(props) {
                 onClick={() => onIncrement(dish)}
                 data-id="dish-increment"
               />
+              <Button
+                className={styles.button}
+                icon={<DeleteOutlined />}
+                onClick={() => onDeleteOrderItem(dish)}
+                data-id="dish-increment"
+              />
             </Button.Group>
+            <div className={styles.price}>Сумма {dish.price * count} $</div>
           </div>
         </Col>
       </Row>
@@ -52,16 +55,17 @@ function Dish(props) {
   );
 }
 
-Dish.propTypes = {
+OrderDish.propTypes = {
   dish: PropTypes.shape({
     id: PropTypes.string.isRequired, // для Redux
     name: PropTypes.string,
     price: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
-  count: PropTypes.number,
+  count: PropTypes.number.isRequired,
   onIncrement: PropTypes.func.isRequired,
-  onDecrement: PropTypes.func.isRequired
+  onDecrement: PropTypes.func.isRequired,
+  onDeleteOrderItem: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -72,7 +76,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   onIncrement: increment,
-  onDecrement: decrement
+  onDecrement: decrement,
+  onDeleteOrderItem: deleteOrderItem
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dish);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderDish);
