@@ -1,17 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import OrderItem from './order-item';
 
 function Order(props) {
-  const { order } = props;
-  const totalCost = useMemo(
-    () =>
-      Object.entries(order).reduce(
-        (acc, [, order]) => acc + order.price * order.count,
-        0
-      ),
-    [order]
-  );
+  const { order, totalCost } = props;
 
   return (
     Object.keys(order).length > 0 && (
@@ -35,7 +27,11 @@ function Order(props) {
 }
 
 const mapStateToProps = state => ({
-  order: state.order
+  order: state.order,
+  totalCost: Object.entries(state.order).reduce(
+    (acc, [, order]) => acc + order.price * order.count,
+    0
+  )
 });
 
 export default connect(mapStateToProps)(Order);

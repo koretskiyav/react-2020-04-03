@@ -25,11 +25,9 @@ export default (state = {}, action) => {
         }
       };
     case REMOVE:
-      let newState = state;
+      let newState = { ...state };
       delete newState[payload.id];
-      return {
-        ...newState
-      };
+      return newState;
     default:
       return state;
   }

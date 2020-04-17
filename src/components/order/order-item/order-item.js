@@ -11,7 +11,7 @@ function OrderItem(props) {
   const totalPrice = useMemo(() => item.count * item.price, [item]);
 
   return (
-    item.count > 0 && (
+    item.count && (
       <Card className={styles.productDetailedOrderCard}>
         <Row type="flex" justify="space-between">
           <Col xs={16} md={16} lg={20} align="left">
