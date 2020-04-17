@@ -30,8 +30,8 @@ class Menu extends Component {
     return (
       <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
         <Col xs={24} md={15} lg={12}>
-          {menu.map(product => (
-            <Product key={product.id} product={product} />
+          {menu.map(id => (
+            <Product key={id} id={id} />
           ))}
         </Col>
         <Col xs={0} md={7} lg={6}>
