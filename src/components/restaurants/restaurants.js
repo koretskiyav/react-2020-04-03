@@ -1,26 +1,16 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Restaurant from '../restaurant';
-import RestaurantsNavigation from '../restaurants-navigation';
+import ContentTabs from '../content-tabs';
 
 function Restaurants({ restaurants }) {
-  const [currentId, setCurrentId] = useState(restaurants[0].id);
-
-  const restaurant = useMemo(
-    () => restaurants.find(restaurant => restaurant.id === currentId),
-    [restaurants, currentId]
-  );
-
-  return (
-    <div>
-      <RestaurantsNavigation
-        restaurants={restaurants}
-        onRestaurantChange={setCurrentId}
-      />
-      <Restaurant restaurant={restaurant} />
-    </div>
-  );
+  const items = restaurants.map(restaurant => ({
+    tabTitle: restaurant.name,
+    tabContent: <Restaurant restaurant={restaurant} />
+  }));
+  return <ContentTabs items={items} />;
 }
 
 Restaurants.propTypes = {
@@ -31,4 +21,6 @@ Restaurants.propTypes = {
   ).isRequired
 };
 
-export default Restaurants;
+export default connect(state => ({
+  restaurants: state.restaurants
+}))(Restaurants);

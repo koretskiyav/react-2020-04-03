@@ -1,26 +1,26 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import Dish from './dish';
+import Product from './product';
 
 import { restaurants } from '../../fixtures';
 
-const dish = restaurants[0].menu[0];
+const product = restaurants[0].menu[0];
 
-describe('Dish', () => {
+describe('Product', () => {
   let component, amountEl, decrementBtn, incrementBtn;
 
   function init(extraProps) {
-    component = mount(<Dish dish={dish} {...extraProps} />);
-    amountEl = component.find('div[data-id="dish-amount"]').at(0);
-    decrementBtn = component.find('button[data-id="dish-decrement"]').at(0);
-    incrementBtn = component.find('button[data-id="dish-increment"]').at(0);
+    component = mount(<Product product={product} {...extraProps} />);
+    amountEl = component.find('div[data-id="product-amount"]').at(0);
+    decrementBtn = component.find('button[data-id="product-decrement"]').at(0);
+    incrementBtn = component.find('button[data-id="product-increment"]').at(0);
   }
 
   afterEach(() => {
     component.unmount();
   });
 
-  it('should render Dish', () => {
+  it('should render Product', () => {
     init();
     expect(component.find('Card').length).toBe(1);
   });
@@ -56,6 +56,6 @@ describe('Dish', () => {
   it('should fetch data', () => {
     const fn = jest.fn();
     init({ fetchData: fn });
-    expect(fn).toBeCalledWith(dish.id);
+    expect(fn).toBeCalledWith(product.id);
   });
 });

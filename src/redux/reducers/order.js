@@ -1,6 +1,6 @@
-import { INCREMENT, DECREMENT } from '../constants';
+import { INCREMENT, DECREMENT, REMOVE } from '../constants';
 
-// { [dishId]: amount }
+// { [productId]: amount }
 export default (state = {}, action) => {
   const { type, payload } = action;
   switch (type) {
@@ -12,7 +12,12 @@ export default (state = {}, action) => {
     case DECREMENT:
       return {
         ...state,
-        [payload.id]: (state[payload.id] || 0) - 1
+        [payload.id]: Math.max((state[payload.id] || 0) - 1, 0)
+      };
+    case REMOVE:
+      return {
+        ...state,
+        [payload.id]: 0
       };
     default:
       return state;
