@@ -1,0 +1,22 @@
+.total,
+.price {
+  font-family: GTEestiPro, Arial, sans-serif;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 700;
+  word-spacing: normal;
+  font-size: 20px;
+  line-height: 1.4em;
+  color: #001a34;
+  display: inline-block;
+}
+.price {
+  display: block;
+  border: 1px;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.foot {
+  display: flex;
+}
