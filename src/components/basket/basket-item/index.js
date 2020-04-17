@@ -1,13 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Col, Row, Typography } from 'antd';
 import { PlusOutlined, MinusOutlined, CloseOutlined } from '@ant-design/icons';
 import styles from './basket-item.module.css';
 
-function BasketItem() {
+import { increment, decrement, remove } from '../../../redux/actions';
+
+function BasketItem({
+  product,
+  amount,
+  subtotal,
+  increment,
+  decrement,
+  remove
+}) {
   return (
     <Row type="flex" align="middle" className={styles.basketItem}>
       <Col span={12} align="left">
-        <Typography.Text>Product Name</Typography.Text>
+        <Typography.Text>{product.name}</Typography.Text>
       </Col>
       <Col span={12} align="right">
         <div className={styles.counter}>
@@ -16,22 +26,25 @@ function BasketItem() {
             size="small"
             className={styles.button}
             icon={<MinusOutlined />}
-            onClick={() => {}}
+            onClick={() => decrement(product.id)}
           />
-          <Typography.Text className={styles.count}>{42}</Typography.Text>
+          <Typography.Text className={styles.count}>{amount}</Typography.Text>
           <Button
             type="link"
             size="small"
             className={styles.button}
             icon={<PlusOutlined />}
-            onClick={() => {}}
+            onClick={() => increment(product.id)}
           />
+          <Typography.Text
+            className={styles.count}
+          >{`${subtotal} $`}</Typography.Text>
           <Button
             type="link"
             size="small"
             className={styles.button}
             icon={<CloseOutlined />}
-            onClick={() => {}}
+            onClick={() => remove(product.id)}
           />
         </div>
       </Col>
@@ -39,4 +52,4 @@ function BasketItem() {
   );
 }
 
-export default BasketItem;
+export default connect(null, { increment, decrement, remove })(BasketItem);
