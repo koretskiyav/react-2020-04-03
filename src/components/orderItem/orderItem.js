@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Card, Typography, Button, Row, Col } from 'antd';
-import styles from './dish.module.css';
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import styles from './orderItem.module.css';
+import { PlusOutlined, MinusOutlined, DeleteOutlined } from '@ant-design/icons';
 
-import { increment, decrement } from '../../redux/actions';
+import { increment, decrement, deleteItem } from '../../redux/actions';
 import { selectDishAmount } from '../../redux/selectors';
-function Dish(props) {
-  const { dish, count, fetchData, onIncrement, onDecrement } = props;
-
-  useEffect(() => {
-    fetchData && fetchData(dish.id);
-    // eslint-disable-next-line
-  }, []);
+function OrderItem(props) {
+  const { dish, count, onIncrement, onDecrement, onDelete } = props;
 
   return (
     <Card className={styles.productDetailedOrderCard}>
@@ -45,6 +40,12 @@ function Dish(props) {
                 onClick={() => onIncrement(dish.id)}
                 data-id="dish-increment"
               />
+              <Button
+                className={styles.button}
+                icon={<DeleteOutlined />}
+                onClick={() => onDelete(dish.id)}
+                data-id="dish-delete"
+              />
             </Button.Group>
           </div>
         </Col>
@@ -53,7 +54,7 @@ function Dish(props) {
   );
 }
 
-Dish.propTypes = {
+OrderItem.propTypes = {
   dish: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
@@ -61,7 +62,8 @@ Dish.propTypes = {
   }).isRequired,
   count: PropTypes.number,
   increment: PropTypes.func,
-  decrement: PropTypes.func
+  decrement: PropTypes.func,
+  deleteItem: PropTypes.func
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -70,7 +72,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   onIncrement: increment,
-  onDecrement: decrement
+  onDecrement: decrement,
+  onDelete: deleteItem
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dish);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderItem);
