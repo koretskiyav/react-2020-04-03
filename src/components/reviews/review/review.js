@@ -38,7 +38,6 @@ Review.defaultProps = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(state.reviews, ownProps.id);
   return {
     user: state.reviews[ownProps.id].user,
     text: state.reviews[ownProps.id].text,
