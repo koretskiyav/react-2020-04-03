@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Row, Col, Typography, Rate, Card } from 'antd';
 import styles from './review.module.css';
+import { connect } from 'react-redux';
+import { reviewSelector } from '../../../redux/selectors';
 
 const Review = ({ user, text, rating }) => (
   <Card className={styles.review} data-id="review-card">
@@ -36,4 +38,6 @@ Review.defaultProps = {
   user: 'Anonymous'
 };
 
-export default Review;
+const mapStateToProps = (state, ownProps) => reviewSelector(ownProps.id);
+
+export default connect(mapStateToProps)(Review);
