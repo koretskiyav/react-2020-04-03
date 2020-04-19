@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Rate } from 'antd';
+import { connect } from 'react-redux';
 
 function AverageRating({ reviews }) {
   const rawRating = useMemo(
@@ -9,6 +10,7 @@ function AverageRating({ reviews }) {
   );
 
   const normalizedRating = Math.floor(rawRating * 2) / 2;
+
   return (
     <div>
       <Rate value={normalizedRating} disabled allowHalf />
@@ -24,4 +26,6 @@ AverageRating.propTypes = {
   ).isRequired
 };
 
-export default AverageRating;
+export default connect((state, ownProps) => ({
+  reviews: ownProps.reviews.map(id => state.reviews[id])
+}))(AverageRating);

@@ -8,9 +8,11 @@ import Hero from '../hero';
 import ContentTabs from '../content-tabs';
 
 import styles from './restaurant.module.css';
+import { connect } from 'react-redux';
+
 class Restaurant extends Component {
   render() {
-    const { name, menu, reviews } = this.props.restaurant;
+    const { id, name, menu, reviews } = this.props;
 
     const contentItems = [
       {
@@ -19,7 +21,7 @@ class Restaurant extends Component {
       },
       {
         tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} />
+        tabContent: <Reviews reviews={reviews} restaurantId={id} />
       }
     ];
 
@@ -36,8 +38,12 @@ class Restaurant extends Component {
 
 Restaurant.propTypes = {
   name: PropTypes.string,
-  menu: PropTypes.array,
-  reviews: PropTypes.array
+  menu: PropTypes.arrayOf(PropTypes.string),
+  reviews: PropTypes.arrayOf(PropTypes.string)
 };
 
-export default Restaurant;
+export default connect((state, ownProps) => ({
+  name: state.restaurants[ownProps.id].name,
+  menu: state.restaurants[ownProps.id].menu,
+  reviews: state.restaurants[ownProps.id].reviews
+}))(Restaurant);
