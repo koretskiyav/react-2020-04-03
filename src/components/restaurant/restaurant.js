@@ -12,7 +12,7 @@ import { connect } from 'react-redux';
 
 class Restaurant extends Component {
   render() {
-    const { name, menu, reviews } = this.props;
+    const { id, name, menu, reviews } = this.props;
 
     const contentItems = [
       {
@@ -21,7 +21,7 @@ class Restaurant extends Component {
       },
       {
         tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} />
+        tabContent: <Reviews reviews={reviews} restaurantId={id} />
       }
     ];
 
