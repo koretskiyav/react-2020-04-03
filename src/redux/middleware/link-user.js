@@ -5,35 +5,26 @@ import { addUser, userNotFound } from '../actions';
 export default store => next => action => {
   switch (action.type) {
     case ADD_REVIEW: {
-      const { name: user, ...review } = action.payload.review;
+      const { name: user, ...review } = action.payload.object;
 
-      const users = store.getState().users;
-
-      let userId = Object.keys(users).find(key => users[key].name === user);
-
-      // Так и не получилось здесь сделать добавление пользоателя
-      // если вызывать next- не срабатывает миддлваре добавляющая id
-      // пользователю, если делать диспатч - то он вызывается все-таки
-      // асинхронно и пользователь добавляется после того как я делаю
-      // второй поиск по uid.
-      //
-      // if (!userId) {
-      //   // store.dispatch(addUser({name: user}));
-      //    next(addUser({name: user}));
-      // }
-
-      //
-      // // заново находим uid после добавления юзера
-      // userId = Object.keys(users)
-      //   .find(key => users[key].name === user);
+      const findUser = (users, name) =>
+        Object.keys(users).find(key => users[key].name === name);
+      let userId = findUser(store.getState().users, user);
 
       if (!userId) {
-        next(userNotFound());
-        return;
+        store.dispatch(addUser({ name: user }));
       }
+
+      // заново находим uid после добавления юзера
+      userId = findUser(store.getState().users, user);
+
+      if (!userId) {
+        return [userNotFound()];
+      }
+
       next({
         ...action,
-        payload: { review: { ...review, userId, id: uuidv4() } }
+        payload: { object: { ...review, userId, id: uuidv4() } }
       });
       return;
     }

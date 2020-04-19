@@ -3,18 +3,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default store => next => action => {
   switch (action.type) {
-    case ADD_REVIEW: {
-      next({
-        ...action,
-        payload: { review: { ...action.payload.review, id: uuidv4() } }
-      });
-      return;
-    }
+    case ADD_REVIEW:
     case ADD_USER: {
-      console.log('ADD_USER  + uid');
+      console.log('  + uid');
       next({
         ...action,
-        payload: { user: { ...action.payload.user, id: uuidv4() } }
+        payload: { object: { ...action.payload.object, id: uuidv4() } }
       });
       return;
     }
