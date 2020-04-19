@@ -38,7 +38,7 @@ function AddReviewForm({ restaurantId, addReview }) {
         name="rating"
         rules={[{ required: true, message: 'Please select star' }]}
       >
-        <Rate value={undefined} />
+        <Rate />
       </Form.Item>
       <Form.Item
         wrapperCol={{
