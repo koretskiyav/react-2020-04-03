@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import Menu from '../menu';
 import AverageRating from '../average-rating';
@@ -40,4 +41,8 @@ Restaurant.propTypes = {
   reviews: PropTypes.array
 };
 
-export default Restaurant;
+Restaurant.mapStateToProps = (state, { id }) => ({
+  restaurant: state.restaurants[id]
+});
+
+export default connect(Restaurant.mapStateToProps)(Restaurant);

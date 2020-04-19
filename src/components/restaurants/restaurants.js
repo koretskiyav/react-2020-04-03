@@ -6,9 +6,9 @@ import Restaurant from '../restaurant';
 import ContentTabs from '../content-tabs';
 
 function Restaurants({ restaurants }) {
-  const items = restaurants.map(restaurant => ({
+  const items = Object.entries(restaurants).map(([id, restaurant]) => ({
     tabTitle: restaurant.name,
-    tabContent: <Restaurant restaurant={restaurant} />
+    tabContent: <Restaurant key={id} id={id} />
   }));
   return <ContentTabs items={items} />;
 }
