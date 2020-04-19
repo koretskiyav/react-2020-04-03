@@ -6,9 +6,7 @@ import styles from './product.module.css';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 
 import { increment, decrement } from '../../redux/actions';
-function Product(props) {
-  const { product, count, fetchData, onIncrement, onDecrement } = props;
-
+function Product({ product, count, fetchData, onIncrement, onDecrement }) {
   useEffect(() => {
     fetchData && fetchData(product.id);
     // eslint-disable-next-line
