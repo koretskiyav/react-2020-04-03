@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Menu from '../menu';
@@ -8,30 +8,28 @@ import Hero from '../hero';
 import ContentTabs from '../content-tabs';
 
 import styles from './restaurant.module.css';
-class Restaurant extends Component {
-  render() {
-    const { name, menu, reviews } = this.props.restaurant;
+import { connect } from 'react-redux';
 
-    const contentItems = [
-      {
-        tabTitle: 'Menu',
-        tabContent: <Menu menu={menu} />
-      },
-      {
-        tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} />
-      }
-    ];
+function Restaurant({ name, menu, reviews, id }) {
+  const contentItems = [
+    {
+      tabTitle: 'Menu',
+      tabContent: <Menu menu={menu} />
+    },
+    {
+      tabTitle: 'Reviews',
+      tabContent: <Reviews reviews={reviews} />
+    }
+  ];
 
-    return (
-      <div>
-        <Hero heading={name}>
-          <AverageRating reviews={reviews} />
-        </Hero>
-        <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Hero heading={name}>
+        <AverageRating reviews={reviews} />
+      </Hero>
+      <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
+    </div>
+  );
 }
 
 Restaurant.propTypes = {
@@ -40,4 +38,14 @@ Restaurant.propTypes = {
   reviews: PropTypes.array
 };
 
-export default Restaurant;
+const mapStateToProps = (state, ownProps) => {
+  const restaurant = state.restaurants.list[ownProps.restaurant];
+  return {
+    name: restaurant.name,
+    menu: restaurant.menu,
+    reviews: restaurant.reviews,
+    id: restaurant.id
+  };
+};
+
+export default connect(mapStateToProps)(Restaurant);

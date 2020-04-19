@@ -4,13 +4,17 @@ import PropTypes from 'prop-types';
 
 import Restaurant from '../restaurant';
 import ContentTabs from '../content-tabs';
+import { activateRestaurant } from '../../redux/actions';
 
-function Restaurants({ restaurants }) {
-  const items = restaurants.map(restaurant => ({
-    tabTitle: restaurant.name,
-    tabContent: <Restaurant restaurant={restaurant} />
+function Restaurants({ restaurants, onActivate }) {
+  const items = Object.keys(restaurants).map(id => ({
+    tabTitle: restaurants[id].name,
+    id,
+    tabContent: <Restaurant restaurant={id} />
   }));
-  return <ContentTabs items={items} />;
+  return (
+    <ContentTabs items={items} onActivate={i => onActivate(items[i].id)} />
+  );
 }
 
 Restaurants.propTypes = {
@@ -21,6 +25,12 @@ Restaurants.propTypes = {
   ).isRequired
 };
 
-export default connect(state => ({
-  restaurants: state.restaurants
-}))(Restaurants);
+const mapStateToProps = (state, ownProps) => ({
+  restaurants: state.restaurants.list
+});
+
+const mapDispatchToProps = {
+  onActivate: activateRestaurant
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Restaurants);
