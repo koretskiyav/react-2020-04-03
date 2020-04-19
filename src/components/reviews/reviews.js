@@ -5,7 +5,7 @@ import Review from './review';
 import { Col, Row } from 'antd';
 import AddReview from './add-review';
 
-function Reviews({ reviews, restaurantId }) {
+function Reviews({ reviews }) {
   return (
     <div>
       <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
@@ -15,7 +15,7 @@ function Reviews({ reviews, restaurantId }) {
           ))}
         </Col>
       </Row>
-      <AddReview restaurantId={restaurantId} />
+      <AddReview />
     </div>
   );
 }

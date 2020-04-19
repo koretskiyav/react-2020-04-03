@@ -5,13 +5,14 @@ import styles from './content-tabs.module.css';
 
 const { TabPane } = Tabs;
 
-function ContentTabs({ items, tabPaneClassName }) {
+function ContentTabs({ items, tabPaneClassName, onActivate }) {
   return (
     <Tabs
       defaultActiveKey="0"
       tabPosition="top"
       animated={false}
       className={styles.contentTabs}
+      onChange={onActivate}
     >
       {items.map((item, i) => (
         <TabPane

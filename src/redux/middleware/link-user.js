@@ -1,6 +1,6 @@
 import { ADD_REVIEW } from '../constants';
 import { v4 as uuidv4 } from 'uuid';
-import { addUser, userNotFound } from '../actions';
+import { addUser, handleError } from '../actions';
 
 export default store => next => action => {
   switch (action.type) {
@@ -9,6 +9,7 @@ export default store => next => action => {
 
       const findUser = (users, name) =>
         Object.keys(users).find(key => users[key].name === name);
+
       let userId = findUser(store.getState().users, user);
 
       if (!userId) {
@@ -19,7 +20,8 @@ export default store => next => action => {
       userId = findUser(store.getState().users, user);
 
       if (!userId) {
-        return [userNotFound()];
+        next(handleError(action, 'userNotFound'));
+        return;
       }
 
       next({

@@ -4,7 +4,7 @@ import reducer from '../reducers';
 import logger from '../middleware/logger';
 import addUid from '../middleware/add-uid';
 import linkUser from '../middleware/link-user';
-import errorHandle from '../middleware/error-handle';
+import errorHandle from '../middleware/handle-error';
 
 const store = createStore(
   reducer,

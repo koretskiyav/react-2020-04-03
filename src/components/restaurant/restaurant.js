@@ -18,7 +18,7 @@ function Restaurant({ name, menu, reviews, id }) {
     },
     {
       tabTitle: 'Reviews',
-      tabContent: <Reviews reviews={reviews} restaurantId={id} />
+      tabContent: <Reviews reviews={reviews} />
     }
   ];
 
@@ -39,7 +39,7 @@ Restaurant.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const restaurant = state.restaurants[ownProps.restaurant];
+  const restaurant = state.restaurants.list[ownProps.restaurant];
   return {
     name: restaurant.name,
     menu: restaurant.menu,

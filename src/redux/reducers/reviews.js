@@ -10,15 +10,7 @@ export default (reviews = defValue, action) => {
   switch (type) {
     case ADD_REVIEW: {
       const actionReview = action.payload.object;
-
-      const newReview = {
-        id: actionReview.id,
-        userId: actionReview.userId,
-        text: actionReview.text,
-        rating: actionReview.rating
-      };
-
-      return { ...reviews, [actionReview.id]: newReview };
+      return { ...reviews, [actionReview.id]: actionReview };
     }
     default:
       return reviews;

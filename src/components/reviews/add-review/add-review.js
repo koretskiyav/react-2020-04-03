@@ -3,17 +3,13 @@ import { Form, Input, Button, Rate } from 'antd';
 import { addReview } from '../../../redux/actions';
 import { connect } from 'react-redux';
 
-function AddReview({ restaurantId, onAddReview }) {
+function AddReview({ onAddReview }) {
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 }
   };
   const tailLayout = {
     wrapperCol: { offset: 8, span: 16 }
-  };
-
-  const onSubmit = values => {
-    onAddReview({ ...values, restaurantId });
   };
 
   const onFinishFailed = errorInfo => {
@@ -24,7 +20,7 @@ function AddReview({ restaurantId, onAddReview }) {
     <Form
       {...layout}
       name="basic"
-      onFinish={onSubmit}
+      onFinish={onAddReview}
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
