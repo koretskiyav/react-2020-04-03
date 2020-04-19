@@ -24,3 +24,18 @@ export const totalSelector = createSelector(
   orderProducts =>
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
+
+export const reviewsSelector = state => state.reviews;
+export const usersSelector = state => state.users;
+
+export const reviewSelector = id => {
+  return createSelector(reviewsSelector, usersSelector, (reviews, users) => {
+    const review = reviews[id];
+    const user = users[review.userId];
+    return {
+      user: user.name,
+      text: review.text,
+      rating: review.rating
+    };
+  });
+};
