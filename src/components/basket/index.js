@@ -9,8 +9,6 @@ import BasketItem from './basket-item';
 import { totalSelector, orderProductsSelector } from '../../redux/selectors';
 
 function Basket({ title = 'Basket', className, total, orderProducts }) {
-  console.log('Basket');
-
   return (
     <div className={cx(styles.basket, className)}>
       <Typography.Title level={4} className={styles.title}>

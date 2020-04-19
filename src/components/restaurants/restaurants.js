@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { restaurantsArraySelector } from '../../redux/selectors';
 import Restaurant from '../restaurant';
 import ContentTabs from '../content-tabs';
 
@@ -22,5 +23,5 @@ Restaurants.propTypes = {
 };
 
 export default connect(state => ({
-  restaurants: state.restaurants
+  restaurants: restaurantsArraySelector(state)
 }))(Restaurants);
