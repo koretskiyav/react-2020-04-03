@@ -1,14 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Rate } from 'antd';
+import { connect } from 'react-redux';
 
-function AverageRating({ reviews }) {
-  const rawRating = useMemo(
-    () => reviews.reduce((acc, { rating }) => acc + rating, 0) / reviews.length,
-    [reviews]
-  );
-
+function AverageRating({ rawRating }) {
   const normalizedRating = Math.floor(rawRating * 2) / 2;
+
   return (
     <div>
       <Rate value={normalizedRating} disabled allowHalf />
@@ -17,11 +14,15 @@ function AverageRating({ reviews }) {
 }
 
 AverageRating.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      rating: PropTypes.number.isRequired
-    }).isRequired
-  ).isRequired
+  reviews: PropTypes.array.isRequired
 };
 
-export default AverageRating;
+const mapStateToProps = (state, ownProps) => ({
+  rawRating:
+    ownProps.reviews.reduce(
+      (acc, reviewId) => acc + state.reviews[reviewId].rating,
+      0
+    ) / ownProps.reviews.length
+});
+
+export default connect(mapStateToProps)(AverageRating);
