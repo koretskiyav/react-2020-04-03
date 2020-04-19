@@ -27,7 +27,7 @@ class Restaurant extends Component {
     return (
       <div>
         <Hero heading={name}>
-          <AverageRating reviews={reviews} />
+          <AverageRating reviewIds={reviews} />
         </Hero>
         <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
       </div>
