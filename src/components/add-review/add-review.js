@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Form, Input, Button, Rate, Row, Col } from 'antd';
+import { addReview } from '../../redux/actions';
 
 const layout = {
   labelCol: {
@@ -17,13 +19,13 @@ const tailLayout = {
   }
 };
 
-export default restaurantId => {
+const AddReview = ({ restaurantId, addReview }) => {
   const onFinish = values => {
-    console.log('Success:', { restaurantId, ...values });
+    addReview(restaurantId, values.username, values.text, values.rating);
   };
 
   const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo);
+    // console.log('Failed:', errorInfo);
   };
 
   return (
@@ -77,3 +79,5 @@ export default restaurantId => {
     </Row>
   );
 };
+
+export default connect(null, { addReview })(AddReview);
