@@ -11,11 +11,19 @@ export default (restaurants = defaultRestaurants, action) => {
 
   switch (type) {
     case ADD_REVIEW:
-      restaurants[payload.restaurantId].reviews = [
-        payload.id,
-        ...restaurants[payload.restaurantId].reviews
-      ];
-      return restaurants;
+      // TODO как реализовать в функциональном стиле?
+      let newRestaurants = {};
+      Object.entries(restaurants).forEach(([id, restaurant]) => {
+        if (id === payload.restaurantId) {
+          newRestaurants[id] = {
+            ...restaurant,
+            reviews: [payload.id, ...restaurant.reviews]
+          };
+        } else {
+          newRestaurants[id] = restaurant;
+        }
+      });
+      return newRestaurants;
     default:
       return restaurants;
   }
