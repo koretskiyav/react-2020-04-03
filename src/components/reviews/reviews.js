@@ -9,7 +9,7 @@ function Reviews({ reviews }) {
     <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
       <Col xs={24} md={16}>
         {reviews.map(review => (
-          <Review {...review} key={review.id} />
+          <Review id={review} key={review} />
         ))}
       </Col>
     </Row>
@@ -17,11 +17,7 @@ function Reviews({ reviews }) {
 }
 
 Reviews.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired
+  reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
 export default Reviews;

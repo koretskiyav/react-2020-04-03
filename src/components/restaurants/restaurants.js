@@ -6,19 +6,16 @@ import Restaurant from '../restaurant';
 import ContentTabs from '../content-tabs';
 
 function Restaurants({ restaurants }) {
-  const items = restaurants.map(restaurant => ({
-    tabTitle: restaurant.name,
-    tabContent: <Restaurant restaurant={restaurant} />
+  const items = Object.entries(restaurants).map(restaurant => ({
+    tabTitle: restaurant[1].name,
+    tabContent: <Restaurant id={restaurant[0]} />
   }));
+
   return <ContentTabs items={items} />;
 }
 
 Restaurants.propTypes = {
-  restaurants: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired
-    }).isRequired
-  ).isRequired
+  restaurants: PropTypes.object
 };
 
 export default connect(state => ({
