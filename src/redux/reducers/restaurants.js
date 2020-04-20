@@ -11,19 +11,21 @@ export default (restaurants = defaultRestaurants, action) => {
 
   switch (type) {
     case ADD_REVIEW:
-      // TODO как реализовать в функциональном стиле?
-      let newRestaurants = {};
-      Object.entries(restaurants).forEach(([id, restaurant]) => {
-        if (id === payload.restaurantId) {
-          newRestaurants[id] = {
-            ...restaurant,
-            reviews: [payload.id, ...restaurant.reviews]
-          };
-        } else {
-          newRestaurants[id] = restaurant;
-        }
-      });
-      return newRestaurants;
+      return Object.fromEntries(
+        Object.entries(restaurants).map(([id, restaurant]) => {
+          if (id === payload.restaurantId) {
+            return [
+              id,
+              {
+                ...restaurant,
+                reviews: [payload.id, ...restaurant.reviews]
+              }
+            ];
+          } else {
+            return [id, restaurant];
+          }
+        })
+      );
     default:
       return restaurants;
   }
