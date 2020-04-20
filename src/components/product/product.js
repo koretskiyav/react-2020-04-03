@@ -11,7 +11,6 @@ function Product(props) {
 
   useEffect(() => {
     fetchData && fetchData(product.id);
-    // eslint-disable-next-line
   }, []);
 
   return (
