@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import Menu from '../menu';
 import AverageRating from '../average-rating';
 import Reviews from '../reviews';
@@ -10,7 +9,7 @@ import ContentTabs from '../content-tabs';
 import styles from './restaurant.module.css';
 class Restaurant extends Component {
   render() {
-    const { name, menu, reviews } = this.props.restaurant;
+    const { id, name, menu, reviews } = this.props.restaurant;
 
     const contentItems = [
       {
@@ -19,7 +18,7 @@ class Restaurant extends Component {
       },
       {
         tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} />
+        tabContent: <Reviews reviews={reviews} restId={id} />
       }
     ];
 

@@ -1,8 +1,11 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Rate } from 'antd';
+import { connect } from 'react-redux';
 
-function AverageRating({ reviews }) {
+function AverageRating(props) {
+  const { reviews } = props;
+
   const rawRating = useMemo(
     () => reviews.reduce((acc, { rating }) => acc + rating, 0) / reviews.length,
     [reviews]
@@ -17,11 +20,7 @@ function AverageRating({ reviews }) {
 }
 
 AverageRating.propTypes = {
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape({
-      rating: PropTypes.number.isRequired
-    }).isRequired
-  ).isRequired
+  reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
-export default AverageRating;
+export default connect(null)(AverageRating);
