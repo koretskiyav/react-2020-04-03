@@ -6,11 +6,13 @@ import AverageRating from '../average-rating';
 import Reviews from '../reviews';
 import Hero from '../hero';
 import ContentTabs from '../content-tabs';
+import { connect } from 'react-redux';
 
 import styles from './restaurant.module.css';
 class Restaurant extends Component {
   render() {
     const { name, menu, reviews } = this.props.restaurant;
+    console.log(reviews);
 
     const contentItems = [
       {
@@ -40,4 +42,14 @@ Restaurant.propTypes = {
   reviews: PropTypes.array
 };
 
-export default Restaurant;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  dispatch({
+    type: 'selectRestaurant',
+    payload: {
+      id: ownProps.restaurant.id
+    }
+  });
+  return {};
+};
+
+export default connect(null, mapDispatchToProps)(Restaurant);
