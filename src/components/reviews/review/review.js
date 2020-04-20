@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Row, Col, Typography, Rate, Card } from 'antd';
@@ -32,8 +33,14 @@ Review.propTypes = {
   rating: PropTypes.number.isRequired
 };
 
-Review.defaultProps = {
-  user: 'Anonymous'
+const mapStateToProps = (state, ownProps) => {
+  const review = state.reviews[ownProps.id];
+  const user = state.users[review.userId];
+  return {
+    user: user ? user.name : 'Anonymous',
+    text: review.text,
+    rating: review.rating
+  };
 };
 
-export default Review;
+export default connect(mapStateToProps)(Review);

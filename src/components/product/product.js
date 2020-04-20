@@ -53,6 +53,7 @@ function Product(props) {
 }
 
 Product.propTypes = {
+  id: PropTypes.string,
   product: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
