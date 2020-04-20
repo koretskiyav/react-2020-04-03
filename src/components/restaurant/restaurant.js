@@ -8,25 +8,27 @@ import Hero from '../hero';
 import ContentTabs from '../content-tabs';
 
 import styles from './restaurant.module.css';
+import { connect } from 'react-redux';
+
 class Restaurant extends Component {
   render() {
-    const { name, menu, reviews } = this.props.restaurant;
+    const { restaurant, id } = this.props;
 
     const contentItems = [
       {
         tabTitle: 'Menu',
-        tabContent: <Menu menu={menu} />
+        tabContent: <Menu menu={restaurant.menu} />
       },
       {
         tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} />
+        tabContent: <Reviews restaurantId={id} reviews={restaurant.reviews} />
       }
     ];
 
     return (
       <div>
-        <Hero heading={name}>
-          <AverageRating reviews={reviews} />
+        <Hero heading={restaurant.name}>
+          <AverageRating reviews={restaurant.reviews} />
         </Hero>
         <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
       </div>
@@ -40,4 +42,8 @@ Restaurant.propTypes = {
   reviews: PropTypes.array
 };
 
-export default Restaurant;
+const mapStateToProps = (state, ownProps) => ({
+  restaurant: state.restaurants[ownProps.id]
+});
+
+export default connect(mapStateToProps)(Restaurant);
