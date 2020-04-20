@@ -6,11 +6,7 @@ import Basket from '../basket';
 
 class Menu extends Component {
   static propTypes = {
-    menu: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired
-      }).isRequired
-    ).isRequired
+    menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
   };
 
   state = {
@@ -23,6 +19,7 @@ class Menu extends Component {
 
   render() {
     const { menu } = this.props;
+    console.log(menu);
 
     if (this.state.error) {
       return <Typography>{this.state.error.message}</Typography>;
