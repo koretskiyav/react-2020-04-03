@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import { Rate } from 'antd';
 
 function AverageRating({ reviews }) {
@@ -24,4 +26,13 @@ AverageRating.propTypes = {
   ).isRequired
 };
 
-export default AverageRating;
+AverageRating.mapStateToProps = (state, { reviewIds }) => {
+  let reviews = [];
+  reviewIds.map(id => (reviews = [state.reviews[id], ...reviews]));
+  return {
+    reviews: reviews,
+    ...reviewIds
+  };
+};
+
+export default connect(AverageRating.mapStateToProps)(AverageRating);
