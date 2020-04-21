@@ -8,7 +8,7 @@ import { restaurantItemsSelector } from '../../redux/selectors';
 const Restaurants = ({ restaurants }) => <ContentTabs items={restaurants} />;
 
 Restaurants.propTypes = {
-  restaurants: PropTypes.object.isRequired
+  restaurants: PropTypes.array.isRequired
 };
 
 export default connect(state => ({
