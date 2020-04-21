@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import { Row, Col, Typography, Rate, Card } from 'antd';
+
+import { reviewWitUserSelector } from '../../../redux/selectors';
+
 import styles from './review.module.css';
 
-const Review = ({ user, text, rating }) => (
+const Review = ({ review: { user = 'Anonymous', text, rating } }) => (
   <Card className={styles.review} data-id="review-card">
     <Row type="flex" align="middle">
       <Col xs={24} md={18} align="left">
@@ -27,13 +30,13 @@ const Review = ({ user, text, rating }) => (
 );
 
 Review.propTypes = {
-  user: PropTypes.string,
-  text: PropTypes.string,
-  rating: PropTypes.number.isRequired
+  review: PropTypes.shape({
+    user: PropTypes.string,
+    text: PropTypes.string,
+    rating: PropTypes.number.isRequired
+  })
 };
 
-Review.defaultProps = {
-  user: 'Anonymous'
-};
-
-export default Review;
+export default connect((state, props) => ({
+  review: reviewWitUserSelector(state, props)
+}))(Review);

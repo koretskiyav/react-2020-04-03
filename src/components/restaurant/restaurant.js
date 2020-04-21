@@ -10,7 +10,7 @@ import ContentTabs from '../content-tabs';
 import styles from './restaurant.module.css';
 class Restaurant extends Component {
   render() {
-    const { name, menu, reviews } = this.props.restaurant;
+    const { id, name, menu, reviews } = this.props.restaurant;
 
     const contentItems = [
       {
@@ -19,14 +19,14 @@ class Restaurant extends Component {
       },
       {
         tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} />
+        tabContent: <Reviews reviews={reviews} restaurantId={id} />
       }
     ];
 
     return (
       <div>
         <Hero heading={name}>
-          <AverageRating reviews={reviews} />
+          <AverageRating ids={reviews} />
         </Hero>
         <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
       </div>

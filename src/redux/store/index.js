@@ -1,12 +1,11 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from '../reducers';
-import logger from '../middleware/logger';
+import logger from '../middlewares/logger';
+import generateId from '../middlewares/generateId';
 
-const store = createStore(
-  reducer,
-  composeWithDevTools(applyMiddleware(logger))
-);
+const enhancer = applyMiddleware(generateId, logger);
+const store = createStore(reducer, composeWithDevTools(enhancer));
 
 // dev only!
 window.store = store;

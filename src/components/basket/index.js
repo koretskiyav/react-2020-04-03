@@ -9,8 +9,6 @@ import BasketItem from './basket-item';
 import { totalSelector, orderProductsSelector } from '../../redux/selectors';
 
 function Basket({ title = 'Basket', className, total, orderProducts }) {
-  console.log('Basket');
-
   return (
     <div className={cx(styles.basket, className)}>
       <Typography.Title level={4} className={styles.title}>
@@ -36,11 +34,7 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
   );
 }
 
-export default connect(state => {
-  console.log('connect');
-
-  return {
-    total: totalSelector(state),
-    orderProducts: orderProductsSelector(state)
-  };
-})(Basket);
+export default connect(state => ({
+  total: totalSelector(state),
+  orderProducts: orderProductsSelector(state)
+}))(Basket);
