@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { Row, Col, Typography, Rate, Card } from 'antd';
 import styles from './review.module.css';
+import { reviewsSelector, usersSelector } from '../../../redux/selectors';
 
 function Review(props) {
   const {
@@ -47,8 +48,8 @@ Review.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  review: state.reviews[ownProps.id],
-  user: state.users[state.reviews[ownProps.id].userId]
+  review: reviewsSelector(state)[ownProps.id],
+  user: usersSelector(state)[reviewsSelector(state)[ownProps.id].userId]
 });
 
 export default connect(mapStateToProps)(Review);

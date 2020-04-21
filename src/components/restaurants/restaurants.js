@@ -2,21 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import Restaurant from '../restaurant';
 import ContentTabs from '../content-tabs';
+import { restaurantItemsSelector } from '../../redux/selectors';
 
-function Restaurants({ restaurants }) {
-  const items = Object.keys(restaurants).map(restaurantId => ({
-    tabTitle: restaurants[restaurantId].name,
-    tabContent: <Restaurant id={restaurantId} />
-  }));
-  return <ContentTabs items={items} />;
-}
+const Restaurants = ({ restaurants }) => <ContentTabs items={restaurants} />;
 
 Restaurants.propTypes = {
   restaurants: PropTypes.object.isRequired
 };
 
 export default connect(state => ({
-  restaurants: state.restaurants
+  restaurants: restaurantItemsSelector(state)
 }))(Restaurants);

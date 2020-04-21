@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Rate } from 'antd';
 import { connect } from 'react-redux';
+import { averageRatingSelector } from '../../redux/selectors';
 
 function AverageRating({ rawRating }) {
   const normalizedRating = Math.floor(rawRating * 2) / 2;
@@ -14,15 +15,12 @@ function AverageRating({ rawRating }) {
 }
 
 AverageRating.propTypes = {
-  reviews: PropTypes.array.isRequired
+  reviews: PropTypes.array.isRequired,
+  rawRating: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  rawRating:
-    ownProps.reviews.reduce(
-      (acc, reviewId) => acc + state.reviews[reviewId].rating,
-      0
-    ) / ownProps.reviews.length
+  rawRating: averageRatingSelector(state, ownProps)
 });
 
 export default connect(mapStateToProps)(AverageRating);
