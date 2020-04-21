@@ -1,4 +1,10 @@
-import { INCREMENT, DECREMENT, REMOVE, ADD_REVIEW } from '../constants';
+import {
+  INCREMENT,
+  DECREMENT,
+  REMOVE,
+  ADD_REVIEW,
+  LOAD_RESTAURANTS
+} from '../constants';
 
 export const increment = id => ({ type: INCREMENT, payload: { id } });
 export const decrement = id => ({ type: DECREMENT, payload: { id } });
@@ -10,4 +16,7 @@ export const addReview = (review, restaurantId) => ({
   generateId: ['reviewId', 'userId']
 });
 
-window.addReview = addReview;
+export const loadRestaurants = () => ({
+  type: LOAD_RESTAURANTS,
+  CallAPI: '/api/restaurants'
+});

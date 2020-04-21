@@ -1,11 +1,13 @@
 import { createSelector } from 'reselect';
 import { getAverage, getById, idsSelector, mapToList } from './utils';
 
-const restaurantsSelector = state => state.restaurants.toJS();
+const restaurantsSelector = state => state.restaurants.entities.toJS();
 const productsSelector = state => state.products;
 const orderSelector = state => state.order;
 const reviewsSelector = state => state.reviews;
 const usersSelector = state => state.users;
+
+export const restaurantsLoadingSelector = state => state.restaurants.loading;
 
 export const restaurantsListSelector = mapToList(restaurantsSelector);
 export const productAmountSelector = getById(orderSelector);
