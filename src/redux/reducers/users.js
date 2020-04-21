@@ -1,19 +1,18 @@
+import produce from 'immer';
 import { ADD_REVIEW } from '../constants';
 import { normalizedUsers } from '../../fixtures';
 import { arrToMap } from '../utils';
 
-export default (state = arrToMap(normalizedUsers), action) => {
+export default produce((draft = arrToMap(normalizedUsers), action) => {
   const { type, payload, userId } = action;
 
   switch (type) {
     case ADD_REVIEW:
       const { user } = payload.review;
-      return {
-        ...state,
-        [userId]: { id: userId, name: user }
-      };
+      draft[userId] = { id: userId, name: user };
+      break;
 
     default:
-      return state;
+      return draft;
   }
-};
+});
