@@ -7,7 +7,7 @@ import { reviewWitUserSelector } from '../../../redux/selectors';
 
 import styles from './review.module.css';
 
-const Review = ({ review: { user = 'Anonymous', text, rating } }) => (
+const Review = ({ review: { user = 'Anonymous...', text, rating } }) => (
   <Card className={styles.review} data-id="review-card">
     <Row type="flex" align="middle">
       <Col xs={24} md={18} align="left">
