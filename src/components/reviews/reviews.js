@@ -4,14 +4,15 @@ import { Col, Row } from 'antd';
 
 import Review from './review';
 import ReviewForm from './review-form';
-import { loadReviews } from '../../redux/actions';
+import { loadReviewsSectionItem } from '../../redux/actions';
 import { connect } from 'react-redux';
+import { reviewsLoadedSelector } from '../../redux/selectors';
+import { LOAD_USERS } from '../../redux/constants';
 
-function Reviews({ reviews, restaurantId, loadReviews }) {
+function Reviews({ reviews, restaurantId, loadReviewsSectionItem }) {
   useEffect(() => {
-    loadReviews(restaurantId);
-  }, [loadReviews, restaurantId]);
-
+    loadReviewsSectionItem(restaurantId, 'users', LOAD_USERS);
+  }, []);
   return (
     <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
       <Col xs={24} md={16}>
@@ -29,4 +30,6 @@ Reviews.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
-export default connect(null, { loadReviews })(Reviews);
+export default connect(state => ({ isLoaded: reviewsLoadedSelector(state) }), {
+  loadReviewsSectionItem
+})(Reviews);

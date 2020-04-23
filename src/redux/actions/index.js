@@ -5,9 +5,12 @@ import {
   ADD_REVIEW,
   LOAD_REVIEWS,
   LOAD_RESTAURANTS,
+  lOAD_PRODUCTS,
   REQUEST,
   SUCCESS,
-  FAILURE
+  FAILURE,
+  LOAD_USERS,
+  SELECT_NEW_RESTAURANT
 } from '../constants';
 
 export const increment = id => ({ type: INCREMENT, payload: { id } });
@@ -25,23 +28,36 @@ export const loadRestaurants = () => ({
   CallAPI: '/api/restaurants'
 });
 
-export const loadReviews = restaurantId => async dispatch => {
+export const loadProducts = () => ({
+  type: lOAD_PRODUCTS,
+  CallAPI: '/api/dishes'
+});
+
+export const loadReviewsSectionItem = (
+  restaurantId,
+  itemUrl,
+  itemType
+) => async dispatch => {
   dispatch({ type: LOAD_REVIEWS + REQUEST, payload: { restaurantId } });
 
   try {
-    const data = await fetch(`/api/reviews?id=${restaurantId}`);
+    const data = await fetch(`/api/${itemUrl}?id=${restaurantId}`);
     const response = await data.json();
 
     dispatch({
-      type: LOAD_REVIEWS + SUCCESS,
+      type: itemType + SUCCESS,
       payload: { restaurantId },
       response
     });
   } catch (error) {
     dispatch({
-      type: LOAD_REVIEWS + FAILURE,
+      type: itemType + FAILURE,
       payload: { restaurantId },
       error
     });
   }
 };
+
+export const selectNextRestaurant = () => ({
+  type: SELECT_NEW_RESTAURANT
+});
