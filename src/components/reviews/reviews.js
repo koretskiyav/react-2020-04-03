@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
 
 import Review from './review';
 import ReviewForm from './review-form';
-import { loadReviews } from '../../redux/actions';
 import { connect } from 'react-redux';
+import {
+  reviewsLoadingSelector,
+  usersLoadingSelector
+} from '../../redux/selectors';
 
-function Reviews({ reviews, restaurantId, loadReviews }) {
-  useEffect(() => {
-    loadReviews(restaurantId);
-  }, [loadReviews, restaurantId]);
+function Reviews({ reviews, restaurantId, isLoading }) {
+  if (isLoading) return <h3>Loading...</h3>;
 
   return (
     <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
@@ -26,7 +27,13 @@ function Reviews({ reviews, restaurantId, loadReviews }) {
 
 Reviews.propTypes = {
   restaurantId: PropTypes.string.isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  isLoading: PropTypes.func.isRequired
 };
 
-export default connect(null, { loadReviews })(Reviews);
+export default connect(
+  (state, props) => ({
+    isLoading: usersLoadingSelector(state) || reviewsLoadingSelector(state)
+  }),
+  null
+)(Reviews);

@@ -16,6 +16,8 @@ function Product(props) {
     // eslint-disable-next-line
   }, []);
 
+  if (!product) return <h3>...Loading</h3>;
+
   return (
     <Card className={styles.productDetailedOrderCard}>
       <Row type="flex" justify="space-between">
@@ -59,10 +61,11 @@ Product.propTypes = {
     name: PropTypes.string,
     price: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
-  }).isRequired,
+  }),
   amount: PropTypes.number,
   increment: PropTypes.func,
-  decrement: PropTypes.func
+  decrement: PropTypes.func,
+  fetchData: PropTypes.func
 };
 
 const mapStateToProps = (state, props) => ({

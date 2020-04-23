@@ -15,7 +15,7 @@ class Restaurant extends Component {
     const contentItems = [
       {
         tabTitle: 'Menu',
-        tabContent: <Menu menu={menu} />
+        tabContent: <Menu menu={menu} restaurantid={id} />
       },
       {
         tabTitle: 'Reviews',
@@ -26,9 +26,9 @@ class Restaurant extends Component {
     return (
       <div>
         <Hero heading={name}>
-          <AverageRating ids={reviews} />
+          <AverageRating ids={reviews} restaurantId={id} />
         </Hero>
-        <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
+        {<ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />}
       </div>
     );
   }
@@ -37,7 +37,8 @@ class Restaurant extends Component {
 Restaurant.propTypes = {
   name: PropTypes.string,
   menu: PropTypes.array,
-  reviews: PropTypes.array
+  reviews: PropTypes.array,
+  id: PropTypes.string
 };
 
 export default Restaurant;

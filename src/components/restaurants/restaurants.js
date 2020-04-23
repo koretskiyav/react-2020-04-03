@@ -9,12 +9,16 @@ import {
   restaurantsListSelector,
   restaurantsLoadingSelector
 } from '../../redux/selectors';
-import { loadRestaurants } from '../../redux/actions';
+import { loadRestaurants, loadUsers } from '../../redux/actions';
 
-function Restaurants({ restaurants, loadRestaurants, isLoading }) {
+function Restaurants({ restaurants, loadRestaurants, isLoading, loadUsers }) {
   useEffect(() => {
     loadRestaurants();
   }, [loadRestaurants]);
+
+  useEffect(() => {
+    loadUsers();
+  }, [loadUsers]);
 
   if (isLoading) return <h3>Loading...</h3>;
 
@@ -30,7 +34,10 @@ Restaurants.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired
     }).isRequired
-  ).isRequired
+  ).isRequired,
+  loadRestaurants: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
+  loadUsers: PropTypes.func.isRequired
 };
 
 export default connect(
@@ -38,5 +45,5 @@ export default connect(
     restaurants: restaurantsListSelector(state),
     isLoading: restaurantsLoadingSelector(state)
   }),
-  { loadRestaurants }
+  { loadRestaurants, loadUsers }
 )(Restaurants);
