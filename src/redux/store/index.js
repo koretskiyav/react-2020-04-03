@@ -1,12 +1,13 @@
 import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from '../reducers';
-import logger from '../middleware/logger';
+import logger from '../middlewares/logger';
+import generateId from '../middlewares/generateId';
+import api from '../middlewares/api';
 
-const store = createStore(
-  reducer,
-  composeWithDevTools(applyMiddleware(logger))
-);
+const enhancer = applyMiddleware(thunk, api, generateId, logger);
+const store = createStore(reducer, composeWithDevTools(enhancer));
 
 // dev only!
 window.store = store;

@@ -6,8 +6,10 @@ import styles from './product.module.css';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 
 import { increment, decrement } from '../../redux/actions';
+import { productAmountSelector, productSelector } from '../../redux/selectors';
+
 function Product(props) {
-  const { product, count, fetchData, onIncrement, onDecrement } = props;
+  const { product, amount = 0, fetchData, onIncrement, onDecrement } = props;
 
   useEffect(() => {
     fetchData && fetchData(product.id);
@@ -29,7 +31,7 @@ function Product(props) {
         <Col xs={8} md={6} lg={4} align="right">
           <div className={styles.counter}>
             <div className={styles.count} data-id="product-amount">
-              {count}
+              {amount}
             </div>
             <Button.Group>
               <Button
@@ -58,14 +60,14 @@ Product.propTypes = {
     price: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
-  count: PropTypes.number,
+  amount: PropTypes.number,
   increment: PropTypes.func,
   decrement: PropTypes.func
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  count: state.order[ownProps.id] || 0,
-  product: state.products[ownProps.id]
+const mapStateToProps = (state, props) => ({
+  amount: productAmountSelector(state, props),
+  product: productSelector(state, props)
 });
 
 const mapDispatchToProps = {

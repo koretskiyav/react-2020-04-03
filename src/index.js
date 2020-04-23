@@ -4,12 +4,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/app';
 
-import { restaurants } from './fixtures';
 import store from './redux/store';
 
 ReactDOM.render(
   <Provider store={store}>
-    <App restaurants={restaurants} />
+    <App />
   </Provider>,
   document.getElementById('root')
 );
