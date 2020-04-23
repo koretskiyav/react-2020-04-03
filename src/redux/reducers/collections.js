@@ -58,10 +58,10 @@ export default produce((state = defState, action) => {
 
     // TODO: переделать на универсальный объект любого типа
     case ADD_REVIEW:
-      const { user } = payload.review;
-      state.restaurants.entities[payload.restaurantId].restaurants.push(
-        reviewId
-      );
+      const { user, text, rating } = payload.review;
+
+      state.reviews.entities[reviewId] = { id: reviewId, userId, text, rating };
+      state.restaurants.entities[payload.restaurantId].reviews.push(reviewId);
       state.users.entities[userId] = { id: userId, name: user };
       break;
     default:
