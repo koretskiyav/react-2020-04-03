@@ -7,6 +7,7 @@ import {
   FAILURE
 } from '../constants';
 import { arrToMap } from '../utils';
+import { produce } from 'immer';
 
 const defCollectionState = {
   loading: true,
@@ -21,7 +22,7 @@ const defState = {
   dishes: defCollectionState
 };
 
-export default (state = defState, action) => {
+export default produce((state = defState, action) => {
   const {
     type,
     payload,
@@ -32,57 +33,38 @@ export default (state = defState, action) => {
     error
   } = action;
 
-  let collection = state[collectionType];
-  let changes;
-
   switch (type) {
     case LOAD_COLLECTION + REQUEST:
     case LOAD_COLLECTION_SCOPED + REQUEST:
-      changes = { ...collection, loading: true, error: null };
-      return { ...state, [collectionType]: changes };
+      state[collectionType].loading = true;
+      state[collectionType].error = null;
+      break;
     case LOAD_COLLECTION + SUCCESS:
-      changes = { ...collection, loading: false, entities: arrToMap(response) };
-      return { ...state, [collectionType]: changes };
+      state[collectionType].loading = false;
+      state[collectionType].entities = arrToMap(response);
+      break;
     case LOAD_COLLECTION_SCOPED + SUCCESS:
-      changes = {
-        ...collection,
-        loading: false,
-        entities: { ...collection.entities, ...arrToMap(response) }
+      state[collectionType].loading = false;
+      state[collectionType].entities = {
+        ...state[collectionType].entities,
+        ...arrToMap(response)
       };
-      return { ...state, [collectionType]: changes };
+      break;
     case LOAD_COLLECTION + FAILURE:
     case LOAD_COLLECTION_SCOPED + FAILURE:
-      changes = { ...collection, loading: false, error };
-      return { ...state, [collectionType]: changes };
+      state[collectionType].loading = false;
+      state[collectionType].error = error;
+      break;
 
     // TODO: переделать на универсальный объект любого типа
     case ADD_REVIEW:
-      collection = state.restaurants;
-      const oldRestaurant = collection.entities[payload.restaurantId];
-      const oldReviews = oldRestaurant.reviews;
-      changes = {
-        ...collection,
-        entities: {
-          ...collection.entities,
-          [payload.restaurantId]: {
-            ...oldRestaurant,
-            reviews: [...oldReviews, reviewId]
-          }
-        }
-      };
-
-      const oldUserCollection = state.users;
       const { user } = payload.review;
-      const changedUserCollection = {
-        ...oldUserCollection,
-        entities: {
-          ...oldUserCollection.entities,
-          [userId]: { id: userId, name: user }
-        }
-      };
-
-      return { ...state, restaurants: changes, users: changedUserCollection };
+      state.restaurants.entities[payload.restaurantId].restaurants.push(
+        reviewId
+      );
+      state.users.entities[userId] = { id: userId, name: user };
+      break;
     default:
-      return state;
   }
-};
+  return state;
+});
