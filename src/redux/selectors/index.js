@@ -2,14 +2,18 @@ import { createSelector } from 'reselect';
 import { getAverage, getById, idsSelector, mapToList } from './utils';
 
 const restaurantsSelector = state => state.restaurants.entities.toJS();
-const productsSelector = state => state.products;
+const productsSelector = state => state.products.entities;
 const orderSelector = state => state.order;
-const reviewsSelector = state => state.reviews;
-const usersSelector = state => state.users;
+const reviewsSelector = state => state.reviews.entities;
+const usersSelector = state => state.users.entities;
 
+export const productsLoadingSelector = state => state.products.loading;
 export const restaurantsLoadingSelector = state => state.restaurants.loading;
+export const reviewsLoadingSelector = state => state.reviews.loading;
+export const usersLoadingSelector = state => state.users.loading;
 
 export const restaurantsListSelector = mapToList(restaurantsSelector);
+export const productsListSelector = mapToList(productsSelector);
 export const productAmountSelector = getById(orderSelector);
 export const productSelector = getById(productsSelector);
 const reviewSelector = getById(reviewsSelector);
@@ -19,7 +23,7 @@ export const reviewWitUserSelector = createSelector(
   usersSelector,
   (review, users) => ({
     ...review,
-    user: users[review.userId]?.name
+    user: review ? users[review.userId].name : undefined
   })
 );
 
@@ -27,7 +31,10 @@ export const averageRatingSelector = createSelector(
   reviewsSelector,
   idsSelector,
   (reviews, ids) => {
-    const ratings = ids.map(id => reviews[id].rating);
+    if (!reviews) {
+      return 0;
+    }
+    const ratings = ids.map(id => (reviews[id] ? reviews[id].rating : 0));
     return Math.floor(getAverage(ratings) * 2) / 2;
   }
 );
