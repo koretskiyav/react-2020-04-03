@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import order from './order';
-import restaurants from './restaurants';
+import collections from './collections';
 import products from './products';
 import reviews from './reviews';
 import users from './users';
 
 export default combineReducers({
   order,
-  restaurants,
+  collections,
   products,
   reviews,
   users

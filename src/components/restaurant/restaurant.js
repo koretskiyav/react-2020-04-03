@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component, useEffect } from 'react';
 
 import Menu from '../menu';
 import AverageRating from '../average-rating';
@@ -8,36 +7,50 @@ import Hero from '../hero';
 import ContentTabs from '../content-tabs';
 
 import styles from './restaurant.module.css';
-class Restaurant extends Component {
-  render() {
-    const { id, name, menu, reviews } = this.props.restaurant;
+import { connect } from 'react-redux';
+import { loadCollectionScoped } from '../../redux/actions';
+import { REVIEWS_COLLECTION } from '../../redux/constants';
+function Restaurant({
+  id,
+  name = '',
+  menu = [],
+  reviews = [],
+  loadReviews,
+  isLoading
+}) {
+  useEffect(() => {
+    loadReviews(id);
+  }, [loadReviews, id]);
 
-    const contentItems = [
-      {
-        tabTitle: 'Menu',
-        tabContent: <Menu menu={menu} />
-      },
-      {
-        tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} restaurantId={id} />
-      }
-    ];
+  if (isLoading) return <h3>Loading...</h3>;
 
-    return (
-      <div>
-        <Hero heading={name}>
-          <AverageRating ids={reviews} />
-        </Hero>
-        <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
-      </div>
-    );
-  }
+  const contentItems = [
+    {
+      tabTitle: 'Menu',
+      tabContent: <Menu menu={menu} />
+    },
+    {
+      tabTitle: 'Reviews',
+      tabContent: <Reviews reviews={reviews} restaurantId={id} />
+    }
+  ];
+
+  return (
+    <div>
+      <Hero heading={name}>
+        <AverageRating ids={reviews} />
+      </Hero>
+      <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
+    </div>
+  );
 }
 
-Restaurant.propTypes = {
-  name: PropTypes.string,
-  menu: PropTypes.array,
-  reviews: PropTypes.array
-};
-
-export default Restaurant;
+export default connect(
+  (state, ownProps) => ({
+    id: ownProps.restaurant.id,
+    name: ownProps.restaurant.name,
+    menu: ownProps.restaurant.menu,
+    reviews: ownProps.restaurant.reviews
+  }),
+  { loadReviews: loadCollectionScoped(REVIEWS_COLLECTION) }
+)(Restaurant);

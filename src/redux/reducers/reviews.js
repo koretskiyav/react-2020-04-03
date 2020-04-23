@@ -1,8 +1,6 @@
 import { ADD_REVIEW } from '../constants';
-import { normalizedReviews } from '../../fixtures';
-import { arrToMap } from '../utils';
 
-export default (state = arrToMap(normalizedReviews), action) => {
+export default (state = {}, action) => {
   const { type, payload, reviewId, userId } = action;
 
   switch (type) {

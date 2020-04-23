@@ -1,18 +1,34 @@
 import { createSelector } from 'reselect';
 import { getAverage, getById, idsSelector, mapToList } from './utils';
+import {
+  DISHES_COLLECTION,
+  RESTAURANTS_COLLECTION,
+  REVIEWS_COLLECTION,
+  USERS_COLLECTION
+} from '../constants';
 
-const restaurantsSelector = state => state.restaurants.entities.toJS();
-const productsSelector = state => state.products;
+const collectionSelector = collection => state =>
+  state.collections[collection].entities;
+export const loadingSelector = (state, collection) =>
+  state.collections[collection].loading;
+
+const restaurantsSelector = collectionSelector(RESTAURANTS_COLLECTION);
+const dishesSelector = collectionSelector(DISHES_COLLECTION);
+const reviewsSelector = collectionSelector(REVIEWS_COLLECTION);
+const usersSelector = collectionSelector(USERS_COLLECTION);
+
 const orderSelector = state => state.order;
-const reviewsSelector = state => state.reviews;
-const usersSelector = state => state.users;
-
-export const restaurantsLoadingSelector = state => state.restaurants.loading;
 
 export const restaurantsListSelector = mapToList(restaurantsSelector);
 export const productAmountSelector = getById(orderSelector);
-export const productSelector = getById(productsSelector);
+export const productSelector = getById(dishesSelector);
 const reviewSelector = getById(reviewsSelector);
+
+// export const menuSelector = (restaurantId) => createSelector(
+//   getById(restaurantsSelector)(restaurantId),
+//   dishesSelector,
+//   (restaurant, dishes) => restaurant.menu.map(id=>dishes[id])
+// );
 
 export const reviewWitUserSelector = createSelector(
   reviewSelector,
@@ -27,13 +43,16 @@ export const averageRatingSelector = createSelector(
   reviewsSelector,
   idsSelector,
   (reviews, ids) => {
-    const ratings = ids.map(id => reviews[id].rating);
-    return Math.floor(getAverage(ratings) * 2) / 2;
+    if (Object.keys(reviews).length && ids && ids.length) {
+      const ratings = ids.map(id => reviews[id].rating);
+      return Math.floor(getAverage(ratings) * 2) / 2;
+    }
+    return 0;
   }
 );
 
 export const orderProductsSelector = createSelector(
-  productsSelector,
+  dishesSelector,
   orderSelector,
   (products, order) => {
     return Object.keys(order)
