@@ -9,7 +9,6 @@ export default store => next => async action => {
   try {
     const data = await fetch(CallAPI);
     const response = await data.json();
-
     next({ ...rest, type: type + SUCCESS, response });
   } catch (error) {
     next({ ...rest, type: type + FAILURE, error });
