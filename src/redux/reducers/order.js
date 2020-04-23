@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT } from '../constants';
+import { INCREMENT, DECREMENT, REMOVE_ORDER } from '../constants';
 
 // { [dishId]: amount }
 export default (state = {}, action) => {
@@ -14,6 +14,14 @@ export default (state = {}, action) => {
         ...state,
         [payload.id]: (state[payload.id] || 0) - 1
       };
+    case REMOVE_ORDER:
+      return Object.entries(state).reduce((acc, [id, count]) => {
+        if (payload.id !== id) {
+          acc[id] = count;
+        }
+
+        return acc;
+      }, {});
     default:
       return state;
   }
