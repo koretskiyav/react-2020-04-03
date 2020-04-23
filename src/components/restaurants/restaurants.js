@@ -7,14 +7,16 @@ import ContentTabs from '../content-tabs';
 
 import {
   restaurantsListSelector,
-  restaurantsLoadingSelector
+  loadingSelector
 } from '../../redux/selectors';
-import { loadRestaurants } from '../../redux/actions';
 
-function Restaurants({ restaurants, loadRestaurants, isLoading }) {
+import { loadCollection } from '../../redux/actions';
+import { RESTAURANTS_COLLECTION } from '../../redux/constants';
+
+function Restaurants({ restaurants, load, isLoading }) {
   useEffect(() => {
-    loadRestaurants();
-  }, [loadRestaurants]);
+    load();
+  }, [load]);
 
   if (isLoading) return <h3>Loading...</h3>;
 
@@ -34,9 +36,11 @@ Restaurants.propTypes = {
 };
 
 export default connect(
-  state => ({
-    restaurants: restaurantsListSelector(state),
-    isLoading: restaurantsLoadingSelector(state)
-  }),
-  { loadRestaurants }
+  state => {
+    return {
+      restaurants: restaurantsListSelector(state),
+      isLoading: loadingSelector(state, RESTAURANTS_COLLECTION)
+    };
+  },
+  { load: loadCollection(RESTAURANTS_COLLECTION) }
 )(Restaurants);
