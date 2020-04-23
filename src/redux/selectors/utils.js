@@ -10,3 +10,10 @@ export const getAverage = arr =>
   arr.reduce((acc, rating) => acc + rating) / arr.length;
 
 export const mapToList = selector => createSelector(selector, Object.values);
+
+export const propsItems = (_, props) => props.items;
+
+export const existItems = (stateSelector, propsSelector) =>
+  createSelector(stateSelector, propsSelector, (state, props) =>
+    props.filter(item => Object.keys(state).includes(item))
+  );

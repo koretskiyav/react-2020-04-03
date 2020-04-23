@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Rate } from 'antd';
 
-import { averageRatingSelector } from '../../redux/selectors';
+import {
+  averageRatingSelector,
+  existReviewsSelector,
+  reviewsLoadingSelector
+} from '../../redux/selectors';
+import { loadReviews, loadUsers } from '../../redux/actions';
 
-function AverageRating({ averageRating }) {
+function AverageRating({
+  averageRating,
+  restaurantId,
+  loadUsers,
+  loadReviews
+}) {
+  useEffect(() => {
+    loadUsers();
+    loadReviews(restaurantId);
+  }, [loadUsers, loadReviews, restaurantId]);
+
   return (
     <div>
       <Rate value={averageRating} disabled allowHalf />
@@ -17,6 +32,12 @@ AverageRating.propTypes = {
   averageRating: PropTypes.number.isRequired
 };
 
-export default connect((state, props) => ({
+const mapStateToProps = (state, props) => ({
+  reviews: existReviewsSelector(state, props),
+  isLoading: reviewsLoadingSelector(state),
   averageRating: averageRatingSelector(state, props)
-}))(AverageRating);
+});
+
+export default connect(mapStateToProps, { loadUsers, loadReviews })(
+  AverageRating
+);

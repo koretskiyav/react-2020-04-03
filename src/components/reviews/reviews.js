@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
 
 import Review from './review';
 import ReviewForm from './review-form';
-import { loadReviews } from '../../redux/actions';
 import { connect } from 'react-redux';
+import {
+  existReviewsSelector,
+  reviewsLoadingSelector
+} from '../../redux/selectors';
+import Spinner from '../spinner';
 
-function Reviews({ reviews, restaurantId, loadReviews }) {
-  useEffect(() => {
-    loadReviews(restaurantId);
-  }, [loadReviews, restaurantId]);
+function Reviews({ reviews, restaurantId, isLoading }) {
+  if (isLoading) return <Spinner size="small" />;
 
   return (
     <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
@@ -26,7 +28,12 @@ function Reviews({ reviews, restaurantId, loadReviews }) {
 
 Reviews.propTypes = {
   restaurantId: PropTypes.string.isRequired,
-  reviews: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+  items: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
 };
 
-export default connect(null, { loadReviews })(Reviews);
+const mapStateToProps = (state, props) => ({
+  reviews: existReviewsSelector(state, props),
+  isLoading: reviewsLoadingSelector(state)
+});
+
+export default connect(mapStateToProps)(Reviews);

@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import Product from '../product';
 import { Col, Row, Typography } from 'antd';
 import Basket from '../basket';
+import { connect } from 'react-redux';
+import { existMenuSelector, menuLoadingSelector } from '../../redux/selectors';
+import { loadMenu } from '../../redux/actions';
+import Spinner from '../spinner';
 
 class Menu extends Component {
   static propTypes = {
@@ -13,16 +17,23 @@ class Menu extends Component {
     error: null
   };
 
+  componentDidMount() {
+    this.props.loadMenu(this.props.restaurantId);
+  }
+
   componentDidCatch(error) {
     this.setState({ error });
   }
 
   render() {
-    const { menu } = this.props;
+    const { menu, isLoading } = this.props;
 
     if (this.state.error) {
       return <Typography>{this.state.error.message}</Typography>;
     }
+
+    if (isLoading) return <Spinner size="small" />;
+
     return (
       <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
         <Col xs={24} md={15} lg={12}>
@@ -38,4 +49,9 @@ class Menu extends Component {
   }
 }
 
-export default Menu;
+const mapStateToProps = (state, props) => ({
+  menu: existMenuSelector(state, props),
+  isLoading: menuLoadingSelector(state)
+});
+
+export default connect(mapStateToProps, { loadMenu })(Menu);

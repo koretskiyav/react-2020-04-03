@@ -10,13 +10,15 @@ import {
   restaurantsLoadingSelector
 } from '../../redux/selectors';
 import { loadRestaurants } from '../../redux/actions';
+import Spinner from '../spinner';
 
 function Restaurants({ restaurants, loadRestaurants, isLoading }) {
   useEffect(() => {
     loadRestaurants();
   }, [loadRestaurants]);
 
-  if (isLoading) return <h3>Loading...</h3>;
+  if (isLoading)
+    return <Spinner tip="Loading..." size="large" classStyle={true} />;
 
   const items = restaurants.map(restaurant => ({
     tabTitle: restaurant.name,

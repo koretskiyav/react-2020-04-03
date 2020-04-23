@@ -15,18 +15,18 @@ class Restaurant extends Component {
     const contentItems = [
       {
         tabTitle: 'Menu',
-        tabContent: <Menu menu={menu} />
+        tabContent: <Menu items={menu} restaurantId={id} />
       },
       {
         tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} restaurantId={id} />
+        tabContent: <Reviews items={reviews} restaurantId={id} />
       }
     ];
 
     return (
       <div>
         <Hero heading={name}>
-          <AverageRating ids={reviews} />
+          <AverageRating items={reviews} restaurantId={id} />
         </Hero>
         <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
       </div>
