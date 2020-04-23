@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Typography, Rate, Card } from 'antd';
 
-import { reviewWitUserSelector } from '../../../redux/selectors';
+import { reviewWithUserSelector } from '../../../redux/selectors';
 
 import styles from './review.module.css';
 
@@ -38,5 +38,5 @@ Review.propTypes = {
 };
 
 export default connect((state, props) => ({
-  review: reviewWitUserSelector(state, props)
+  review: reviewWithUserSelector(state, props)
 }))(Review);
