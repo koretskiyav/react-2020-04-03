@@ -24,18 +24,12 @@ export const productAmountSelector = getById(orderSelector);
 export const productSelector = getById(dishesSelector);
 const reviewSelector = getById(reviewsSelector);
 
-// export const menuSelector = (restaurantId) => createSelector(
-//   getById(restaurantsSelector)(restaurantId),
-//   dishesSelector,
-//   (restaurant, dishes) => restaurant.menu.map(id=>dishes[id])
-// );
-
 export const reviewWitUserSelector = createSelector(
   reviewSelector,
   usersSelector,
   (review, users) => ({
     ...review,
-    user: users[review.userId]?.name
+    user: review?.userId && users ? users[review.userId]?.name : ''
   })
 );
 
@@ -43,8 +37,8 @@ export const averageRatingSelector = createSelector(
   reviewsSelector,
   idsSelector,
   (reviews, ids) => {
-    if (Object.keys(reviews).length && ids && ids.length) {
-      const ratings = ids.map(id => reviews[id].rating);
+    if (Object.keys(reviews).length && ids?.length) {
+      const ratings = ids.map(id => reviews[id]?.rating);
       return Math.floor(getAverage(ratings) * 2) / 2;
     }
     return 0;

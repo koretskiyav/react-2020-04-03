@@ -1,19 +1,16 @@
 import React, { useEffect } from 'react';
 import Product from '../product';
-import { Col, Row, Typography } from 'antd';
+import { Col, Row } from 'antd';
 import Basket from '../basket';
 import { DISHES_COLLECTION } from '../../redux/constants';
-import { loadCollection, loadCollectionScoped } from '../../redux/actions';
+import { loadCollection } from '../../redux/actions';
 import { connect } from 'react-redux';
-import {
-  restaurantsListSelector,
-  loadingSelector
-} from '../../redux/selectors';
+import { loadingSelector } from '../../redux/selectors';
 
-function Menu({ menu, load, isLoading, error }) {
+function Menu({ menu, load, isLoading }) {
   useEffect(() => {
     load();
-  }, [load]);
+  }, [load, menu]);
 
   if (isLoading) return <h3>Loading...</h3>;
 

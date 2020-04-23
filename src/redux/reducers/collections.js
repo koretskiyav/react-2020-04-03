@@ -22,39 +22,67 @@ const defState = {
 };
 
 export default (state = defState, action) => {
-  const { type, payload, collectionType, reviewId, response, error } = action;
+  const {
+    type,
+    payload,
+    collectionType,
+    reviewId,
+    userId,
+    response,
+    error
+  } = action;
 
-  console.log('in collection reducer ', collectionType, type);
-
-  const draft = state[collectionType];
+  let collection = state[collectionType];
   let changes;
 
   switch (type) {
     case LOAD_COLLECTION + REQUEST:
     case LOAD_COLLECTION_SCOPED + REQUEST:
-      changes = { ...draft, loading: true, error: null };
-      break;
+      changes = { ...collection, loading: true, error: null };
+      return { ...state, [collectionType]: changes };
     case LOAD_COLLECTION + SUCCESS:
-      changes = { ...draft, loading: false, entities: arrToMap(response) };
-      break;
+      changes = { ...collection, loading: false, entities: arrToMap(response) };
+      return { ...state, [collectionType]: changes };
     case LOAD_COLLECTION_SCOPED + SUCCESS:
       changes = {
-        ...draft,
+        ...collection,
         loading: false,
-        entities: { ...draft.entities, ...arrToMap(response) }
+        entities: { ...collection.entities, ...arrToMap(response) }
       };
-      break;
+      return { ...state, [collectionType]: changes };
     case LOAD_COLLECTION + FAILURE:
     case LOAD_COLLECTION_SCOPED + FAILURE:
-      changes = { ...draft, loading: false, error };
-      break;
+      changes = { ...collection, loading: false, error };
+      return { ...state, [collectionType]: changes };
+
+    // TODO: переделать на универсальный объект любого типа
     case ADD_REVIEW:
-      state.restaurants.entities[payload.restaurantId].reviews.push(reviewId);
-      break;
+      collection = state.restaurants;
+      const oldRestaurant = collection.entities[payload.restaurantId];
+      const oldReviews = oldRestaurant.reviews;
+      changes = {
+        ...collection,
+        entities: {
+          ...collection.entities,
+          [payload.restaurantId]: {
+            ...oldRestaurant,
+            reviews: [...oldReviews, reviewId]
+          }
+        }
+      };
+
+      const oldUserCollection = state.users;
+      const { user } = payload.review;
+      const changedUserCollection = {
+        ...oldUserCollection,
+        entities: {
+          ...oldUserCollection.entities,
+          [userId]: { id: userId, name: user }
+        }
+      };
+
+      return { ...state, restaurants: changes, users: changedUserCollection };
     default:
+      return state;
   }
-
-  console.log('in collection reducer, result state=', changes);
-
-  return { ...state, [collectionType]: changes };
 };
