@@ -22,8 +22,6 @@ function RestaurantPage({
     loadRestaurants();
   }, [loadRestaurants]);
 
-  console.log(match);
-
   if (isLoading) return <Loader />;
 
   if (match.isExact) {
@@ -32,14 +30,14 @@ function RestaurantPage({
         <Typography.Title>Select restaurant</Typography.Title>
         {restaurants.map(restaurant => (
           <div key={restaurant.id}>
-            <Link to={`/restaurants/${restaurant.id}`}>{restaurant.name}</Link>
+            <Link to={`${match.path}/${restaurant.id}`}>{restaurant.name}</Link>
           </div>
         ))}
       </div>
     );
   }
 
-  return <Route path="/restaurants/:id" component={Restaurants} />;
+  return <Route path={`${match.path}/:id`} component={Restaurants} />;
 }
 
 export default connect(
