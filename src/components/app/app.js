@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Restaurants from '../restaurants';
 import { Layout } from 'antd';
 import Header from '../header';
@@ -12,13 +12,20 @@ class App extends Component {
         <Layout>
           <Header />
           <Layout.Content>
-            <Route path="/checkout" component={Basket} />
-            <Route path="/restaurants/:id" component={Restaurants} />
+            <Switch>
+              <Route path="/checkout" component={Basket} />
+              <Route path="/restaurants/:id" component={Restaurants} />
+              <Route path="/" component={NotFoundPage} />
+            </Switch>
           </Layout.Content>
         </Layout>
       </div>
     );
   }
+}
+
+function NotFoundPage() {
+  return <div>404 - not found</div>;
 }
 
 export default App;
