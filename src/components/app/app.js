@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Restaurants from '../restaurants';
+import RestaurantPage from '../pages/restaurant-page';
 import { Layout } from 'antd';
 import Header from '../header';
 import Basket from '../basket';
@@ -14,18 +14,14 @@ class App extends Component {
           <Layout.Content>
             <Switch>
               <Route path="/checkout" component={Basket} />
-              <Route path="/restaurants/:id" component={Restaurants} />
-              <Route path="/" component={NotFoundPage} />
+              <Route path="/restaurants" component={RestaurantPage} />
+              <Route path="/" render={() => <div>404 - not found</div>} />
             </Switch>
           </Layout.Content>
         </Layout>
       </div>
     );
   }
-}
-
-function NotFoundPage() {
-  return <div>404 - not found</div>;
 }
 
 export default App;

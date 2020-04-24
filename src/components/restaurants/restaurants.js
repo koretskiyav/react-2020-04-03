@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Col, Row, Tabs } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Restaurant from '../restaurant';
-import Loader from '../loaded';
 
 import styles from './restaurants.module.css';
 
@@ -12,23 +11,10 @@ import {
   restaurantsListSelector,
   restaurantsLoadingSelector
 } from '../../redux/selectors';
-import { loadRestaurants } from '../../redux/actions';
 
 const { TabPane } = Tabs;
 
-function Restaurants({
-  restaurants,
-  loadRestaurants,
-  isLoading,
-  match,
-  history
-}) {
-  useEffect(() => {
-    loadRestaurants();
-  }, [loadRestaurants]);
-
-  if (isLoading) return <Loader />;
-
+function Restaurants({ restaurants, isLoading, match, history }) {
   return (
     <Tabs
       activeKey={match.params.id}
@@ -62,10 +48,7 @@ Restaurants.propTypes = {
   ).isRequired
 };
 
-export default connect(
-  state => ({
-    restaurants: restaurantsListSelector(state),
-    isLoading: restaurantsLoadingSelector(state)
-  }),
-  { loadRestaurants }
-)(Restaurants);
+export default connect(state => ({
+  restaurants: restaurantsListSelector(state),
+  isLoading: restaurantsLoadingSelector(state)
+}))(Restaurants);
