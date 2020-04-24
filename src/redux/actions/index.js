@@ -12,6 +12,13 @@ import {
   LOAD_USERS
 } from '../constants';
 
+import {
+  reviewsLoadingSelector,
+  reviewsLoadedSelector,
+  usersLoadingSelector,
+  usersLoadedSelector
+} from '../selectors';
+
 export const increment = id => ({ type: INCREMENT, payload: { id } });
 export const decrement = id => ({ type: DECREMENT, payload: { id } });
 export const remove = id => ({ type: REMOVE, payload: { id } });
@@ -33,7 +40,13 @@ export const loadProducts = restaurantId => ({
   restaurantId
 });
 
-export const loadReviews = restaurantId => async dispatch => {
+export const loadReviews = restaurantId => async (dispatch, getState) => {
+  const state = getState();
+  const loading = reviewsLoadingSelector(state, { restaurantId });
+  const loaded = reviewsLoadedSelector(state, { restaurantId });
+
+  if (loading || loaded) return;
+
   dispatch({ type: LOAD_REVIEWS + REQUEST, payload: { restaurantId } });
 
   try {
@@ -54,7 +67,13 @@ export const loadReviews = restaurantId => async dispatch => {
   }
 };
 
-export const loadUsers = restaurantId => async dispatch => {
+export const loadUsers = restaurantId => async (dispatch, getState) => {
+  const state = getState();
+  const loading = usersLoadingSelector(state);
+  const loaded = usersLoadedSelector(state);
+
+  if (loading || loaded) return;
+
   dispatch({ type: LOAD_USERS + REQUEST });
 
   try {
