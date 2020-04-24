@@ -13,7 +13,7 @@ class App extends Component {
           <Header />
           <Layout.Content>
             <Route path="/checkout" component={Basket} />
-            <Route path="/restaurants" component={Restaurants} />
+            <Route path="/restaurants/:id" component={Restaurants} />
           </Layout.Content>
         </Layout>
       </div>
