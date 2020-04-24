@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Restaurant from '../restaurant';
+import Loader from '../loaded';
 import ContentTabs from '../content-tabs';
 
 import {
@@ -16,7 +17,7 @@ function Restaurants({ restaurants, loadRestaurants, isLoading }) {
     loadRestaurants();
   }, [loadRestaurants]);
 
-  if (isLoading) return <h3>Loading...</h3>;
+  if (isLoading) return <Loader />;
 
   const items = restaurants.map(restaurant => ({
     tabTitle: restaurant.name,
