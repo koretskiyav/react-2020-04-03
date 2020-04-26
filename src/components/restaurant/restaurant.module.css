@@ -1,3 +1,14 @@
 .tabPane {
   padding-top: 24px;
 }
+
+.contentTabs {
+  height: auto;
+  text-align: center;
+}
+
+@media all and (max-width: 767px) {
+  .tabPane {
+    padding: 16px;
+  }
+}

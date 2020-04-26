@@ -58,6 +58,14 @@ export const orderProductsSelector = createSelector(
   }
 );
 
+export const restaurantIdSelector = productId =>
+  createSelector(
+    restaurantsListSelector,
+    restaurants =>
+      restaurants.find(restaurant => restaurant.menu.indexOf(productId) !== -1)
+        .id
+  );
+
 export const totalSelector = createSelector(
   orderProductsSelector,
   orderProducts =>

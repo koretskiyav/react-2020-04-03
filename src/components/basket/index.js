@@ -24,7 +24,6 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
         />
       ))}
       <hr />
-
       <BasketRow leftContent="Sub-total" rightContent={`${total} $`} />
       <BasketRow leftContent="Delivery costs" rightContent="FREE" />
       <BasketRow leftContent="Total" rightContent={`${total} $`} />

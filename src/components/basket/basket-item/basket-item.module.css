@@ -2,6 +2,10 @@
   margin-bottom: 5px;
 }
 
+.productName {
+  cursor: pointer;
+}
+
 .counter {
   display: inline-block;
 }
