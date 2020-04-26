@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
-import Restaurants from '../../restaurants';
 import Loader from '../../loaded';
 import { connect } from 'react-redux';
 
@@ -10,14 +9,9 @@ import {
 } from '../../../redux/selectors';
 import { loadRestaurants } from '../../../redux/actions';
 import { Typography } from 'antd';
+import RestaurantDetailPage from './restaurant-detail-page';
 
-function RestaurantPage({
-  restaurants,
-  loadRestaurants,
-  isLoading,
-  match,
-  history
-}) {
+function RestaurantPage({ restaurants, loadRestaurants, isLoading, match }) {
   useEffect(() => {
     loadRestaurants();
   }, [loadRestaurants]);
@@ -37,7 +31,7 @@ function RestaurantPage({
     );
   }
 
-  return <Route path={`${match.path}/:id`} component={Restaurants} />;
+  return <Route path={`${match.path}/:id`} component={RestaurantDetailPage} />;
 }
 
 export default connect(
