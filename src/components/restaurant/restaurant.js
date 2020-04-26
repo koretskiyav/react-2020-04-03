@@ -15,7 +15,7 @@ class Restaurant extends Component {
     const contentItems = [
       {
         tabTitle: 'Menu',
-        tabContent: <Menu menu={menu} />
+        tabContent: <Menu menu={menu} restaurantId={id} />
       },
       {
         tabTitle: 'Reviews',

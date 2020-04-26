@@ -1,5 +1,6 @@
 import cx from 'classnames';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Typography } from 'antd';
 
@@ -27,9 +28,11 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
       <BasketRow leftContent="Sub-total" rightContent={`${total} $`} />
       <BasketRow leftContent="Delivery costs" rightContent="FREE" />
       <BasketRow leftContent="Total" rightContent={`${total} $`} />
-      <Button type="primary" size="large" block>
-        order
-      </Button>
+      <Link to="/checkout">
+        <Button type="primary" size="large" block>
+          order
+        </Button>
+      </Link>
     </div>
   );
 }

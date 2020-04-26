@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import LogoImg from './logo.svg';
 
 function Logo() {
   return (
-    <a href={'/'}>
+    <Link to="/restaurants">
       <img src={LogoImg} alt="logo" />
-    </a>
+    </Link>
   );
 }
 

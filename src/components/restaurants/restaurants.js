@@ -1,28 +1,43 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Col, Row, Tabs } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import Restaurant from '../restaurant';
-import ContentTabs from '../content-tabs';
+
+import styles from './restaurants.module.css';
 
 import {
   restaurantsListSelector,
   restaurantsLoadingSelector
 } from '../../redux/selectors';
-import { loadRestaurants } from '../../redux/actions';
 
-function Restaurants({ restaurants, loadRestaurants, isLoading }) {
-  useEffect(() => {
-    loadRestaurants();
-  }, [loadRestaurants]);
+const { TabPane } = Tabs;
 
-  if (isLoading) return <h3>Loading...</h3>;
-
-  const items = restaurants.map(restaurant => ({
-    tabTitle: restaurant.name,
-    tabContent: <Restaurant restaurant={restaurant} />
-  }));
-  return <ContentTabs items={items} />;
+function Restaurants({ restaurants, isLoading, match, history }) {
+  return (
+    <Tabs
+      activeKey={match.params.id}
+      tabPosition="top"
+      animated={false}
+      className={styles.contentTabs}
+      onTabClick={id => history.push(`/restaurants/${id}`)}
+    >
+      {restaurants.map(restaurant => (
+        <TabPane
+          tab={restaurant.name}
+          key={restaurant.id}
+          className={styles.tabPane}
+        >
+          <Row type="flex" justify="center">
+            <Col span={24}>
+              <Restaurant restaurant={restaurant} />
+            </Col>
+          </Row>
+        </TabPane>
+      ))}
+    </Tabs>
+  );
 }
 
 Restaurants.propTypes = {
@@ -33,10 +48,7 @@ Restaurants.propTypes = {
   ).isRequired
 };
 
-export default connect(
-  state => ({
-    restaurants: restaurantsListSelector(state),
-    isLoading: restaurantsLoadingSelector(state)
-  }),
-  { loadRestaurants }
-)(Restaurants);
+export default connect(state => ({
+  restaurants: restaurantsListSelector(state),
+  isLoading: restaurantsLoadingSelector(state)
+}))(Restaurants);

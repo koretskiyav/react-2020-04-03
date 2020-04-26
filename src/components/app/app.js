@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import Restaurants from '../restaurants';
+import { Route, Switch } from 'react-router-dom';
+import RestaurantPage from '../pages/restaurant-page';
 import { Layout } from 'antd';
 import Header from '../header';
+import Basket from '../basket';
 
 class App extends Component {
   render() {
@@ -10,7 +12,11 @@ class App extends Component {
         <Layout>
           <Header />
           <Layout.Content>
-            <Restaurants />
+            <Switch>
+              <Route path="/checkout" component={Basket} />
+              <Route path="/restaurants" component={RestaurantPage} />
+              <Route path="/" render={() => <div>404 - not found</div>} />
+            </Switch>
           </Layout.Content>
         </Layout>
       </div>

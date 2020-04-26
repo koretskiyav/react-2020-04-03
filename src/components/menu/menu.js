@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 import Product from '../product';
 import { Col, Row, Typography } from 'antd';
 import Basket from '../basket';
+import { connect } from 'react-redux';
+import { loadProducts } from '../../redux/actions';
+import {
+  productsLoadingSelector,
+  productsLoadedSelector
+} from '../../redux/selectors';
+import Loader from '../loaded';
 
 class Menu extends Component {
   static propTypes = {
@@ -13,12 +20,23 @@ class Menu extends Component {
     error: null
   };
 
+  componentDidMount() {
+    const { loadProducts, restaurantId, loading, loaded } = this.props;
+    if (!loading && !loaded) {
+      loadProducts(restaurantId);
+    }
+  }
+
   componentDidCatch(error) {
     this.setState({ error });
   }
 
   render() {
-    const { menu } = this.props;
+    const { menu, loading } = this.props;
+
+    if (loading) {
+      return <Loader />;
+    }
 
     if (this.state.error) {
       return <Typography>{this.state.error.message}</Typography>;
@@ -38,4 +56,10 @@ class Menu extends Component {
   }
 }
 
-export default Menu;
+export default connect(
+  (state, props) => ({
+    loading: productsLoadingSelector(state, props),
+    loaded: productsLoadedSelector(state, props)
+  }),
+  { loadProducts }
+)(Menu);

@@ -6,6 +6,7 @@ import { Rate } from 'antd';
 import { averageRatingSelector } from '../../redux/selectors';
 
 function AverageRating({ averageRating }) {
+  if (!averageRating) return null;
   return (
     <div>
       <Rate value={averageRating} disabled allowHalf />
