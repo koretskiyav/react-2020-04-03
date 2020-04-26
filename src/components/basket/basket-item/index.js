@@ -1,15 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Button, Col, Row, Typography } from 'antd';
 import { PlusOutlined, MinusOutlined, CloseOutlined } from '@ant-design/icons';
-import styles from './basket-item.module.css';
 
 import { increment, decrement, remove } from '../../../redux/actions';
+import { restaurantIdSelector } from '../../../redux/selectors';
+
+import styles from './basket-item.module.css';
 
 function BasketItem({
   product,
   amount,
   subtotal,
+  restaurantId,
   increment,
   decrement,
   remove
@@ -17,7 +21,9 @@ function BasketItem({
   return (
     <Row type="flex" align="middle" className={styles.basketItem}>
       <Col span={12} align="left">
-        <Typography.Text>{product.name}</Typography.Text>
+        <Typography.Text className={styles.productName}>
+          <Link to={`/restaurants/${restaurantId}/menu`}>{product.name}</Link>
+        </Typography.Text>
       </Col>
       <Col span={12} align="right">
         <div className={styles.counter}>
@@ -52,4 +58,10 @@ function BasketItem({
   );
 }
 
-export default connect(null, { increment, decrement, remove })(BasketItem);
+const mapStateToProps = (state, props) => ({
+  restaurantId: restaurantIdSelector(props.product.id)(state)
+});
+
+export default connect(mapStateToProps, { increment, decrement, remove })(
+  BasketItem
+);

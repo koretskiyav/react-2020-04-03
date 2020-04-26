@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Row, Tabs } from 'antd';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Restaurant from '../restaurant';
@@ -14,14 +15,14 @@ import {
 
 const { TabPane } = Tabs;
 
-function Restaurants({ restaurants, isLoading, match, history }) {
+function Restaurants({ restaurants, match, history }) {
   return (
     <Tabs
       activeKey={match.params.id}
       tabPosition="top"
       animated={false}
       className={styles.contentTabs}
-      onTabClick={id => history.push(`/restaurants/${id}`)}
+      onTabClick={id => history.push(`/restaurants/${id}/menu`)}
     >
       {restaurants.map(restaurant => (
         <TabPane
@@ -31,7 +32,12 @@ function Restaurants({ restaurants, isLoading, match, history }) {
         >
           <Row type="flex" justify="center">
             <Col span={24}>
-              <Restaurant restaurant={restaurant} />
+              <Route
+                path={`/restaurants/${restaurant.id}/:contentItem`}
+                render={routeProps => (
+                  <Restaurant {...routeProps} restaurant={restaurant} />
+                )}
+              />
             </Col>
           </Row>
         </TabPane>
