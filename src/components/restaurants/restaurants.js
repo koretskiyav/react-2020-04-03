@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 import { Col, Row, Tabs } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -31,7 +32,12 @@ function Restaurants({ restaurants, isLoading, match, history }) {
         >
           <Row type="flex" justify="center">
             <Col span={24}>
-              <Restaurant restaurant={restaurant} />
+              <Route
+                path={`${match.path}/:page`}
+                children={routeProps => (
+                  <Restaurant restaurant={restaurant} routeProps={routeProps} />
+                )}
+              />
             </Col>
           </Row>
         </TabPane>
