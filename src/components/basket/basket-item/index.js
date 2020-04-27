@@ -5,7 +5,7 @@ import { PlusOutlined, MinusOutlined, CloseOutlined } from '@ant-design/icons';
 import styles from './basket-item.module.css';
 
 import { increment, decrement, remove } from '../../../redux/actions';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { restaurantIdSelector } from '../../../redux/selectors';
 
 function BasketItem({
@@ -17,11 +17,18 @@ function BasketItem({
   remove,
   restaurantId
 }) {
+  let history = useHistory();
+
   return (
     <Row type="flex" align="middle" className={styles.basketItem}>
       <Col span={12} align="left">
         <Typography.Text>
-          <Link to={`restaurants/${restaurantId}`}>{product.name}</Link>
+          <Link
+            to={`restaurants/${restaurantId}`}
+            onClick={() => history.replace('/')}
+          >
+            {product.name}
+          </Link>
         </Typography.Text>
       </Col>
       <Col span={12} align="right">
