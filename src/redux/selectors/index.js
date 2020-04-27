@@ -63,3 +63,12 @@ export const totalSelector = createSelector(
   orderProducts =>
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
+
+export const restaurantIdSelector = productId =>
+  createSelector(
+    restaurantsListSelector,
+    restaurants =>
+      restaurants.find(restaurant =>
+        restaurant.menu.find(item => item === productId)
+      ).id
+  );

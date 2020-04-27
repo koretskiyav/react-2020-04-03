@@ -2,26 +2,21 @@ import React from 'react';
 import { Col, Row, Tabs } from 'antd';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-
-import Restaurant from '../restaurant';
-
+import { Route } from 'react-router-dom';
+import SectionPage from '../../components/pages/section-page';
 import styles from './restaurants.module.css';
-
-import {
-  restaurantsListSelector,
-  restaurantsLoadingSelector
-} from '../../redux/selectors';
+import { restaurantsListSelector } from '../../redux/selectors';
 
 const { TabPane } = Tabs;
 
-function Restaurants({ restaurants, isLoading, match, history }) {
+function Restaurants({ restaurants, match, history }) {
   return (
     <Tabs
       activeKey={match.params.id}
       tabPosition="top"
       animated={false}
       className={styles.contentTabs}
-      onTabClick={id => history.push(`/restaurants/${id}`)}
+      onTabClick={id => history.push(`/restaurants/${id}/menu`)}
     >
       {restaurants.map(restaurant => (
         <TabPane
@@ -31,7 +26,11 @@ function Restaurants({ restaurants, isLoading, match, history }) {
         >
           <Row type="flex" justify="center">
             <Col span={24}>
-              <Restaurant restaurant={restaurant} />
+              <Route
+                render={routeProps => (
+                  <SectionPage {...routeProps} restaurant={restaurant} />
+                )}
+              />
             </Col>
           </Row>
         </TabPane>
@@ -49,6 +48,5 @@ Restaurants.propTypes = {
 };
 
 export default connect(state => ({
-  restaurants: restaurantsListSelector(state),
-  isLoading: restaurantsLoadingSelector(state)
+  restaurants: restaurantsListSelector(state)
 }))(Restaurants);
