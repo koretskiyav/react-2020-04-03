@@ -7,9 +7,19 @@ import { Button, Typography } from 'antd';
 import styles from './basket.module.css';
 import BasketRow from './basket-row';
 import BasketItem from './basket-item';
-import { totalSelector, orderProductsSelector } from '../../redux/selectors';
+import {
+  totalSelector,
+  orderProductsSelector,
+  restaurantByProductSelector
+} from '../../redux/selectors';
 
-function Basket({ title = 'Basket', className, total, orderProducts }) {
+function Basket({
+  title = 'Basket',
+  className,
+  total,
+  orderProducts,
+  productRestaurants
+}) {
   return (
     <div className={cx(styles.basket, className)}>
       <Typography.Title level={4} className={styles.title}>
@@ -21,6 +31,7 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
           amount={amount}
           key={product.id}
           subtotal={subtotal}
+          restaurantId={productRestaurants[product.id]}
         />
       ))}
       <hr />
@@ -39,5 +50,6 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
 
 export default connect(state => ({
   total: totalSelector(state),
-  orderProducts: orderProductsSelector(state)
+  orderProducts: orderProductsSelector(state),
+  productRestaurants: restaurantByProductSelector(state)
 }))(Basket);

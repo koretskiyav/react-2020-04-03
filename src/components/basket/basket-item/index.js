@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Col, Row, Typography } from 'antd';
 import { PlusOutlined, MinusOutlined, CloseOutlined } from '@ant-design/icons';
@@ -8,6 +9,7 @@ import { increment, decrement, remove } from '../../../redux/actions';
 
 function BasketItem({
   product,
+  restaurantId,
   amount,
   subtotal,
   increment,
@@ -17,7 +19,9 @@ function BasketItem({
   return (
     <Row type="flex" align="middle" className={styles.basketItem}>
       <Col span={12} align="left">
-        <Typography.Text>{product.name}</Typography.Text>
+        <Link to={`/restaurants/${restaurantId}`}>
+          <Typography.Text>{product.name}</Typography.Text>
+        </Link>
       </Col>
       <Col span={12} align="right">
         <div className={styles.counter}>

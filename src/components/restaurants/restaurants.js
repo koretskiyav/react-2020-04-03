@@ -14,10 +14,10 @@ import {
 
 const { TabPane } = Tabs;
 
-function Restaurants({ restaurants, isLoading, match, history }) {
+function Restaurants({ restaurants, isLoading, restaurantId, page, history }) {
   return (
     <Tabs
-      activeKey={match.params.id}
+      activeKey={restaurantId}
       tabPosition="top"
       animated={false}
       className={styles.contentTabs}
@@ -31,7 +31,11 @@ function Restaurants({ restaurants, isLoading, match, history }) {
         >
           <Row type="flex" justify="center">
             <Col span={24}>
-              <Restaurant restaurant={restaurant} />
+              <Restaurant
+                restaurant={restaurant}
+                page={page}
+                history={history}
+              />
             </Col>
           </Row>
         </TabPane>
