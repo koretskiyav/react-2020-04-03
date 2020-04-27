@@ -13,7 +13,10 @@ class App extends Component {
           <Header />
           <Layout.Content>
             <Switch>
-              <Route path="/checkout" component={Basket} />
+              <Route
+                path="/checkout"
+                render={props => <Basket isBasketPage={true} {...props} />}
+              />
               <Route path="/restaurants" component={RestaurantPage} />
               <Route path="/" render={() => <div>404 - not found</div>} />
             </Switch>

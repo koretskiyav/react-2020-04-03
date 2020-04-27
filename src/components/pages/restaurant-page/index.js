@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import Restaurants from '../../restaurants';
 import Loader from '../../loaded';
 import { connect } from 'react-redux';
@@ -36,8 +36,14 @@ function RestaurantPage({
       </div>
     );
   }
-
-  return <Route path={`${match.path}/:id`} component={Restaurants} />;
+  // Не уверен насчёт этого, сделал чтобы изначально редирект шёл на меню, потому не очень выглядит когда переходишь на ресторан а там голые табы
+  return (
+    <Switch>
+      <Route path={`${match.path}/:id/:tabKey`} component={Restaurants} />;
+      {/* <Route path={`${match.path}/:id/`} component={Restaurants} />; */}
+      <Redirect from={`${match.path}/:id/`} to={`${match.path}/:id/menu`} />
+    </Switch>
+  );
 }
 
 export default connect(
