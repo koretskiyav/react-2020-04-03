@@ -32,9 +32,9 @@ class Menu extends Component {
   }
 
   render() {
-    const { menu, loading } = this.props;
+    const { menu, loading, loaded } = this.props;
 
-    if (loading) {
+    if (loading || !loaded) {
       return <Loader />;
     }
 

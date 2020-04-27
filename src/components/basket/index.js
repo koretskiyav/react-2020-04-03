@@ -9,18 +9,26 @@ import BasketRow from './basket-row';
 import BasketItem from './basket-item';
 import { totalSelector, orderProductsSelector } from '../../redux/selectors';
 
-function Basket({ title = 'Basket', className, total, orderProducts }) {
+function Basket({
+  title = 'Basket',
+  className,
+  total,
+  orderProducts,
+  isBasketPage
+}) {
   return (
     <div className={cx(styles.basket, className)}>
       <Typography.Title level={4} className={styles.title}>
         {title}
       </Typography.Title>
-      {orderProducts.map(({ product, amount, subtotal }) => (
+      {orderProducts.map(({ product, amount, subtotal, id }) => (
         <BasketItem
           product={product}
           amount={amount}
           key={product.id}
           subtotal={subtotal}
+          id={id}
+          isBasketPage={isBasketPage}
         />
       ))}
       <hr />

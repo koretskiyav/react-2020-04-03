@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Col, Row, Tabs } from 'antd';
 
 import Menu from '../menu';
 import AverageRating from '../average-rating';
 import Reviews from '../reviews';
 import Hero from '../hero';
-import ContentTabs from '../content-tabs';
 
 import styles from './restaurant.module.css';
+
 class Restaurant extends Component {
   render() {
     const { id, name, menu, reviews } = this.props.restaurant;
+    const { TabPane } = Tabs;
+    const { history, match } = this.props;
+    console.log(history, match);
 
     const contentItems = [
       {
         tabTitle: 'Menu',
-        tabContent: <Menu menu={menu} restaurantId={id} />
+        tabContent: <Menu menu={menu} restaurantId={id} />,
+        tabKey: 'menu'
       },
       {
         tabTitle: 'Reviews',
-        tabContent: <Reviews reviews={reviews} restaurantId={id} />
+        tabContent: <Reviews reviews={reviews} restaurantId={id} />,
+        tabKey: 'reviews'
       }
     ];
 
@@ -28,7 +34,28 @@ class Restaurant extends Component {
         <Hero heading={name}>
           <AverageRating ids={reviews} />
         </Hero>
-        <ContentTabs items={contentItems} tabPaneClassName={styles.tabPane} />
+        <Tabs
+          activeKey={match.params.tabKey}
+          tabPosition="top"
+          animated={false}
+          className={styles.contentTabs}
+          onTabClick={tabKey =>
+            history.push(history.push(`/restaurants/${id}/${tabKey}`))
+          }
+        >
+          {contentItems.map(item => (
+            <TabPane
+              tab={item.tabTitle}
+              key={item.tabKey}
+              className={styles.tabPane}
+            >
+              <Row type="flex" justify="center">
+                <Col span={24}>{item.tabContent}</Col>
+              </Row>
+            </TabPane>
+          ))}
+        </Tabs>
+        ;
       </div>
     );
   }

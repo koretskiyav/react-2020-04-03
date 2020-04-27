@@ -31,7 +31,11 @@ function Restaurants({ restaurants, isLoading, match, history }) {
         >
           <Row type="flex" justify="center">
             <Col span={24}>
-              <Restaurant restaurant={restaurant} />
+              <Restaurant
+                restaurant={restaurant}
+                history={history}
+                match={match}
+              />
             </Col>
           </Row>
         </TabPane>

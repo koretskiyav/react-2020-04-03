@@ -11,8 +11,6 @@ import { productAmountSelector, productSelector } from '../../redux/selectors';
 function Product(props) {
   const { product, amount = 0, onIncrement, onDecrement } = props;
 
-  if (!product) return null;
-
   return (
     <Card className={styles.productDetailedOrderCard}>
       <Row type="flex" justify="space-between">
