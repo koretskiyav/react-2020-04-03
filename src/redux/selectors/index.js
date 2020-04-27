@@ -59,14 +59,18 @@ export const orderProductsSelector = createSelector(
 );
 
 export const restaurantByProductSelector = createSelector(
-  restaurantsSelector,
-  restaurants => {
-    let restaurantByProduct = {};
-    Object.values(restaurants).forEach(restaurant => {
-      restaurant.menu.forEach(id => (restaurantByProduct[id] = restaurant.id));
-    });
-    return restaurantByProduct;
-  }
+  restaurantsListSelector,
+  restaurants =>
+    restaurants.reduce(
+      (restByProduct, restaurant) => ({
+        ...restByProduct,
+        ...restaurant.menu.reduce(
+          (acc, id) => ({ ...acc, [id]: restaurant.id }),
+          {}
+        )
+      }),
+      {}
+    )
 );
 
 export const totalSelector = createSelector(
