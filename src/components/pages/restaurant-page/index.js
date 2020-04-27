@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import Restaurants from '../../restaurants';
 import Loader from '../../loaded';
 import { connect } from 'react-redux';
@@ -37,7 +37,12 @@ function RestaurantPage({
     );
   }
 
-  return <Route path={`${match.path}/:id`} component={Restaurants} />;
+  return (
+    <Switch>
+      <Route path={`${match.path}/:id/:tabKey`} component={Restaurants} />;
+      <Route path={`${match.path}/:id/`} component={Restaurants} />;
+    </Switch>
+  );
 }
 
 export default connect(
