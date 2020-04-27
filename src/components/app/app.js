@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import RestaurantPage from '../pages/restaurant-page';
 import { Layout } from 'antd';
 import Header from '../header';
@@ -15,7 +15,7 @@ class App extends Component {
             <Switch>
               <Route path="/checkout" component={Basket} />
               <Route path="/restaurants" component={RestaurantPage} />
-              <Route path="/" render={() => <div>404 - not found</div>} />
+              <Route path="/" render={() => <Redirect to="/restaurants" />} />
             </Switch>
           </Layout.Content>
         </Layout>

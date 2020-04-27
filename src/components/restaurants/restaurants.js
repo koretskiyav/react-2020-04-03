@@ -11,10 +11,13 @@ import {
   restaurantsListSelector,
   restaurantsLoadingSelector
 } from '../../redux/selectors';
+import { Route } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
 function Restaurants({ restaurants, isLoading, match, history }) {
+  console.log('restaurats props', match, history);
+
   return (
     <Tabs
       activeKey={match.params.id}
@@ -31,7 +34,17 @@ function Restaurants({ restaurants, isLoading, match, history }) {
         >
           <Row type="flex" justify="center">
             <Col span={24}>
-              <Restaurant restaurant={restaurant} />
+              <Route
+                path={`${match.path}`}
+                render={() => (
+                  <Restaurant
+                    restaurant={restaurant}
+                    match={match}
+                    history={history}
+                  />
+                )}
+              />
+              ;
             </Col>
           </Row>
         </TabPane>

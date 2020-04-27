@@ -5,8 +5,10 @@ import { PlusOutlined, MinusOutlined, CloseOutlined } from '@ant-design/icons';
 import styles from './basket-item.module.css';
 
 import { increment, decrement, remove } from '../../../redux/actions';
+import { Link } from 'react-router-dom';
 
 function BasketItem({
+  id,
   product,
   amount,
   subtotal,
@@ -17,7 +19,9 @@ function BasketItem({
   return (
     <Row type="flex" align="middle" className={styles.basketItem}>
       <Col span={12} align="left">
-        <Typography.Text>{product.name}</Typography.Text>
+        <Link to={`/restaurants/${id}/menu`}>
+          <Typography.Text>{product.name}</Typography.Text>
+        </Link>
       </Col>
       <Col span={12} align="right">
         <div className={styles.counter}>
