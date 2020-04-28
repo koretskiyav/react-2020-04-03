@@ -8,12 +8,13 @@ import styles from './basket.module.css';
 import BasketRow from './basket-row';
 import BasketItem from './basket-item';
 import { totalSelector, orderProductsSelector } from '../../redux/selectors';
+import { Consumer as UserConsumer } from '../../contexts/user';
 
 function Basket({ title = 'Basket', className, total, orderProducts }) {
   return (
     <div className={cx(styles.basket, className)}>
       <Typography.Title level={4} className={styles.title}>
-        {title}
+        <UserConsumer>{({ userName }) => `${userName}'s order`}</UserConsumer>
       </Typography.Title>
       {orderProducts.map(({ product, amount, subtotal, restaurantId }) => (
         <BasketItem

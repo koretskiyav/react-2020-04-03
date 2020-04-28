@@ -1,15 +1,23 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import RestaurantPage from '../pages/restaurant-page';
 import { Layout } from 'antd';
 import Header from '../header';
 import Basket from '../basket';
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <Layout>
+import { Provider as UserProvider } from '../../contexts/user';
+
+function App() {
+  const [userName, setName] = useState('');
+
+  useEffect(() => {
+    setInterval(() => setName(Math.random().toString()), 3000);
+  }, []);
+
+  return (
+    <div>
+      <Layout>
+        <UserProvider value={{ userName, setName }}>
           <Header />
           <Layout.Content>
             <Switch>
@@ -19,10 +27,10 @@ class App extends Component {
               <Route path="/" render={() => <div>404 - not found</div>} />
             </Switch>
           </Layout.Content>
-        </Layout>
-      </div>
-    );
-  }
+        </UserProvider>
+      </Layout>
+    </div>
+  );
 }
 
 export default App;
