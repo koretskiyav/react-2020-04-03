@@ -15,6 +15,7 @@ class App extends Component {
             <Switch>
               <Route path="/checkout" component={Basket} />
               <Route path="/restaurants" component={RestaurantPage} />
+              <Route path="/error" render={() => <h1>Error page</h1>} />
               <Route path="/" render={() => <div>404 - not found</div>} />
             </Switch>
           </Layout.Content>

@@ -18,6 +18,7 @@ import {
   usersLoadingSelector,
   usersLoadedSelector
 } from '../selectors';
+import { replace } from 'connected-react-router';
 
 export const increment = id => ({ type: INCREMENT, payload: { id } });
 export const decrement = id => ({ type: DECREMENT, payload: { id } });
@@ -77,11 +78,12 @@ export const loadUsers = restaurantId => async (dispatch, getState) => {
   dispatch({ type: LOAD_USERS + REQUEST });
 
   try {
-    const data = await fetch('/api/users');
+    const data = await fetch('/api/user');
     const response = await data.json();
 
     dispatch({ type: LOAD_USERS + SUCCESS, response });
   } catch (error) {
+    dispatch(replace('/error'));
     dispatch({ type: LOAD_USERS + FAILURE, error });
   }
 };
