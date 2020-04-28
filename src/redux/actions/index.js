@@ -78,7 +78,7 @@ export const loadUsers = restaurantId => async (dispatch, getState) => {
   dispatch({ type: LOAD_USERS + REQUEST });
 
   try {
-    const data = await fetch('/api/user');
+    const data = await fetch('/api/users');
     const response = await data.json();
 
     dispatch({ type: LOAD_USERS + SUCCESS, response });
