@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Restaurants from '../../restaurants';
 import Loader from '../../loaded';
 import { connect } from 'react-redux';
 
 import {
   restaurantsListSelector,
+  restaurantsLoadedSelector,
   restaurantsLoadingSelector
 } from '../../../redux/selectors';
 import { loadRestaurants } from '../../../redux/actions';
@@ -15,34 +16,36 @@ function RestaurantPage({
   restaurants,
   loadRestaurants,
   isLoading,
+  isLoaded,
   match,
   history
 }) {
   useEffect(() => {
-    loadRestaurants();
-  }, [loadRestaurants]);
+    if (!isLoading && !isLoaded) {
+      loadRestaurants();
+    }
+  }, [isLoaded, isLoading, loadRestaurants]);
 
   if (isLoading) return <Loader />;
 
   if (match.isExact) {
     return (
-      <div>
-        <Typography.Title>Select restaurant</Typography.Title>
-        {restaurants.map(restaurant => (
-          <div key={restaurant.id}>
-            <Link to={`${match.path}/${restaurant.id}`}>{restaurant.name}</Link>
-          </div>
-        ))}
-      </div>
+      <>
+        <Restaurants match={match} history={history} />
+        <Typography.Title style={{ textAlign: 'center' }}>
+          Select restaurant
+        </Typography.Title>
+      </>
     );
   }
 
-  return <Route path={`${match.path}/:id`} component={Restaurants} />;
+  return <Route path={`${match.path}/:id/:tab`} component={Restaurants} />;
 }
 
 export default connect(
   state => ({
     restaurants: restaurantsListSelector(state),
+    isLoaded: restaurantsLoadedSelector(state),
     isLoading: restaurantsLoadingSelector(state)
   }),
   { loadRestaurants }

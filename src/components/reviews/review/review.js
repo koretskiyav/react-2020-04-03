@@ -8,6 +8,8 @@ import { reviewWitUserSelector } from '../../../redux/selectors';
 import styles from './review.module.css';
 
 const Review = ({ review }) => {
+  if (!review) return null;
+
   const { user = 'Anonymous', text, rating } = review;
 
   return (
