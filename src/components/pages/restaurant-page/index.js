@@ -39,7 +39,7 @@ function RestaurantPage({
     );
   }
 
-  return <Route path={`${match.path}/:id/:tab`} component={Restaurants} />;
+  return <Route path={`${match.path}/:id`} component={Restaurants} />;
 }
 
 export default connect(
