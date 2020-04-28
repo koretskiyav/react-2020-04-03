@@ -21,7 +21,7 @@ function Restaurants({ restaurants, isLoading, match, history }) {
       tabPosition="top"
       animated={false}
       className={styles.contentTabs}
-      onTabClick={id => history.push(`/restaurants/${id}`)}
+      onTabClick={id => history.push(`/restaurants/${id}/menu`)}
     >
       {restaurants.map(restaurant => (
         <TabPane

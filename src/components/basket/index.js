@@ -15,12 +15,13 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
       <Typography.Title level={4} className={styles.title}>
         {title}
       </Typography.Title>
-      {orderProducts.map(({ product, amount, subtotal }) => (
+      {orderProducts.map(({ product, amount, subtotal, restaurantId }) => (
         <BasketItem
           product={product}
           amount={amount}
           key={product.id}
           subtotal={subtotal}
+          restaurantId={restaurantId}
         />
       ))}
       <hr />

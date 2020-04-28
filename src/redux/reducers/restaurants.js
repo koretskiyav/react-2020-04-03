@@ -24,9 +24,13 @@ export default (state = new RestaurantsRecord(), action) => {
     case LOAD_RESTAURANTS + SUCCESS:
       return state
         .set('loading', false)
+        .set('loaded', true)
         .set('entities', fromJS(arrToMap(response)));
     case LOAD_RESTAURANTS + FAILURE:
-      return state.set('loading', false).set('error', error);
+      return state
+        .set('loading', false)
+        .set('loaded', false)
+        .set('error', error);
     case ADD_REVIEW:
       return state.updateIn(
         ['entities', payload.restaurantId, 'reviews'],
