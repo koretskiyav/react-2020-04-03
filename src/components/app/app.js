@@ -8,10 +8,10 @@ import Basket from '../basket';
 import { Provider as UserProvider } from '../../contexts/user';
 
 function App() {
-  const [userName, setName] = useState('');
+  const [userName, setName] = useState('Ivan');
 
   useEffect(() => {
-    setInterval(() => setName(Math.random().toString()), 3000);
+    // setInterval(() => setName(Math.random().toString()), 3000);
   }, []);
 
   return (
