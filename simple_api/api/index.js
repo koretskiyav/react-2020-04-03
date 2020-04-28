@@ -50,4 +50,8 @@ router.get('/users', function(req, res, next) {
   reply(res, mocks.users);
 });
 
+router.get('/order', function(req, res, next) {
+  reply(res, true, 3000);
+});
+
 module.exports = router;
