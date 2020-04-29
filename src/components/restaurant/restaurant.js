@@ -56,7 +56,7 @@ class Restaurant extends Component {
               );
             }}
           />
-          <Redirect from="/restaurants/:id" to={`/restaurants/${id}/reviews`} />
+          <Redirect from="/restaurants/:id" to={`/restaurants/${id}/menu`} />
         </Switch>
       </div>
     );
