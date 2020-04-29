@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import Restaurants from '../../restaurants';
 import Loader from '../../loaded';
 import { connect } from 'react-redux';
@@ -17,8 +17,7 @@ function RestaurantPage({
   loadRestaurants,
   isLoading,
   isLoaded,
-  match,
-  history
+  match
 }) {
   useEffect(() => {
     if (!isLoading && !isLoaded) {
@@ -28,15 +27,8 @@ function RestaurantPage({
 
   if (isLoading) return <Loader />;
 
-  if (match.isExact) {
-    return (
-      <>
-        <Restaurants match={match} history={history} />
-        <Typography.Title style={{ textAlign: 'center' }}>
-          Select restaurant
-        </Typography.Title>
-      </>
-    );
+  if (match.isExact && isLoaded) {
+    return <Redirect to={`${match.path}/${restaurants[0].id}`} />;
   }
 
   return <Route path={`${match.path}/:id`} component={Restaurants} />;
