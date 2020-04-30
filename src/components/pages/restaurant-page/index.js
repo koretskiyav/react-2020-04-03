@@ -10,7 +10,6 @@ import {
   restaurantsLoadingSelector
 } from '../../../redux/selectors';
 import { loadRestaurants } from '../../../redux/actions';
-import { Typography } from 'antd';
 
 function RestaurantPage({
   restaurants,

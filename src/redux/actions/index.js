@@ -9,16 +9,18 @@ import {
   SUCCESS,
   FAILURE,
   LOAD_PRODUCTS,
-  LOAD_USERS
+  LOAD_USERS,
+  LOAD_CHECKOUT
 } from '../constants';
 
 import {
   reviewsLoadingSelector,
   reviewsLoadedSelector,
   usersLoadingSelector,
-  usersLoadedSelector
+  usersLoadedSelector,
+  checkoutLoadingSelector
 } from '../selectors';
-import { replace } from 'connected-react-router';
+import { replace, push } from 'connected-react-router';
 
 export const increment = id => ({ type: INCREMENT, payload: { id } });
 export const decrement = id => ({ type: DECREMENT, payload: { id } });
@@ -68,7 +70,7 @@ export const loadReviews = restaurantId => async (dispatch, getState) => {
   }
 };
 
-export const loadUsers = restaurantId => async (dispatch, getState) => {
+export const loadUsers = _ => async (dispatch, getState) => {
   const state = getState();
   const loading = usersLoadingSelector(state);
   const loaded = usersLoadedSelector(state);
@@ -85,5 +87,27 @@ export const loadUsers = restaurantId => async (dispatch, getState) => {
   } catch (error) {
     dispatch(replace('/error'));
     dispatch({ type: LOAD_USERS + FAILURE, error });
+  }
+};
+
+export const loadCheckout = _ => async (dispatch, getState) => {
+  const state = getState();
+  const loading = checkoutLoadingSelector(state);
+
+  if (loading) return;
+
+  dispatch({ type: LOAD_CHECKOUT + REQUEST });
+
+  try {
+    const data = await fetch('/api/order');
+    const response = await data.json();
+
+    if (response) {
+      dispatch(push('/orderSucces'));
+      dispatch({ type: LOAD_CHECKOUT + SUCCESS });
+    }
+  } catch (error) {
+    dispatch(replace('/error'));
+    dispatch({ type: LOAD_CHECKOUT + FAILURE, error });
   }
 };

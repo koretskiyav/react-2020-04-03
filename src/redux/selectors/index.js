@@ -19,6 +19,8 @@ export const reviewsLoadedSelector = (state, props) =>
   state.reviews.getIn(['loaded', props.restaurantId]);
 export const usersLoadingSelector = state => state.users.loading;
 export const usersLoadedSelector = state => state.users.loaded;
+export const currentLocationPath = state => state.router.location.pathname;
+export const checkoutLoadingSelector = state => state.checkout.loading;
 
 export const restaurantsListSelector = mapToList(restaurantsSelector);
 export const productAmountSelector = getById(orderSelector);
