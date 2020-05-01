@@ -9,16 +9,18 @@ import {
   SUCCESS,
   FAILURE,
   LOAD_PRODUCTS,
-  LOAD_USERS
+  LOAD_USERS,
+  MAKE_ORDER
 } from '../constants';
 
 import {
   reviewsLoadingSelector,
   reviewsLoadedSelector,
   usersLoadingSelector,
-  usersLoadedSelector
+  usersLoadedSelector,
+  orderSelector
 } from '../selectors';
-import { replace } from 'connected-react-router';
+import { replace, push } from 'connected-react-router';
 
 export const increment = id => ({ type: INCREMENT, payload: { id } });
 export const decrement = id => ({ type: DECREMENT, payload: { id } });
@@ -85,5 +87,22 @@ export const loadUsers = restaurantId => async (dispatch, getState) => {
   } catch (error) {
     dispatch(replace('/error'));
     dispatch({ type: LOAD_USERS + FAILURE, error });
+  }
+};
+
+export const makeOrder = () => async (dispatch, getState) => {
+  const state = getState();
+  const order = orderSelector(state);
+
+  dispatch({ type: MAKE_ORDER + REQUEST, order });
+
+  try {
+    const data = await fetch('/api/order');
+    const response = await data.json();
+
+    dispatch({ type: MAKE_ORDER + SUCCESS, order, response });
+    dispatch(push('/order-success'));
+  } catch (error) {
+    dispatch({ type: MAKE_ORDER + FAILURE, order, error });
   }
 };

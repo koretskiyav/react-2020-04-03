@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
+import { createMatchSelector } from 'connected-react-router';
 import { getAverage, getById, idsSelector, mapToList } from './utils';
 
 const restaurantsSelector = state => state.restaurants.entities.toJS();
 const productsSelector = state => state.products.entities;
-const orderSelector = state => state.order;
+export const orderSelector = state => state.order.entities;
 const reviewsSelector = state => state.reviews.get('entities').toJS();
 const usersSelector = state => state.users.entities;
 
@@ -19,6 +20,8 @@ export const reviewsLoadedSelector = (state, props) =>
   state.reviews.getIn(['loaded', props.restaurantId]);
 export const usersLoadingSelector = state => state.users.loading;
 export const usersLoadedSelector = state => state.users.loaded;
+export const orderLoadingSelector = state => state.order.loading;
+export const orderErrorSelector = state => state.order.error;
 
 export const restaurantsListSelector = mapToList(restaurantsSelector);
 export const productAmountSelector = getById(orderSelector);
@@ -68,3 +71,5 @@ export const totalSelector = createSelector(
   orderProducts =>
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
+
+export const checkoutMatchPageSelector = createMatchSelector('/checkout');

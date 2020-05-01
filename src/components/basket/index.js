@@ -9,15 +9,42 @@ import styles from './basket.module.css';
 import './basket.css';
 import BasketRow from './basket-row';
 import BasketItem from './basket-item';
-import { totalSelector, orderProductsSelector } from '../../redux/selectors';
+import Loaded from '../loaded';
+import {
+  totalSelector,
+  orderProductsSelector,
+  checkoutMatchPageSelector,
+  orderLoadingSelector,
+  orderErrorSelector
+} from '../../redux/selectors';
+import { makeOrder } from '../../redux/actions';
 import { Consumer as UserConsumer } from '../../contexts/user';
 
-function Basket({ title = 'Basket', className, total, orderProducts }) {
+function Basket({
+  title = 'Basket',
+  className,
+  total,
+  orderProducts,
+  checkoutMatch,
+  makeOrder,
+  loading,
+  error
+}) {
   return (
     <div className={cx(styles.basket, className)}>
-      <Typography.Title level={4} className={styles.title}>
+      {loading && (
+        <div className={styles.loading}>
+          <Loaded />
+        </div>
+      )}
+      <Typography.Title level={3} className={styles.title}>
         <UserConsumer>{({ userName }) => `${userName}'s order`}</UserConsumer>
       </Typography.Title>
+      {error && (
+        <Typography.Title level={4} className={styles.error}>
+          Oops, something went wrong :(
+        </Typography.Title>
+      )}
       <TransitionGroup>
         {orderProducts.map(({ product, amount, subtotal, restaurantId }) => (
           <CSSTransition
@@ -39,16 +66,28 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
       <BasketRow leftContent="Sub-total" rightContent={`${total} $`} />
       <BasketRow leftContent="Delivery costs" rightContent="FREE" />
       <BasketRow leftContent="Total" rightContent={`${total} $`} />
-      <Link to="/checkout">
-        <Button type="primary" size="large" block>
-          order
+      {checkoutMatch ? (
+        <Button type="primary" size="large" block onClick={makeOrder}>
+          make order
         </Button>
-      </Link>
+      ) : (
+        <Link to="/checkout">
+          <Button type="primary" size="large" block>
+            go to checkout
+          </Button>
+        </Link>
+      )}
     </div>
   );
 }
 
-export default connect(state => ({
-  total: totalSelector(state),
-  orderProducts: orderProductsSelector(state)
-}))(Basket);
+export default connect(
+  state => ({
+    total: totalSelector(state),
+    orderProducts: orderProductsSelector(state),
+    checkoutMatch: checkoutMatchPageSelector(state),
+    loading: orderLoadingSelector(state),
+    error: orderErrorSelector(state)
+  }),
+  { makeOrder }
+)(Basket);
