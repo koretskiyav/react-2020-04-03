@@ -7,9 +7,12 @@ import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 
 import { increment, decrement } from '../../redux/actions';
 import { productAmountSelector, productSelector } from '../../redux/selectors';
+import { useMoney } from '../../hooks/use-money';
 
 function Product(props) {
   const { product, amount = 0, onIncrement, onDecrement } = props;
+
+  const m = useMoney();
 
   if (!product) return null;
 
@@ -23,7 +26,7 @@ function Product(props) {
           <Typography.Paragraph className={styles.description}>
             {product.ingredients.join(', ')}
           </Typography.Paragraph>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>{m(product.price)}</div>
         </Col>
         <Col xs={8} md={6} lg={4} align="right">
           <div className={styles.counter}>
