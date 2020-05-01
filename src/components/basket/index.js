@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -19,8 +19,9 @@ import { Consumer as UserConsumer } from '../../contexts/user';
 import { loadCheckout } from '../../redux/actions';
 import Loader from '../loaded';
 
+import currencyContext from '../../contexts/currency';
+
 function Basket({
-  title = 'Basket',
   className,
   total,
   orderProducts,
@@ -28,6 +29,8 @@ function Basket({
   loadCheckout,
   isLoading
 }) {
+  const { calcCurrency } = useContext(currencyContext);
+
   if (isLoading) return <Loader />;
 
   const conditionLoadCheckout = _ =>
@@ -56,9 +59,9 @@ function Basket({
       </TransitionGroup>
       <hr />
 
-      <BasketRow leftContent="Sub-total" rightContent={`${total} $`} />
+      <BasketRow leftContent="Sub-total" rightContent={calcCurrency(total)} />
       <BasketRow leftContent="Delivery costs" rightContent="FREE" />
-      <BasketRow leftContent="Total" rightContent={`${total} $`} />
+      <BasketRow leftContent="Total" rightContent={calcCurrency(total)} />
       <Link to="/checkout">
         <Button
           type="primary"

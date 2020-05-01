@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Col, Row, Typography } from 'antd';
@@ -6,6 +6,8 @@ import { PlusOutlined, MinusOutlined, CloseOutlined } from '@ant-design/icons';
 import styles from './basket-item.module.css';
 
 import { increment, decrement, remove } from '../../../redux/actions';
+
+import currencyContext from '../../../contexts/currency';
 
 function BasketItem({
   product,
@@ -16,6 +18,7 @@ function BasketItem({
   decrement,
   remove
 }) {
+  const { currency, calcCurrency } = useContext(currencyContext);
   return (
     <Row type="flex" align="middle" className={styles.basketItem}>
       <Col span={12} align="left">
@@ -40,9 +43,9 @@ function BasketItem({
             icon={<PlusOutlined />}
             onClick={() => increment(product.id)}
           />
-          <Typography.Text
-            className={styles.count}
-          >{`${subtotal} $`}</Typography.Text>
+          <Typography.Text className={styles.count}>
+            {calcCurrency(subtotal)}
+          </Typography.Text>
           <Button
             type="link"
             size="small"
