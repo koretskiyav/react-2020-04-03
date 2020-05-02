@@ -18,7 +18,7 @@ function BasketItem({
   decrement,
   remove
 }) {
-  const { currency, calcCurrency } = useContext(currencyContext);
+  const { calcCurrency } = useContext(currencyContext);
   return (
     <Row type="flex" align="middle" className={styles.basketItem}>
       <Col span={12} align="left">

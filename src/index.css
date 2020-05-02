@@ -58,6 +58,10 @@ hr {
   background-color: #fff !important;
 }
 
+.ant-card {
+  transition: none;
+}
+
 .ant-card-body {
   padding: 20px 26px !important;
 }

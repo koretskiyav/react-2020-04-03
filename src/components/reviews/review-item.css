@@ -1,0 +1,12 @@
+.review-item-animation-enter-active {
+  animation: move 500ms ease-in;
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(116%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

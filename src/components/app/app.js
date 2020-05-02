@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import RestaurantPage from '../pages/restaurant-page';
 import { Layout } from 'antd';
@@ -20,6 +20,8 @@ function App() {
         return 0.9 * value;
       case 'RUB':
         return 70 * value;
+      default:
+        return value;
     }
   };
 
