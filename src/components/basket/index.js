@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -11,8 +11,15 @@ import BasketRow from './basket-row';
 import BasketItem from './basket-item';
 import { totalSelector, orderProductsSelector } from '../../redux/selectors';
 import { Consumer as UserConsumer } from '../../contexts/user';
+import currencyContext, { currencies } from '../../contexts/currency';
 
 function Basket({ title = 'Basket', className, total, orderProducts }) {
+  const { currency } = useContext(currencyContext);
+  // fix rounding errors
+  const totalInCurrency = useMemo(
+    () => (total * currencies[currency].rate).toFixed(2),
+    [total, currency]
+  );
   return (
     <div className={cx(styles.basket, className)}>
       <Typography.Title level={4} className={styles.title}>
@@ -36,9 +43,15 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
       </TransitionGroup>
       <hr />
 
-      <BasketRow leftContent="Sub-total" rightContent={`${total} $`} />
+      <BasketRow
+        leftContent="Sub-total"
+        rightContent={`${totalInCurrency} ${currencies[currency].symbol}`}
+      />
       <BasketRow leftContent="Delivery costs" rightContent="FREE" />
-      <BasketRow leftContent="Total" rightContent={`${total} $`} />
+      <BasketRow
+        leftContent="Total"
+        rightContent={`${totalInCurrency} ${currencies[currency].symbol}`}
+      />
       <Link to="/checkout">
         <Button type="primary" size="large" block>
           order
