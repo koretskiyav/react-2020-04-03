@@ -16,6 +16,7 @@ import {
 } from '../../redux/selectors';
 import { Consumer as UserConsumer } from '../../contexts/user';
 import { sendOrder } from '../../redux/actions';
+import { Consumer as CurrencyConsumer } from '../../contexts/currency';
 
 import styles from './basket.module.css';
 import './basket.css';
@@ -67,9 +68,21 @@ function Basket({
         ))}
       </TransitionGroup>
       <hr />
-      <BasketRow leftContent="Sub-total" rightContent={`${total} $`} />
-      <BasketRow leftContent="Delivery costs" rightContent="FREE" />
-      <BasketRow leftContent="Total" rightContent={`${total} $`} />
+      <CurrencyConsumer>
+        {({ sign, withCurrency }) => (
+          <React.Fragment>
+            <BasketRow
+              leftContent="Sub-total"
+              rightContent={`${withCurrency(total)} ${sign}`}
+            />
+            <BasketRow leftContent="Delivery costs" rightContent="FREE" />
+            <BasketRow
+              leftContent="Total"
+              rightContent={`${withCurrency(total)} ${sign}`}
+            />
+          </React.Fragment>
+        )}
+      </CurrencyConsumer>
       <Button
         loading={orderSending}
         disabled={orderProducts.length === 0}
