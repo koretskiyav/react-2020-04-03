@@ -1,19 +1,51 @@
 import cx from 'classnames';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
-import { Button, Typography } from 'antd';
+import { Button, Typography, Alert } from 'antd';
+import { Redirect } from 'react-router-dom';
+
+import BasketRow from './basket-row';
+import BasketItem from './basket-item';
+import {
+  totalSelector,
+  orderProductsSelector,
+  orderSendingSelector,
+  orderSentSelector,
+  orderSentError
+} from '../../redux/selectors';
+import { Consumer as UserConsumer } from '../../contexts/user';
+import { sendOrder } from '../../redux/actions';
 
 import styles from './basket.module.css';
 import './basket.css';
-import BasketRow from './basket-row';
-import BasketItem from './basket-item';
-import { totalSelector, orderProductsSelector } from '../../redux/selectors';
-import { Consumer as UserConsumer } from '../../contexts/user';
 
-function Basket({ title = 'Basket', className, total, orderProducts }) {
-  return (
+function Basket({
+  className,
+  total,
+  orderProducts,
+  match,
+  history,
+  orderSending,
+  orderSent,
+  sendOrder,
+  orderSentError
+}) {
+  const handleClick = () => {
+    if (match?.path === '/checkout') {
+      sendOrder();
+    } else {
+      history.push('/checkout');
+    }
+  };
+
+  if (orderProducts.length === 0 && match?.path === '/checkout') {
+    return <Redirect from="/checkout" to={`/restaurants`} />;
+  }
+
+  return orderSent ? (
+    <Redirect from="/checkout" to="/checkoutDone" />
+  ) : (
     <div className={cx(styles.basket, className)}>
       <Typography.Title level={4} className={styles.title}>
         <UserConsumer>{({ userName }) => `${userName}'s order`}</UserConsumer>
@@ -35,20 +67,38 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
         ))}
       </TransitionGroup>
       <hr />
-
       <BasketRow leftContent="Sub-total" rightContent={`${total} $`} />
       <BasketRow leftContent="Delivery costs" rightContent="FREE" />
       <BasketRow leftContent="Total" rightContent={`${total} $`} />
-      <Link to="/checkout">
-        <Button type="primary" size="large" block>
-          order
-        </Button>
-      </Link>
+      <Button
+        loading={orderSending}
+        disabled={orderProducts.length === 0}
+        type="primary"
+        size="large"
+        block
+        onClick={handleClick}
+      >
+        order
+      </Button>
+      {orderSentError && (
+        <div className={styles.error}>
+          <Alert
+            message="Something went wrong. Try again later :("
+            type="error"
+          />
+        </div>
+      )}
     </div>
   );
 }
 
-export default connect(state => ({
-  total: totalSelector(state),
-  orderProducts: orderProductsSelector(state)
-}))(Basket);
+export default connect(
+  state => ({
+    total: totalSelector(state),
+    orderProducts: orderProductsSelector(state),
+    orderSending: orderSendingSelector(state),
+    orderSent: orderSentSelector(state),
+    orderSentError: orderSentError(state)
+  }),
+  { sendOrder }
+)(Basket);

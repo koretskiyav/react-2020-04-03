@@ -38,7 +38,7 @@ class Restaurant extends Component {
                   <TabPane tab="Menu" key="menu" className={styles.tabPane}>
                     <Row type="flex" justify="center">
                       <Col span={24}>
-                        <Menu menu={menu} restaurantId={id} />
+                        <Menu menu={menu} history={history} restaurantId={id} />
                       </Col>
                     </Row>
                   </TabPane>

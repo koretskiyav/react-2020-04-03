@@ -24,6 +24,10 @@ function App() {
               <Route path="/checkout" component={Basket} />
               <Route path="/restaurants" component={RestaurantPage} />
               <Route path="/error" render={() => <h1>Error page</h1>} />
+              <Route
+                path="/checkoutDone"
+                render={() => <h1>Thanks for your order!</h1>}
+              />
               <Redirect exact from="/" to="/restaurants" />
               <Route path="/" render={() => <div>404 - not found</div>} />
             </Switch>

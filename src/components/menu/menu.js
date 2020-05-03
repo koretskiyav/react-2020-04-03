@@ -32,7 +32,7 @@ class Menu extends Component {
   }
 
   render() {
-    const { menu, loading } = this.props;
+    const { menu, loading, history } = this.props;
 
     if (loading) {
       return <Loader />;
@@ -41,6 +41,7 @@ class Menu extends Component {
     if (this.state.error) {
       return <Typography>{this.state.error.message}</Typography>;
     }
+
     return (
       <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
         <Col xs={24} md={15} lg={12}>
@@ -49,7 +50,7 @@ class Menu extends Component {
           ))}
         </Col>
         <Col xs={0} md={7} lg={6}>
-          <Basket />
+          <Basket history={history} />
         </Col>
       </Row>
     );
