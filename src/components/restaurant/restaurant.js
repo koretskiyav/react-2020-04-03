@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row, Tabs } from 'antd';
 import { Route, Redirect, Switch } from 'react-router-dom';
+
 import Menu from '../menu';
 import AverageRating from '../average-rating';
 import Reviews from '../reviews';
@@ -37,7 +38,7 @@ class Restaurant extends Component {
                   <TabPane tab="Menu" key="menu" className={styles.tabPane}>
                     <Row type="flex" justify="center">
                       <Col span={24}>
-                        <Menu menu={menu} restaurantId={id} />
+                        <Menu menu={menu} history={history} restaurantId={id} />
                       </Col>
                     </Row>
                   </TabPane>
@@ -56,7 +57,7 @@ class Restaurant extends Component {
               );
             }}
           />
-          <Redirect from="/restaurants/:id" to={`/restaurants/${id}/reviews`} />
+          <Redirect from="/restaurants/:id" to={`/restaurants/${id}/menu`} />
         </Switch>
       </div>
     );

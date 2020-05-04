@@ -9,7 +9,8 @@ import {
   SUCCESS,
   FAILURE,
   LOAD_PRODUCTS,
-  LOAD_USERS
+  LOAD_USERS,
+  SEND_ORDER
 } from '../constants';
 
 import {
@@ -85,5 +86,17 @@ export const loadUsers = restaurantId => async (dispatch, getState) => {
   } catch (error) {
     dispatch(replace('/error'));
     dispatch({ type: LOAD_USERS + FAILURE, error });
+  }
+};
+
+export const sendOrder = () => async dispatch => {
+  dispatch({ type: SEND_ORDER + REQUEST });
+
+  try {
+    const data = await fetch('/api/order');
+    await data.json();
+    dispatch({ type: SEND_ORDER + SUCCESS });
+  } catch (error) {
+    dispatch({ type: SEND_ORDER + FAILURE });
   }
 };

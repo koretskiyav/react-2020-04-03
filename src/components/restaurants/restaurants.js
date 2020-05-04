@@ -14,7 +14,7 @@ import {
 
 const { TabPane } = Tabs;
 
-function Restaurants({ restaurants, isLoading, match, history }) {
+function Restaurants({ restaurants, match, history }) {
   return (
     <Tabs
       activeKey={match.params.id}
