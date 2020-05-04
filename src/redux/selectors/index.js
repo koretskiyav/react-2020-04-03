@@ -4,6 +4,7 @@ import { getAverage, getById, idsSelector, mapToList } from './utils';
 const restaurantsSelector = state => state.restaurants.entities.toJS();
 const productsSelector = state => state.products.entities;
 const orderSelector = state => state.order;
+const orderStatusSelector = state => state.orderStatus;
 const reviewsSelector = state => state.reviews.get('entities').toJS();
 const usersSelector = state => state.users.entities;
 
@@ -42,6 +43,11 @@ export const averageRatingSelector = createSelector(
     const ratings = ids.map(id => reviews[id]?.rating || 0);
     return Math.floor(getAverage(ratings) * 2) / 2;
   }
+);
+
+export const isOrderPendingSelector = createSelector(
+  orderStatusSelector,
+  order => order.isPending
 );
 
 export const orderProductsSelector = createSelector(

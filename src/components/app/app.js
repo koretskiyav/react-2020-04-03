@@ -24,6 +24,10 @@ function App() {
               <Route path="/checkout" component={Basket} />
               <Route path="/restaurants" component={RestaurantPage} />
               <Route path="/error" render={() => <h1>Error page</h1>} />
+              <Route
+                path="/checkout-done"
+                render={() => <h1>Thank you for your order!</h1>}
+              />
               <Redirect to="restaurants" />
             </Switch>
           </Layout.Content>
