@@ -15,9 +15,15 @@ import {
 const { TabPane } = Tabs;
 
 function Restaurants({ restaurants, isLoading, match, history }) {
+  let activeTab = match.params.id;
+  if (match.params?.id == null && restaurants.length) {
+    activeTab = restaurants[0].id;
+    history.push(`/restaurants/${activeTab}/menu`);
+  }
+
   return (
     <Tabs
-      activeKey={match.params.id}
+      activeKey={activeTab}
       tabPosition="top"
       animated={false}
       className={styles.contentTabs}

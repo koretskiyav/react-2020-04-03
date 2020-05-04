@@ -9,14 +9,17 @@ import {
   SUCCESS,
   FAILURE,
   LOAD_PRODUCTS,
-  LOAD_USERS
+  LOAD_USERS,
+  ORDER
 } from '../constants';
+import { push } from 'connected-react-router';
 
 import {
   reviewsLoadingSelector,
   reviewsLoadedSelector,
   usersLoadingSelector,
-  usersLoadedSelector
+  usersLoadedSelector,
+  isOrderPendingSelector
 } from '../selectors';
 import { replace } from 'connected-react-router';
 
@@ -40,6 +43,33 @@ export const loadProducts = restaurantId => ({
   CallAPI: `/api/dishes?id=${restaurantId}`,
   restaurantId
 });
+
+export const order = restaurantId => async (dispatch, getState) => {
+  const state = getState();
+  const pending = isOrderPendingSelector(state);
+
+  if (pending) return;
+
+  dispatch({ type: ORDER + REQUEST, payload: {} });
+
+  try {
+    const data = await fetch(`/api/order`);
+    const response = await data.json();
+
+    dispatch({
+      type: ORDER + SUCCESS,
+      payload: {},
+      response
+    });
+    dispatch(push('/checkout-done'));
+  } catch (error) {
+    dispatch({
+      type: ORDER + FAILURE,
+      payload: {},
+      error
+    });
+  }
+};
 
 export const loadReviews = restaurantId => async (dispatch, getState) => {
   const state = getState();
