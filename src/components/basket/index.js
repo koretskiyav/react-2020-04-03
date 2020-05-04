@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -16,6 +16,7 @@ import {
 } from '../../redux/selectors';
 import { Consumer as UserConsumer } from '../../contexts/user';
 import { order } from '../../redux/actions';
+import currencyContext from '../../contexts/currency';
 
 function Basket({
   title = 'Basket',
@@ -25,6 +26,8 @@ function Basket({
   isPending,
   placeOrder
 }) {
+  const { currency, recalculate } = useContext(currencyContext);
+
   return (
     <div className={cx(styles.basket, className)}>
       <Typography.Title level={4} className={styles.title}>
@@ -48,9 +51,15 @@ function Basket({
       </TransitionGroup>
       <hr />
 
-      <BasketRow leftContent="Sub-total" rightContent={`${total} $`} />
+      <BasketRow
+        leftContent="Sub-total"
+        rightContent={`${recalculate(total)} ${currency}`}
+      />
       <BasketRow leftContent="Delivery costs" rightContent="FREE" />
-      <BasketRow leftContent="Total" rightContent={`${total} $`} />
+      <BasketRow
+        leftContent="Total"
+        rightContent={`${recalculate(total)} ${currency}`}
+      />
 
       <Switch>
         <Route
@@ -62,7 +71,7 @@ function Basket({
               </Button>
             </Link>
           )}
-        ></Route>
+        />
         <Route
           path="/checkout"
           render={() => (
@@ -76,7 +85,7 @@ function Basket({
               checkout
             </Button>
           )}
-        ></Route>
+        />
       </Switch>
     </div>
   );
