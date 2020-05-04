@@ -48,7 +48,7 @@ class Menu extends Component {
             <Product key={id} id={id} />
           ))}
         </Col>
-        <Col xs={0} md={7} lg={6}>
+        <Col xs={24} md={6} lg={6}>
           <Basket />
         </Col>
       </Row>

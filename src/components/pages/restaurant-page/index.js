@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Restaurants from '../../restaurants';
 import Loader from '../../loaded';
 import { connect } from 'react-redux';
@@ -10,15 +10,13 @@ import {
   restaurantsLoadingSelector
 } from '../../../redux/selectors';
 import { loadRestaurants } from '../../../redux/actions';
-import { Typography } from 'antd';
 
 function RestaurantPage({
   restaurants,
   loadRestaurants,
   isLoading,
   isLoaded,
-  match,
-  history
+  match
 }) {
   useEffect(() => {
     if (!isLoading && !isLoaded) {
@@ -26,20 +24,16 @@ function RestaurantPage({
     }
   }, [isLoaded, isLoading, loadRestaurants]);
 
-  if (isLoading) return <Loader />;
+  if (!isLoaded) return <Loader />;
 
-  if (match.isExact) {
-    return (
-      <>
-        <Restaurants match={match} history={history} />
-        <Typography.Title style={{ textAlign: 'center' }}>
-          Select restaurant
-        </Typography.Title>
-      </>
-    );
-  }
-
-  return <Route path={`${match.path}/:id`} component={Restaurants} />;
+  return (
+    <Switch>
+      <Route path={`${match.path}/:id`} component={Restaurants} />;
+      <Redirect from={`/restaurants/`} to={`/restaurants/${restaurants[0].id}`}>
+        <Restaurants restaurants={restaurants} />
+      </Redirect>
+    </Switch>
+  );
 }
 
 export default connect(

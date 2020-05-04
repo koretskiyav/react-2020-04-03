@@ -38,7 +38,6 @@ hr {
 }
 
 .ant-tabs-nav .ant-tabs-tab {
-  margin-right: 0 !important;
   padding: 12px 0 !important;
   color: #1d1d1d !important;
   margin: 0 8px !important;
@@ -83,6 +82,28 @@ hr {
 
 .ant-btn-lg {
   height: 48px !important;
+}
+
+.ant-radio-button-wrapper-checked {
+  background-color: #f0894e !important;
+  opacity: 0.8 !important;
+}
+
+.ant-radio-button-wrapper + .ant-radio-button-wrapper {
+  margin-left: 1px !important;
+}
+
+.ant-radio-button-wrapper {
+  color: #fff !important;
+  background-color: #f0ad4e;
+}
+
+.ant-radio-button-wrapper:hover,
+.ant-radio-button-wrapper:focus,
+.ant-radio-button-wrapper:active {
+  border-color: #f0ad4e;
+  background-color: #f0ad4e;
+  color: #fff !important;
 }
 
 .content-wrap {

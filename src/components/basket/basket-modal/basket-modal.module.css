@@ -1,0 +1,18 @@
+.modalLoading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 99999;
+  opacity: 0.5;
+  background-color: #8e8e8e;
+  display: block;
+}
+
+.loader {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

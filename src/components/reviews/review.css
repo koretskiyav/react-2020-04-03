@@ -1,0 +1,17 @@
+.review-item-animation-enter {
+  transform: scale(0, 0) translateX(-100%);
+  opacity: 0;
+}
+.review-item-animation-enter-active {
+  animation: anim 4s infinite;
+}
+
+@keyframes anim {
+  50% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
