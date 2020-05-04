@@ -36,7 +36,7 @@ function Reviews({
       <Col xs={24} md={16}>
         <TransitionGroup>
           {reviews.map(id => (
-            <CSSTransition key={id} classNames="review-animation">
+            <CSSTransition key={id} timeout={500} classNames="review-animation">
               <Review id={id} />
             </CSSTransition>
           ))}
