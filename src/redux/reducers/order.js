@@ -1,25 +1,53 @@
-import { INCREMENT, DECREMENT, REMOVE } from '../constants';
+import {
+  INCREMENT,
+  DECREMENT,
+  REMOVE,
+  SEND_ORDER,
+  REQUEST,
+  SUCCESS,
+  FAILURE
+} from '../constants';
+import produce from 'immer';
+
+const initialState = {
+  loading: false,
+  loaded: false,
+  error: null,
+  entities: {}
+};
 
 // { [productId]: amount }
-export default (state = {}, action) => {
+export default produce((draft = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case INCREMENT:
-      return {
-        ...state,
-        [payload.id]: (state[payload.id] || 0) + 1
-      };
+      draft.entities[payload.id] = (draft.entities[payload.id] || 0) + 1;
+      break;
     case DECREMENT:
-      return {
-        ...state,
-        [payload.id]: Math.max((state[payload.id] || 0) - 1, 0)
-      };
+      draft.entities[payload.id] = Math.max(
+        (draft.entities[payload.id] || 0) - 1,
+        0
+      );
+      break;
     case REMOVE:
-      return {
-        ...state,
-        [payload.id]: 0
-      };
+      draft.entities[payload.id] = 0;
+      break;
+    case SEND_ORDER + REQUEST:
+      draft['loading'] = true;
+      draft['loaded'] = false;
+      break;
+
+    case SEND_ORDER + SUCCESS:
+      draft.loading = false;
+      draft.loaded = true;
+      draft.error = null;
+      break;
+    case SEND_ORDER + FAILURE:
+      draft.loading = false;
+      draft.loaded = false;
+      draft.error = action.error;
+      break;
     default:
-      return state;
+      return draft;
   }
-};
+});

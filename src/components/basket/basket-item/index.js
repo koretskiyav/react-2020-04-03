@@ -6,6 +6,7 @@ import { PlusOutlined, MinusOutlined, CloseOutlined } from '@ant-design/icons';
 import styles from './basket-item.module.css';
 
 import { increment, decrement, remove } from '../../../redux/actions';
+import { Consumer as CurrencyConsumer } from '../../../contexts/currency';
 
 function BasketItem({
   product,
@@ -40,9 +41,11 @@ function BasketItem({
             icon={<PlusOutlined />}
             onClick={() => increment(product.id)}
           />
-          <Typography.Text
-            className={styles.count}
-          >{`${subtotal} $`}</Typography.Text>
+          <Typography.Text className={styles.count}>
+            <CurrencyConsumer>
+              {({ cur }) => `${cur(subtotal)}`}
+            </CurrencyConsumer>
+          </Typography.Text>
           <Button
             type="link"
             size="small"

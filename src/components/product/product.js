@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Card, Typography, Button, Row, Col } from 'antd';
 import styles from './product.module.css';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import { Consumer as CurrencyConsumer } from '../../contexts/currency';
 
 import { increment, decrement } from '../../redux/actions';
 import { productAmountSelector, productSelector } from '../../redux/selectors';
@@ -23,7 +24,11 @@ function Product(props) {
           <Typography.Paragraph className={styles.description}>
             {product.ingredients.join(', ')}
           </Typography.Paragraph>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>
+            <CurrencyConsumer>
+              {({ cur }) => `${cur(product.price)}`}
+            </CurrencyConsumer>
+          </div>
         </Col>
         <Col xs={8} md={6} lg={4} align="right">
           <div className={styles.counter}>

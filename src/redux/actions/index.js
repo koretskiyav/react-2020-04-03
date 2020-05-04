@@ -9,14 +9,17 @@ import {
   SUCCESS,
   FAILURE,
   LOAD_PRODUCTS,
-  LOAD_USERS
+  LOAD_USERS,
+  SEND_ORDER
 } from '../constants';
 
 import {
   reviewsLoadingSelector,
   reviewsLoadedSelector,
   usersLoadingSelector,
-  usersLoadedSelector
+  usersLoadedSelector,
+  orderLoadingSelector,
+  orderLoadedSelector
 } from '../selectors';
 import { replace } from 'connected-react-router';
 
@@ -40,6 +43,26 @@ export const loadProducts = restaurantId => ({
   CallAPI: `/api/dishes?id=${restaurantId}`,
   restaurantId
 });
+
+export const sendOrder = () => async (dispatch, getState) => {
+  const state = getState();
+  const sending = orderLoadingSelector(state);
+  const sended = orderLoadedSelector(state);
+
+  if (sending || sended) return;
+
+  dispatch({ type: SEND_ORDER + REQUEST });
+
+  try {
+    await fetch('/api/order');
+
+    dispatch(replace('/success-order'));
+    dispatch({ type: SEND_ORDER + SUCCESS });
+  } catch (error) {
+    dispatch(replace('/error'));
+    dispatch({ type: SEND_ORDER + FAILURE, error });
+  }
+};
 
 export const loadReviews = restaurantId => async (dispatch, getState) => {
   const state = getState();
@@ -68,7 +91,7 @@ export const loadReviews = restaurantId => async (dispatch, getState) => {
   }
 };
 
-export const loadUsers = restaurantId => async (dispatch, getState) => {
+export const loadUsers = () => async (dispatch, getState) => {
   const state = getState();
   const loading = usersLoadingSelector(state);
   const loaded = usersLoadedSelector(state);

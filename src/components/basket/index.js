@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { connect } from 'react-redux';
@@ -9,12 +9,23 @@ import styles from './basket.module.css';
 import './basket.css';
 import BasketRow from './basket-row';
 import BasketItem from './basket-item';
-import { totalSelector, orderProductsSelector } from '../../redux/selectors';
+import BasketModal from './basket-modal';
+
+import {
+  totalSelector,
+  orderProductsSelector,
+  pathSelector
+} from '../../redux/selectors';
+import { sendOrder } from '../../redux/actions';
+
+import currencyContext from '../../contexts/currency';
 import { Consumer as UserConsumer } from '../../contexts/user';
 
-function Basket({ title = 'Basket', className, total, orderProducts }) {
+function Basket({ className, total, orderProducts, pathname, onSendOrder }) {
+  const { cur } = useContext(currencyContext);
   return (
     <div className={cx(styles.basket, className)}>
+      <BasketModal />
       <Typography.Title level={4} className={styles.title}>
         <UserConsumer>{({ userName }) => `${userName}'s order`}</UserConsumer>
       </Typography.Title>
@@ -36,11 +47,20 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
       </TransitionGroup>
       <hr />
 
-      <BasketRow leftContent="Sub-total" rightContent={`${total} $`} />
+      <BasketRow leftContent="Sub-total" rightContent={`${cur(total)}`} />
       <BasketRow leftContent="Delivery costs" rightContent="FREE" />
-      <BasketRow leftContent="Total" rightContent={`${total} $`} />
+      <BasketRow leftContent="Total" rightContent={`${cur(total)}`} />
       <Link to="/checkout">
-        <Button type="primary" size="large" block>
+        <Button
+          type="primary"
+          size="large"
+          block
+          onClick={() => {
+            if (new RegExp('/checkout').test(pathname)) {
+              onSendOrder();
+            }
+          }}
+        >
           order
         </Button>
       </Link>
@@ -48,7 +68,13 @@ function Basket({ title = 'Basket', className, total, orderProducts }) {
   );
 }
 
-export default connect(state => ({
-  total: totalSelector(state),
-  orderProducts: orderProductsSelector(state)
-}))(Basket);
+export default connect(
+  state => ({
+    total: totalSelector(state),
+    orderProducts: orderProductsSelector(state),
+    pathname: pathSelector(state)
+  }),
+  dispatch => ({
+    onSendOrder: () => dispatch(sendOrder())
+  })
+)(Basket);
