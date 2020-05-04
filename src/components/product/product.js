@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Card, Typography, Button, Row, Col } from 'antd';
@@ -7,9 +7,12 @@ import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 
 import { increment, decrement } from '../../redux/actions';
 import { productAmountSelector, productSelector } from '../../redux/selectors';
+import currencyContext, { currencies } from '../../contexts/currency';
 
 function Product(props) {
   const { product, amount = 0, onIncrement, onDecrement } = props;
+
+  const { currency } = useContext(currencyContext);
 
   if (!product) return null;
 
@@ -23,7 +26,10 @@ function Product(props) {
           <Typography.Paragraph className={styles.description}>
             {product.ingredients.join(', ')}
           </Typography.Paragraph>
-          <div className={styles.price}>{product.price} $</div>
+          <div className={styles.price}>
+            {product.price * currencies[currency].rate}{' '}
+            {currencies[currency].symbol}
+          </div>
         </Col>
         <Col xs={8} md={6} lg={4} align="right">
           <div className={styles.counter}>

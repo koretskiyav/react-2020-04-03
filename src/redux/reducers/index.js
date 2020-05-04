@@ -5,6 +5,7 @@ import restaurants from './restaurants';
 import products from './products';
 import reviews from './reviews';
 import users from './users';
+import checkout from './checkout';
 
 import history from '../../history';
 
@@ -14,5 +15,6 @@ export default combineReducers({
   restaurants,
   products,
   reviews,
-  users
+  users,
+  checkout
 });

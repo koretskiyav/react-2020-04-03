@@ -1,6 +1,8 @@
 .review {
   position: relative;
   margin-bottom: 16px;
+  /* reset Card own animation in order for CSSTransition to work properly */
+  transition: inherit;
 }
 
 .addReviewTitle {

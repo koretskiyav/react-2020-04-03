@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Review from './review';
 import ReviewForm from './review-form';
@@ -12,6 +13,8 @@ import {
 } from '../../redux/selectors';
 import { connect } from 'react-redux';
 import Loader from '../loaded';
+
+import './reviews.css';
 
 function Reviews({
   reviews,
@@ -31,9 +34,13 @@ function Reviews({
   return (
     <Row type="flex" justify="center" gutter={{ xs: 8, sm: 16, md: 24 }}>
       <Col xs={24} md={16}>
-        {reviews.map(id => (
-          <Review id={id} key={id} />
-        ))}
+        <TransitionGroup>
+          {reviews.map(id => (
+            <CSSTransition key={id} timeout={500} classNames="review-animation">
+              <Review id={id} key={id} />
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
         <ReviewForm restaurantId={restaurantId} />
       </Col>
     </Row>
