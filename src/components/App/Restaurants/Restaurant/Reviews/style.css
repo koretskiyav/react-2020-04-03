@@ -1,0 +1,13 @@
+
+
+.reviewsStyle {
+    background-color: #ececec;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.reviewsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 330px);
+}
